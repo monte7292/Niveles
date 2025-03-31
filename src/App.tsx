@@ -443,7 +443,7 @@ const App: React.FC = () => {
                           <div className="entry-info">
                             <span className="rank">2.</span>
                             <img
-                              src="https://discordthemes.com/assets/img/pfps/15.png"
+                              src="https://avatars.githubusercontent.com/u/171730096?v=4"
                               alt="Avatar de Froggurl"
                               width="30px"
                               style={{ borderRadius: '15px' }}
