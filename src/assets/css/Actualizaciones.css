@@ -1,0 +1,244 @@
+/* Estilo para el modal de actualizaciones - Estilo Discord Profesional */
+.updates-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--background-dark);
+  color: var(--text);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: min(90%, 480px);
+  max-height: 80vh;
+  overflow: hidden;
+  display: none;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  font-family: 'Inter', sans-serif;
+}
+
+.updates-modal.show {
+  display: block;
+  opacity: 1;
+  animation: modalAppear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalAppear {
+  from {
+      opacity: 0;
+      transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Banner estilo Discord */
+.modal-banner {
+  height: 120px;
+  background-image: url('../img/banner.webp');
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/banner.webp');
+  background-position: center;
+}
+
+/* Avatar estilo Discord */
+.modal-avatar {
+  position: absolute;
+  left: 24px;
+  top: 80px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 6px solid var(--background-dark);
+  background-color: var(--background-dark);
+  z-index: 2;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenido del modal */
+.modal-content {
+  padding: 60px 24px 24px;
+  background-color: var(--background-dark);
+  position: relative;
+}
+
+.modal-header {
+  margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-header h2::before {
+  content: '📋';
+  font-size: 1.2em;
+}
+
+.modal-header p {
+  margin: 4px 0 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+/* Lista de actualizaciones */
+.updates-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.updates-list li {
+  position: relative;
+  padding-left: 1.75rem;
+  line-height: 1.5;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.updates-list li strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.updates-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary);
+  border-radius: 2px;
+  transform: rotate(45deg);
+  opacity: 0.8;
+}
+
+/* Botón de cerrar estilo Discord */
+.close-updates {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 3;
+}
+
+.close-updates:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: rotate(90deg) scale(1.1);
+}
+
+.close-updates i {
+  font-size: 1rem;
+}
+
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  display: none;
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Badge de estado (opcional) */
+.status-badge {
+  position: absolute;
+  right: 24px;
+  background: var(--primary);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  top: 130px;
+}
+
+.status-badge::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #1bff00;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .modal-banner {
+      height: 100px;
+  }
+  
+  .modal-avatar {
+      width: 70px;
+      height: 70px;
+      bottom: -35px;
+      left: 16px;
+  }
+  
+  .modal-content {
+      padding: 50px 16px 20px;
+  }
+  
+  .modal-header h2 {
+      font-size: 1.1rem;
+  }
+
+  .status-badge{
+    top: 110px;
+  }
+}
+

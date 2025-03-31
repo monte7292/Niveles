@@ -1,0 +1,85 @@
+.banner-container {
+    background-image: url(https://mee6.xyz/assets/public-banner-749a92a3.png);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .banner-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    text-align: center;
+  }
+  
+  .banner-text {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+    font-weight: normal;
+    font-size: 1rem;
+    align-items: center;
+  }
+
+  .descuento {
+    background-color: rgb(222, 64, 67);
+    padding-top: .25rem !important;
+    padding-bottom: .25rem !important;
+    padding-left: .25rem !important;
+    padding-right: .25rem !important;
+    border-radius: .25rem !important;
+    font-weight: 700 !important;
+  }
+
+
+  .banner-text .bold {
+    font-weight: bold;
+  }
+  
+  .banner-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #FFCB39;
+    color: black;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  
+  /* Media query para móviles (max-width: 480px) */
+  @media (max-width: 480px) {
+    .banner-container {
+      padding: 0.5rem;
+    }
+  
+    .banner-content {
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 12px;
+    }
+  
+    .banner-text {
+      font-size: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .banner-button {
+      font-size: 12px;
+      padding: 0.4rem 0.8rem;
+    }
+  
+    .banner-button svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
