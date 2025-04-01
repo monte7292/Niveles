@@ -663,11 +663,13 @@ useEffect(() => {
                     background: rgba(239, 68, 68, 0.1);
                     color: #ef4444;
                     border: 1px solid rgba(239, 68, 68, 0.2);
+                    cursor: pointer;
                   }
 
                   .channel-item button.delete:hover {
                     background: rgba(239, 68, 68, 0.15);
                     border-color: rgba(239, 68, 68, 0.3);
+                    cursor: pointer;
                   }
 
                   .level-role-controls {
