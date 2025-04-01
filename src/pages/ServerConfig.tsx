@@ -384,15 +384,11 @@ useEffect(() => {
   
       const data = await response.json();
   
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || 'Error en la respuesta del servidor');
+      if (!data.success || typeof data.voiceXpEnabled !== 'boolean') {
+        throw new Error(data.error || 'Respuesta inválida del servidor');
       }
   
-      // Verificación adicional
-      if (typeof data.voiceXpEnabled !== 'boolean') {
-        throw new Error('Respuesta inválida del servidor');
-      }
-  
+      // Actualizar solo el campo necesario
       setSettings(prev => ({
         ...prev!,
         voiceXpEnabled: data.voiceXpEnabled
@@ -404,9 +400,9 @@ useEffect(() => {
       );
   
     } catch (error) {
-      console.error('Error completo:', error);
+      console.error('Error en toggleVoiceXP:', error);
       showTemporaryNotification(
-        error instanceof Error ? error.message : 'Error desconocido',
+        error instanceof Error ? error.message : 'Error al actualizar',
         'error'
       );
     } finally {
