@@ -367,22 +367,15 @@ useEffect(() => {
   };
 
   const toggleVoiceXP = async () => {
-    if (!settings || !serverId) {
-      console.error('Settings o serverId no están definidos');
+    if (!settings || !serverId || !config.apiUrl) {
+      console.error('Faltan parámetros requeridos');
       return;
     }
     
     const newValue = !settings.voiceXpEnabled;
-    console.log(`Intentando cambiar voiceXP a: ${newValue}`);
     setIsUpdatingVoiceXP(true);
     
     try {
-      // Configuración del controlador de timeout
-      const controller = new AbortController();
-      const timeoutDuration = 10000; // 10 segundos
-      const timeoutId = setTimeout(() => controller.abort(), timeoutDuration);
-  
-      // Realizar la petición
       const response = await fetch(`${config.apiUrl}/api/server/${serverId}/settings/voice-xp`, {
         method: 'POST',
         headers: { 
@@ -391,86 +384,37 @@ useEffect(() => {
         },
         credentials: 'include',
         body: JSON.stringify({ enabled: newValue }),
-        signal: controller.signal
       });
   
-      // Limpiar el timeout si la petición se completa
-      clearTimeout(timeoutId);
-  
-      // Manejar errores HTTP (4xx, 5xx)
       if (!response.ok) {
-        let errorData;
-        try {
-          errorData = await response.json();
-        } catch (parseError) {
-          console.error('Error al parsear respuesta de error:', parseError);
-          errorData = { message: `Error HTTP ${response.status}: ${response.statusText}` };
-        }
-        throw new Error(errorData.message || `Error en la petición: ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
       }
   
-      // Procesar respuesta exitosa
-      let data;
-      try {
-        data = await response.json();
-      } catch (parseError) {
-        console.error('Error al parsear respuesta exitosa:', parseError);
-        throw new Error('La respuesta del servidor no es válida');
+      const data = await response.json();
+      
+      // Validación adicional
+      if (typeof data.voiceXpEnabled !== 'boolean') {
+        throw new Error('Respuesta inválida del servidor');
       }
   
-      // Validar estructura de la respuesta
-      if (typeof data.voiceXpEnabled === 'undefined') {
-        console.warn('Respuesta inesperada del servidor:', data);
-        throw new Error('La respuesta del servidor no incluye el estado de voiceXP');
-      }
-  
-      // Actualizar el estado de la aplicación
       setSettings(prev => ({
         ...prev!,
-        voiceXpEnabled: Boolean(data.voiceXpEnabled)
+        voiceXpEnabled: data.voiceXpEnabled
       }));
       
-      // Mostrar notificación de éxito
       showTemporaryNotification(
         `XP en llamadas ${data.voiceXpEnabled ? 'activado' : 'desactivado'} correctamente`,
         'success'
       );
   
     } catch (error) {
-      // Manejo detallado de errores
-      const err = error as Error;
-      console.error('Error completo en toggleVoiceXP:', {
-        name: err.name,
-        message: err.message,
-        stack: err.stack,
-        timestamp: new Date().toISOString()
-      });
-      
-      // Determinar el mensaje de error apropiado
-      let errorMessage = 'Error al conectar con el servidor';
-      
-      if (err.name === 'AbortError') {
-        errorMessage = 'La solicitud tardó demasiado. Por favor, inténtalo de nuevo.';
-      } else if (err.message.includes('Failed to fetch')) {
-        errorMessage = 'No se pudo establecer conexión con el servidor. Verifica tu conexión a internet.';
-      } else if (err.message.includes('NetworkError')) {
-        errorMessage = 'Problema de red. Por favor, verifica tu conexión.';
-      } else {
-        errorMessage = err.message || errorMessage;
-      }
-      
-      // Mostrar notificación de error
-      showTemporaryNotification(errorMessage, 'error');
-      
-      // Revertir el cambio visual manteniendo el estado anterior
-      setSettings(prev => {
-        if (prev) {
-          return { ...prev };
-        }
-        return prev;
-      });
+      console.error('Error en toggleVoiceXP:', error);
+      showTemporaryNotification(
+        error instanceof Error ? error.message : 'Error al actualizar',
+        'error'
+      );
     } finally {
-      // Asegurarse de desactivar el estado de carga
       setIsUpdatingVoiceXP(false);
     }
   };
