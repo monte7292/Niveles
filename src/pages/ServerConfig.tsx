@@ -370,13 +370,8 @@ useEffect(() => {
     if (!settings || !serverId) return;
     
     const newValue = !settings.voiceXpEnabled;
+    console.log(`Intentando cambiar voiceXP a: ${newValue}`); // Debug
     setIsUpdatingVoiceXP(true);
-    
-    // Actualización optimista del estado
-    setSettings(prev => ({
-      ...prev!,
-      voiceXpEnabled: newValue
-    }));
     
     try {
       const response = await fetch(`${config.apiUrl}/api/server/${serverId}/settings/voice-xp`, {
@@ -386,27 +381,35 @@ useEffect(() => {
         body: JSON.stringify({ enabled: newValue }),
       });
   
+      console.log('Respuesta del servidor:', response); // Debug
+  
       if (!response.ok) {
-        throw new Error('Error en la respuesta');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
   
       const updatedSettings = await response.json();
+      console.log('Datos recibidos:', updatedSettings); // Debug
       
-      // Actualización definitiva con la respuesta del backend
-      setSettings(updatedSettings);
+      setSettings(prev => ({
+        ...prev!,
+        voiceXpEnabled: updatedSettings.voiceXpEnabled
+      }));
       
       showTemporaryNotification(
-        `XP en llamadas ${newValue ? 'activado' : 'desactivado'} correctamente`,
+        `XP en llamadas ${updatedSettings.voiceXpEnabled ? 'activado' : 'desactivado'} correctamente`,
         'success'
       );
     } catch (err) {
-      console.error('Error al actualizar:', err);
-      // Revertir en caso de error
+      console.error('Error completo:', err); // Debug más detallado
+      showTemporaryNotification(
+        err instanceof Error ? err.message : 'Error al actualizar', 
+        'error'
+      );
+      // Revertir el cambio visual si falla
       setSettings(prev => ({
         ...prev!,
         voiceXpEnabled: !newValue
       }));
-      showTemporaryNotification('Error al actualizar', 'error');
     } finally {
       setIsUpdatingVoiceXP(false);
     }
