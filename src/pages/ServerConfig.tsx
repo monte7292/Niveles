@@ -772,6 +772,29 @@ useEffect(() => {
                   </div>
                 </div>
 
+
+                <div className="config-card" style={{ backgroundColor: '#ff000024' }}>
+                  <div className="card-header">
+                    <div className="card-title">🚀 XP por estar en llamada</div>
+                  </div>
+                  <div className="card-content">
+                    <p>
+                    ¡Gana XP simplemente por estar en llamada! Cada 30 minutos que pases conectado te subirá 15 de xp. Disfruta de tus conversaciones y recibe recompensas por ello.
+                    </p>
+                    <div style={{
+                      fontSize: '1.5rem',
+                      fontWeight: '600',
+                      color: 'var(--premium)',
+                      opacity: 0.8
+                    }}>
+                      En desarrollo...
+                    </div>
+                  </div>
+                </div>
+
+
+
+
                 <div className="config-card">
                   <div className="card-header">
                     <div className="card-title">🔓 Canales Activados</div>
@@ -801,6 +824,10 @@ useEffect(() => {
                   </div>
                 </div>
 
+
+
+                
+
                 <div className="config-card">
                   <div className="card-header">
                     <div className="card-title">🔒 Canales Bloqueados</div>
@@ -829,25 +856,6 @@ useEffect(() => {
                   </div>
                 </div>
 
-
-                <div className="config-card" style={{ backgroundColor: '#ff000024' }}>
-                  <div className="card-header">
-                    <div className="card-title">🚀 XP por estar en llamada</div>
-                  </div>
-                  <div className="card-content">
-                    <p>
-                    ¡Gana XP simplemente por estar en llamada! Cada 30 minutos que pases conectado te subirá 15 de xp. Disfruta de tus conversaciones y recibe recompensas por ello.
-                    </p>
-                    <div style={{
-                      fontSize: '1.5rem',
-                      fontWeight: '600',
-                      color: 'var(--premium)',
-                      opacity: 0.8
-                    }}>
-                      En desarrollo...
-                    </div>
-                  </div>
-                </div>
 
               </div>
             </>
