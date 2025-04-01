@@ -27,6 +27,7 @@ interface ServerSettings {
   customLevelUpMessage: string;
   disabledXpChannels: string[];
   levelRoles: { [key: number]: string };
+  voiceXpEnabled: boolean; // Nuevo campo
 }
 
 const ServerConfig: React.FC = () => {
@@ -42,7 +43,10 @@ const ServerConfig: React.FC = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isPremiumActive, setIsPremiumActive] = useState<boolean | null>(null);
   const [roles, setRoles] = useState<Role[]>([]);
+  const [voiceXpEnabled, setVoiceXpEnabled] = useState(false);
 
+
+  
 useEffect(() => {
   console.log(roles); // Uso temporal para evitar el warning
 }, [roles]);
@@ -126,7 +130,8 @@ useEffect(() => {
             alertChannelId: settingsData.alertChannelId || null,
             customLevelUpMessage: settingsData.customLevelUpMessage || '¡{user} ha alcanzado el nivel {level}!',
             disabledXpChannels: Array.isArray(settingsData.disabledXpChannels) ? settingsData.disabledXpChannels : [],
-            levelRoles: levelRoles
+            levelRoles: levelRoles,
+            voiceXpEnabled: settingsData.voiceXpEnabled || false // Nuevo campo
           });
           setLocalLevelMessage(settingsData.customLevelUpMessage || '¡{user} ha alcanzado el nivel {level}!');
         } else {
@@ -174,7 +179,8 @@ useEffect(() => {
         alertChannelId: updatedSettings.alertChannelId || null,
         customLevelUpMessage: updatedSettings.customLevelUpMessage || '¡{user} ha alcanzado el nivel {level}!',
         disabledXpChannels: Array.isArray(updatedSettings.disabledXpChannels) ? updatedSettings.disabledXpChannels : [],
-        levelRoles: updatedSettings.levelRoles || {}
+        levelRoles: updatedSettings.levelRoles || {},
+        voiceXpEnabled: updatedSettings.voiceXpEnabled || false // Nuevo campo
       });
       showTemporaryNotification('Canal de alertas actualizado correctamente', 'success');
     } catch (err) {
@@ -205,7 +211,8 @@ useEffect(() => {
         alertChannelId: updatedSettings.alertChannelId || null,
         customLevelUpMessage: updatedSettings.customLevelUpMessage || '¡{user} ha alcanzado el nivel {level}!',
         disabledXpChannels: Array.isArray(updatedSettings.disabledXpChannels) ? updatedSettings.disabledXpChannels : [],
-        levelRoles: updatedSettings.levelRoles || {}
+        levelRoles: updatedSettings.levelRoles || {},
+        voiceXpEnabled: updatedSettings.voiceXpEnabled || false // Nuevo campo
       });
       showTemporaryNotification('Mensaje de nivel actualizado correctamente', 'success');
     } catch (err) {
@@ -237,7 +244,8 @@ useEffect(() => {
         alertChannelId: updatedSettings.alertChannelId || null,
         customLevelUpMessage: updatedSettings.customLevelUpMessage || '¡{user} ha alcanzado el nivel {level}!',
         disabledXpChannels: Array.isArray(updatedSettings.disabledXpChannels) ? updatedSettings.disabledXpChannels : [],
-        levelRoles: updatedSettings.levelRoles || {}
+        levelRoles: updatedSettings.levelRoles || {},
+        voiceXpEnabled: updatedSettings.voiceXpEnabled || false // Nuevo campo
       });
       showTemporaryNotification(
         enabled 
@@ -772,29 +780,6 @@ useEffect(() => {
                   </div>
                 </div>
 
-
-                <div className="config-card" style={{ backgroundColor: '#e601010a' }}>
-                  <div className="card-header">
-                    <div className="card-title">🚀 XP por estar en llamada</div>
-                  </div>
-                  <div className="card-content">
-                    <p>
-                    ¡Gana XP simplemente por estar en llamada! Cada 30 minutos que pases conectado te subirá 15 de xp. Disfruta de tus conversaciones y recibe recompensas por ello.
-                    </p>
-                    <div style={{
-                      fontSize: '1.5rem',
-                      fontWeight: '600',
-                      color: 'var(--premium)',
-                      opacity: 0.8
-                    }}>
-                      En desarrollo...
-                    </div>
-                  </div>
-                </div>
-
-
-
-
                 <div className="config-card">
                   <div className="card-header">
                     <div className="card-title">🔓 Canales Activados</div>
@@ -824,10 +809,6 @@ useEffect(() => {
                   </div>
                 </div>
 
-
-
-                
-
                 <div className="config-card">
                   <div className="card-header">
                     <div className="card-title">🔒 Canales Bloqueados</div>
@@ -856,6 +837,61 @@ useEffect(() => {
                   </div>
                 </div>
 
+
+                <div className="config-card">
+                  <div className="card-header">
+                    <div className="card-title">🎙️ XP en Llamadas</div>
+                  </div>
+                  <div className="card-content">
+                    <p>
+                      Activa esta opción para que los usuarios ganen 10 XP por cada minuto en llamadas de voz.
+                    </p>
+                    <div style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
+                      <label className="switch">
+                        <input 
+                          type="checkbox" 
+                          checked={settings?.voiceXpEnabled || false}
+                          onChange={async () => {
+                            if (!settings || !serverId) return;
+                            
+                            const newValue = !settings.voiceXpEnabled;
+                            try {
+                              const response = await fetch(`${config.apiUrl}/api/server/${serverId}/settings/voice-xp`, {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                credentials: 'include',
+                                body: JSON.stringify({ enabled: newValue }),
+                              });
+
+                              if (!response.ok) throw new Error('Error al actualizar');
+
+                              setSettings({
+                                ...settings,
+                                voiceXpEnabled: newValue
+                              });
+
+                              showTemporaryNotification(
+                                `XP en llamadas ${newValue ? 'activado' : 'desactivado'} correctamente`,
+                                'success'
+                              );
+                            } catch (error) {
+                              showTemporaryNotification(
+                                error instanceof Error ? error.message : 'Error al actualizar la configuración',
+                                'error'
+                              );
+                            }
+                          }}
+                        />
+                        <span className="slider round"></span>
+                      </label>
+                      <span style={{ marginLeft: '0.5rem', fontWeight: 500 }}>
+                        {settings?.voiceXpEnabled ? 'Activado' : 'Desactivado'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
 
               </div>
             </>
