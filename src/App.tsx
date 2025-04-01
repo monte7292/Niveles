@@ -403,7 +403,9 @@ const App: React.FC = () => {
           <div className="container">
             <div className="hero-content">
               <h1>Niveles</h1>
-              <p>Los miembros ganan XP al participar en el chat, suben de nivel y desbloquean recompensas. Personaliza mensajes, asigna roles automáticos y compite en la clasificación.</p>
+              <p>Los miembros ganan XP por <b>escribir</b> en el <b>chat</b>, estar en <b>llamada</b> y por <b>reaccionar</b> a mensajes. 
+              Al acumular XP, los miembros suben de nivel y desbloquean recompensas. 
+              Además, puedes personalizar los mensajes, asignar roles automáticos y competir en la clasificación para ver quién es el que más ha progresado.</p>
               <div className="hero-buttons">
                 <a href="https://discord.com/oauth2/authorize?client_id=1330564254822043761&permissions=8&integration_type=0&scope=bot" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
                   <i className="fa-brands fa-discord"></i>&#160;Añadir aplicación
