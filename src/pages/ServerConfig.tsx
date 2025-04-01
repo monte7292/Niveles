@@ -834,7 +834,7 @@ useEffect(() => {
                   <div className="card-header">
                     <div className="card-title">🚀 XP por estar en llamada</div>
                   </div>
-                  <div className="card-content" style={{textAlign: 'center', padding: '2rem 0'}}>
+                  <div className="card-content">
                     <p>
                     ¡Gana XP simplemente por estar en llamada! Cada 30 minutos que pases conectado te subirá 15 de xp. Disfruta de tus conversaciones y recibe recompensas por ello.
                     </p>
