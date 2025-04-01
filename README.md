@@ -18,32 +18,47 @@ El proyecto es una interfaz de administración para un bot de Discord que implem
 ```
 niveles-front/
 ├── src/
-│   ├── assets/         # Recursos estáticos (imágenes, CSS)
-│   ├── components/     # Componentes reutilizables
-│   ├── pages/         # Páginas de la aplicación
-│   │   ├── dashboard.tsx      # Panel principal de servidores
-│   │   ├── ServerConfig.tsx   # Configuración del servidor
-│   │   ├── leaderboard.tsx    # Tabla de clasificación por servidor
-│   │   ├── TopGlobal.tsx      # Tabla de clasificación global
-│   │   └── AuthCallback.tsx   # Manejo de autenticación
-│   ├── config/        # Configuraciones
-│   ├── auth/          # Lógica de autenticación
-│   ├── App.tsx        # Componente principal
-│   └── index.tsx      # Punto de entrada
-├── public/            # Archivos públicos
+│   ├── assets/
+│   │   ├── css/                  # Estilos globales y por componente
+│   │   └── img/                  # Imágenes y assets visuales
+│   ├── auth/
+│   │   ├── AuthContext.tsx       # Contexto de autenticación
+│   │   └── DiscordAuth.js        # Lógica de auth con Discord
+│   ├── components/
+│   │   ├── MainHeader.tsx
+│   │   └── ProtectedRoute.tsx
+│   ├── config/
+│   │   ├── config.js             # Configuración general
+│   │   └── discord.ts            # Config específica de Discord
+│   ├── pages/
+│   │   ├── 404.tsx               # Página no encontrada
+│   │   ├── AuthCallback.tsx      # Callback de autenticación
+│   │   ├── dashboard.tsx         # Panel principal
+│   │   ├── leaderboard.tsx       # Clasificación por servidor
+│   │   ├── privacy-policy.tsx    # Política de privacidad
+│   │   ├── ServerConfig.tsx      # Configuración del servidor
+│   │   ├── terms-conditions.tsx  # Términos y condiciones
+│   │   └── TopGlobal.tsx         # Clasificación global
+│   ├── App.tsx                   # Componente principal
+│   ├── index.tsx                 # Punto de entrada
+│   ├── declarations.d.ts         
+|   └── reportWebVitals.ts         
+├── public/
 │   ├── index.html
-│   ├── manifest.json
+│   ├── inspeccionar.js
+│   ├── logoasci.js
 │   └── logo.png
-└── package.json       # Dependencias y scripts
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+└── README.md
 ```
 
 ## 🚀 Tecnologías Principales
 
 - React 18
 - TypeScript
-- React Router DOM
-- Axios para peticiones HTTP
-- Redis para caché
 - Express para el servidor
 - MongoDB para la base de datos
 - Discord OAuth2 para autenticación
