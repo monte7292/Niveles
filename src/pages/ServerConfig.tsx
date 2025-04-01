@@ -375,36 +375,25 @@ useEffect(() => {
     try {
       const response = await fetch(`${config.apiUrl}/api/server/${serverId}/settings/voice-xp`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ enabled: newValue }),
       });
   
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Error al actualizar la configuración de voz');
-      }
+      if (!response.ok) throw new Error('Error en la respuesta');
   
-      const updatedSettings: VoiceXPResponse = await response.json();
+      const updatedSettings = await response.json();
       
-      // Convertir levelRoles a Map si es necesario (aunque el backend ya lo hace)
-      setSettings({
-        ...updatedSettings,
-        voiceXpEnabled: updatedSettings.voiceXpEnabled
-      });
+      // ¡Actualiza TODO el estado con la respuesta del backend!
+      setSettings(updatedSettings);
       
       showTemporaryNotification(
         `XP en llamadas ${newValue ? 'activado' : 'desactivado'} correctamente`,
         'success'
       );
     } catch (err) {
-      console.error('Error al actualizar XP en voz:', err);
-      showTemporaryNotification(
-        err instanceof Error ? err.message : 'Error desconocido al actualizar XP en voz',
-        'error'
-      );
+      console.error('Error:', err);
+      showTemporaryNotification('Error al actualizar', 'error');
     } finally {
       setIsUpdatingVoiceXP(false);
     }
@@ -927,9 +916,9 @@ useEffect(() => {
                           disabled={isUpdatingVoiceXP}
                           onChange={toggleVoiceXP}
                         />
-                        <span className="voice-xp-slider"></span>
+                        <span className="voice-xp-slider round"></span>
                         {isUpdatingVoiceXP && (
-                          <span className="voice-xp-spinner"></span>
+                          <span className="voice-xp-loading"></span>
                         )}
                       </label>
                     </div>
@@ -941,13 +930,6 @@ useEffect(() => {
           )}
         </div>
       </main>
-
-      <style>{`
-        @keyframes spin {
-          to { transform: translateY(-50%) rotate(360deg); }
-        }
-      `}</style>
-
     </div>
   );
 };

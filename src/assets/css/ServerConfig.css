@@ -284,70 +284,76 @@
 
 
 
- /* Voice XP Switch */
-.voice-xp-switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 30px;
-}
+  .voice-xp-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
 
-.voice-xp-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+  .voice-xp-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 
-.voice-xp-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: .4s;
-  border-radius: 34px;
-}
+  .voice-xp-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+  }
 
-.voice-xp-slider:before {
-  position: absolute;
-  content: "";
-  height: 22px;
-  width: 22px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%;
-}
+  .voice-xp-slider.round {
+    border-radius: 34px;
+  }
 
-.voice-xp-switch input:checked + .voice-xp-slider {
-  background-color: #43a4e5;
-}
+  .voice-xp-slider.round:before {
+    border-radius: 50%;
+  }
 
-.voice-xp-switch input:checked + .voice-xp-slider:before {
-  transform: translateX(30px);
-}
+  .voice-xp-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+  }
 
-.voice-xp-switch input:disabled + .voice-xp-slider {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
+  input:checked + .voice-xp-slider {
+    background-color: #43a4e5;
+  }
 
-.voice-xp-spinner {
-  position: absolute;
-  right: -25px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-radius: 50%;
-  border-top-color: #43a4e5;
-  animation: spin 1s ease-in-out infinite;
-}
+  input:checked + .voice-xp-slider:before {
+    transform: translateX(26px);
+  }
 
-@keyframes spin {
-  to { transform: translateY(-50%) rotate(360deg); }
-}
+  input:disabled + .voice-xp-slider {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  /* Loading Spinner */
+  .voice-xp-loading {
+    position: absolute;
+    top: 50%;
+    right: -30px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(67, 164, 229, 0.3);
+    border-radius: 50%;
+    border-top-color: #43a4e5;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to { transform: translateY(-50%) rotate(360deg); }
+  }
