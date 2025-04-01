@@ -30,6 +30,10 @@ interface ServerSettings {
   voiceXpEnabled: boolean; // Nuevo campo
 }
 
+interface VoiceXPResponse extends ServerSettings {
+  levelRoles: { [key: number]: string }; // Asegurar que levelRoles es un objeto
+}
+
 const ServerConfig: React.FC = () => {
   const { serverId } = useParams<{ serverId: string }>();
   const [loading, setLoading] = useState(true);
@@ -377,14 +381,20 @@ useEffect(() => {
         credentials: 'include',
         body: JSON.stringify({ enabled: newValue }),
       });
-
+  
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Error al actualizar la configuración de voz');
+        throw new Error(errorData.error || 'Error al actualizar la configuración de voz');
       }
-
-      const updatedSettings = await response.json();
-      setSettings(updatedSettings);
+  
+      const updatedSettings: VoiceXPResponse = await response.json();
+      
+      // Convertir levelRoles a Map si es necesario (aunque el backend ya lo hace)
+      setSettings({
+        ...updatedSettings,
+        voiceXpEnabled: updatedSettings.voiceXpEnabled
+      });
+      
       showTemporaryNotification(
         `XP en llamadas ${newValue ? 'activado' : 'desactivado'} correctamente`,
         'success'
