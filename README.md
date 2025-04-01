@@ -25,8 +25,8 @@ niveles-front/
 │   │   ├── AuthContext.tsx       # Contexto de autenticación
 │   │   └── DiscordAuth.js        # Lógica de auth con Discord
 │   ├── components/
-│   │   ├── MainHeader.tsx
-│   │   └── ProtectedRoute.tsx
+│   │   ├── MainHeader.tsx        # Predefinido de Header
+│   │   └── ProtectedRoute.tsx    # Proteger rutas sin loguear
 │   ├── config/
 │   │   ├── config.js             # Configuración general
 │   │   └── discord.ts            # Config específica de Discord
@@ -39,8 +39,8 @@ niveles-front/
 │   │   ├── ServerConfig.tsx      # Configuración del servidor
 │   │   ├── terms-conditions.tsx  # Términos y condiciones
 │   │   └── TopGlobal.tsx         # Clasificación global
-│   ├── App.tsx                   # Componente principal
-│   ├── index.tsx                 # Punto de entrada
+│   ├── App.tsx                  
+│   ├── index.tsx                 
 │   ├── declarations.d.ts         
 |   └── reportWebVitals.ts         
 ├── public/
