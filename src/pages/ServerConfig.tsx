@@ -374,41 +374,67 @@ useEffect(() => {
     setIsUpdatingVoiceXP(true);
     
     try {
+      const startTime = Date.now();
       const response = await fetch(`${config.apiUrl}/api/server/${serverId}/settings/voice-xp`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-Debug-Request': startTime.toString() 
+        },
         credentials: 'include',
         body: JSON.stringify({ enabled: newValue }),
       });
   
       const data = await response.json();
-      console.log('Respuesta recibida:', data);
+      console.log('Respuesta completa:', {
+        status: response.status,
+        headers: Object.fromEntries(response.headers.entries()),
+        body: data,
+        duration: `${Date.now() - startTime}ms`
+      });
   
       if (!response.ok) {
-        throw new Error(data.error || 'Error en la solicitud');
+        throw new Error(data.error || `HTTP ${response.status}`);
       }
   
-      // Verificación más flexible de la respuesta
-      const voiceXpEnabled = typeof data.voiceXpEnabled !== 'undefined' 
-        ? Boolean(data.voiceXpEnabled) 
-        : newValue; // Usar el valor esperado si no viene en la respuesta
+      // Verificación robusta del valor
+      const receivedValue = typeof data.voiceXpEnabled !== 'undefined' 
+        ? Boolean(data.voiceXpEnabled)
+        : null;
   
-      // Actualizar el estado
+      if (receivedValue === null) {
+        console.warn('El servidor no devolvió voiceXpEnabled, verificando estado actual...');
+        const verifyResponse = await fetch(`${config.apiUrl}/api/server/${serverId}/settings`, {
+          credentials: 'include'
+        });
+        const currentSettings = await verifyResponse.json();
+        console.log('Estado actual del servidor:', currentSettings);
+        throw new Error('La respuesta no contenía el estado actual. Verifica logs.');
+      }
+  
+      // Actualizar estado
       setSettings(prev => ({
         ...prev!,
-        voiceXpEnabled
+        voiceXpEnabled: receivedValue
       }));
       
       showTemporaryNotification(
-        `XP en llamadas ${voiceXpEnabled ? 'activado' : 'desactivado'} correctamente`,
+        `XP en llamadas ${receivedValue ? 'activado' : 'desactivado'} correctamente`,
         'success'
       );
+  
     } catch (err) {
-      console.error('Error:', err);
+      console.error('Error en toggleVoiceXP:', {
+        error: err,
+        message: err instanceof Error ? err.message : 'Unknown error',
+        stack: err instanceof Error ? err.stack : undefined
+      });
+      
       showTemporaryNotification(
-        err instanceof Error ? err.message : 'Error al actualizar', 
+        'Error al actualizar. Verifica la consola para más detalles.', 
         'error'
       );
+      
       // Revertir visualmente
       setSettings(prev => ({ ...prev! }));
     } finally {
