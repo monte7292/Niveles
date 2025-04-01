@@ -284,7 +284,7 @@
 
 
 
-  /* Estilo mejorado para el interruptor */
+ /* Voice XP Switch */
 .voice-xp-switch {
   position: relative;
   display: inline-block;
@@ -308,41 +308,46 @@
   background-color: #ccc;
   transition: .4s;
   border-radius: 34px;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
 }
 
 .voice-xp-slider:before {
   position: absolute;
   content: "";
-  height: 24px;
-  width: 24px;
-  left: 3px;
-  bottom: 3px;
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
   background-color: white;
   transition: .4s;
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-input:checked + .voice-xp-slider {
+.voice-xp-switch input:checked + .voice-xp-slider {
   background-color: #43a4e5;
 }
 
-input:checked + .voice-xp-slider:before {
+.voice-xp-switch input:checked + .voice-xp-slider:before {
   transform: translateX(30px);
 }
 
-/* Efecto de focus para accesibilidad */
-input:focus + .voice-xp-slider {
-  box-shadow: 0 0 1px #43a4e5, 0 0 0 3px rgba(67, 164, 229, 0.3);
-}
-
-/* Estilo cuando está deshabilitado */
-input:disabled + .voice-xp-slider {
-  background-color: #e9ecef;
+.voice-xp-switch input:disabled + .voice-xp-slider {
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
-input:disabled + .voice-xp-slider:before {
-  background-color: #f8f9fa;
+.voice-xp-spinner {
+  position: absolute;
+  right: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: #43a4e5;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: translateY(-50%) rotate(360deg); }
 }

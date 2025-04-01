@@ -890,84 +890,51 @@ useEffect(() => {
                 </div>
 
 
-                {/* Sección de XP en llamadas de voz */}
-          <div className="config-card">
-            <div className="card-header">
-              <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <i className="fas fa-phone-alt" style={{ color: '#43a4e5' }}></i>
-                <span>XP en Llamadas de Voz</span>
-              </div>
-            </div>
-            <div className="card-content">
-              <p style={{ marginBottom: '1rem', color: '#a0a0a0' }}>
-                Activa esta opción para que los miembros ganen 10 XP por cada minuto en canales de voz.
-              </p>
-              
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                backgroundColor: 'rgba(67, 164, 229, 0.1)',
-                padding: '0.75rem 1rem',
-                borderRadius: '12px',
-                border: '1px solid rgba(67, 164, 229, 0.2)'
-              }}>
-                <div>
-                  <div style={{ fontWeight: 600, color: settings?.voiceXpEnabled ? '#43a4e5' : '#6c757d' }}>
-                    {settings?.voiceXpEnabled ? 'Activado' : 'Desactivado'}
+                <div className="config-card">
+                  <div className="card-header">
+                    <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <i className="fas fa-phone-alt" style={{ color: '#43a4e5' }}></i>
+                      <span>XP en Llamadas de Voz</span>
+                    </div>
                   </div>
-                  <div style={{ fontSize: '0.8rem', color: '#6c757d' }}>
-                    {settings?.voiceXpEnabled ? 'Los miembros ganan XP en voz' : 'XP en voz desactivado'}
+                  <div className="card-content">
+                    <p style={{ marginBottom: '1rem', color: '#a0a0a0' }}>
+                      Activa esta opción para que los miembros ganen 10 XP por cada minuto en canales de voz.
+                    </p>
+                    
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      backgroundColor: 'rgba(67, 164, 229, 0.1)',
+                      padding: '0.75rem 1rem',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(67, 164, 229, 0.2)'
+                    }}>
+                      <div>
+                        <div style={{ fontWeight: 600, color: settings?.voiceXpEnabled ? '#43a4e5' : '#6c757d' }}>
+                          {settings?.voiceXpEnabled ? 'Activado' : 'Desactivado'}
+                        </div>
+                        <div style={{ fontSize: '0.8rem', color: '#6c757d' }}>
+                          {settings?.voiceXpEnabled ? 'Los miembros ganan XP en voz' : 'XP en voz desactivado'}
+                        </div>
+                      </div>
+                      
+                      <label className="voice-xp-switch">
+                        <input 
+                          type="checkbox"
+                          checked={settings?.voiceXpEnabled || false}
+                          disabled={isUpdatingVoiceXP}
+                          onChange={toggleVoiceXP}
+                        />
+                        <span className="voice-xp-slider"></span>
+                        {isUpdatingVoiceXP && (
+                          <span className="voice-xp-spinner"></span>
+                        )}
+                      </label>
+                    </div>
                   </div>
                 </div>
-                
-                <label className="voice-xp-switch" style={{ position: 'relative' }}>
-                  <input 
-                    type="checkbox"
-                    checked={settings?.voiceXpEnabled || false}
-                    disabled={isUpdatingVoiceXP}
-                    onChange={toggleVoiceXP}
-                    style={{ display: 'none' }}
-                  />
-                  <span className="voice-xp-slider" style={{
-                    position: 'relative',
-                    display: 'inline-block',
-                    width: '50px',
-                    height: '24px',
-                    backgroundColor: settings?.voiceXpEnabled ? '#43a4e5' : '#ccc',
-                    borderRadius: '24px',
-                    transition: 'all 0.3s ease',
-                    cursor: isUpdatingVoiceXP ? 'not-allowed' : 'pointer'
-                  }}>
-                    <span style={{
-                      position: 'absolute',
-                      height: '20px',
-                      width: '20px',
-                      left: settings?.voiceXpEnabled ? 'calc(100% - 22px)' : '2px',
-                      top: '2px',
-                      backgroundColor: 'white',
-                      borderRadius: '50%',
-                      transition: 'all 0.3s ease'
-                    }} />
-                  </span>
-                  {isUpdatingVoiceXP && (
-                    <span style={{
-                      position: 'absolute',
-                      right: '-25px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      width: '16px',
-                      height: '16px',
-                      border: '2px solid rgba(255,255,255,0.3)',
-                      borderRadius: '50%',
-                      borderTopColor: '#43a4e5',
-                      animation: 'spin 1s ease-in-out infinite'
-                    }} />
-                  )}
-                </label>
-              </div>
-            </div>
-          </div>
 
               </div>
             </>
