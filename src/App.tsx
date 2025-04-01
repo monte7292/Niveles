@@ -403,7 +403,7 @@ const App: React.FC = () => {
           <div className="container">
             <div className="hero-content">
               <h1>Niveles</h1>
-              <p>Los miembros ganan XP por <b>escribir</b> en el <b>chat</b>, estar en <b>llamada</b> y por <b>reaccionar</b> a mensajes. 
+              <p>Los miembros ganan XP por <b>escribir</b> en el <b>chat</b> y al estar en <b>llamada</b>
               Al acumular XP, los miembros suben de nivel y desbloquean recompensas. 
               Además, puedes personalizar los mensajes, asignar roles automáticos y competir en la clasificación para ver quién es el que más ha progresado.</p>
               <div className="hero-buttons">
