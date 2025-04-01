@@ -372,6 +372,12 @@ useEffect(() => {
     const newValue = !settings.voiceXpEnabled;
     setIsUpdatingVoiceXP(true);
     
+    // Actualización optimista del estado
+    setSettings(prev => ({
+      ...prev!,
+      voiceXpEnabled: newValue
+    }));
+    
     try {
       const response = await fetch(`${config.apiUrl}/api/server/${serverId}/settings/voice-xp`, {
         method: 'POST',
@@ -380,11 +386,13 @@ useEffect(() => {
         body: JSON.stringify({ enabled: newValue }),
       });
   
-      if (!response.ok) throw new Error('Error en la respuesta');
+      if (!response.ok) {
+        throw new Error('Error en la respuesta');
+      }
   
       const updatedSettings = await response.json();
       
-      // ¡Actualiza TODO el estado con la respuesta del backend!
+      // Actualización definitiva con la respuesta del backend
       setSettings(updatedSettings);
       
       showTemporaryNotification(
@@ -392,7 +400,12 @@ useEffect(() => {
         'success'
       );
     } catch (err) {
-      console.error('Error:', err);
+      console.error('Error al actualizar:', err);
+      // Revertir en caso de error
+      setSettings(prev => ({
+        ...prev!,
+        voiceXpEnabled: !newValue
+      }));
       showTemporaryNotification('Error al actualizar', 'error');
     } finally {
       setIsUpdatingVoiceXP(false);
@@ -821,6 +834,53 @@ useEffect(() => {
                   </div>
                 </div>
 
+
+                <div className="config-card">
+                  <div className="card-header">
+                    <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <i className="fas fa-phone-alt" style={{ color: '#43a4e5' }}></i>
+                      <span>XP en Llamadas de Voz</span>
+                    </div>
+                  </div>
+                  <div className="card-content">
+                    <p style={{ marginBottom: '1rem', color: '#a0a0a0' }}>
+                      Activa esta opción para que los miembros ganen 10 XP por cada minuto en canales de voz.
+                    </p>
+                    
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      backgroundColor: 'rgba(67, 164, 229, 0.1)',
+                      padding: '0.75rem 1rem',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(67, 164, 229, 0.2)'
+                    }}>
+                      <div>
+                        <div style={{ fontWeight: 600, color: settings?.voiceXpEnabled ? '#43a4e5' : '#6c757d' }}>
+                          {settings?.voiceXpEnabled ? 'Activado' : 'Desactivado'}
+                        </div>
+                        <div style={{ fontSize: '0.8rem', color: '#6c757d' }}>
+                          {settings?.voiceXpEnabled ? 'Los miembros ganan XP en voz' : 'XP en voz desactivado'}
+                        </div>
+                      </div>
+                      
+                      <label className="voice-xp-switch">
+                        <input 
+                          type="checkbox"
+                          checked={settings?.voiceXpEnabled ?? false}
+                          onChange={toggleVoiceXP}
+                          disabled={isUpdatingVoiceXP}
+                        />
+                        <span className="voice-xp-slider"></span>
+                        {isUpdatingVoiceXP && <span className="voice-xp-spinner"></span>}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+
+
                 <div className="config-card">
                   <div className="card-header">
                     <div className="card-title">🔓 Canales Activados</div>
@@ -878,52 +938,6 @@ useEffect(() => {
                   </div>
                 </div>
 
-
-                <div className="config-card">
-                  <div className="card-header">
-                    <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <i className="fas fa-phone-alt" style={{ color: '#43a4e5' }}></i>
-                      <span>XP en Llamadas de Voz</span>
-                    </div>
-                  </div>
-                  <div className="card-content">
-                    <p style={{ marginBottom: '1rem', color: '#a0a0a0' }}>
-                      Activa esta opción para que los miembros ganen 10 XP por cada minuto en canales de voz.
-                    </p>
-                    
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      backgroundColor: 'rgba(67, 164, 229, 0.1)',
-                      padding: '0.75rem 1rem',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(67, 164, 229, 0.2)'
-                    }}>
-                      <div>
-                        <div style={{ fontWeight: 600, color: settings?.voiceXpEnabled ? '#43a4e5' : '#6c757d' }}>
-                          {settings?.voiceXpEnabled ? 'Activado' : 'Desactivado'}
-                        </div>
-                        <div style={{ fontSize: '0.8rem', color: '#6c757d' }}>
-                          {settings?.voiceXpEnabled ? 'Los miembros ganan XP en voz' : 'XP en voz desactivado'}
-                        </div>
-                      </div>
-                      
-                      <label className="voice-xp-switch">
-                        <input 
-                          type="checkbox"
-                          checked={settings?.voiceXpEnabled || false}
-                          disabled={isUpdatingVoiceXP}
-                          onChange={toggleVoiceXP}
-                        />
-                        <span className="voice-xp-slider round"></span>
-                        {isUpdatingVoiceXP && (
-                          <span className="voice-xp-loading"></span>
-                        )}
-                      </label>
-                    </div>
-                  </div>
-                </div>
 
               </div>
             </>
