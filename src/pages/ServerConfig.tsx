@@ -842,7 +842,7 @@ useEffect(() => {
                   </div>
                   <div className="card-content">
                     <p style={{ marginBottom: '1rem', color: '#a0a0a0' }}>
-                      Activa esta opción para que los miembros ganen 10 XP por cada minuto en canales de voz.
+                      Activa esta opción para que los miembros ganen 15 XP por cada 30 minutos en canales de voz.
                     </p>
                     
                     <div style={{
