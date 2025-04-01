@@ -773,7 +773,7 @@ useEffect(() => {
                 </div>
 
 
-                <div className="config-card" style={{ backgroundColor: '#ff000024' }}>
+                <div className="config-card" style={{ backgroundColor: 'rgb(255 0 0 / 5%);' }}>
                   <div className="card-header">
                     <div className="card-title">🚀 XP por estar en llamada</div>
                   </div>
