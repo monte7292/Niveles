@@ -367,17 +367,12 @@ useEffect(() => {
   };
 
   const toggleVoiceXP = async () => {
-    if (!settings || !serverId) {
-      console.error('Faltan settings o serverId');
-      return;
-    }
+    if (!settings || !serverId) return;
   
     const newValue = !settings.voiceXpEnabled;
     setIsUpdatingVoiceXP(true);
   
     try {
-      console.log(`Enviando petición para cambiar voiceXP a ${newValue}`); // Log de depuración
-      
       const response = await fetch(`${config.apiUrl}/api/server/${serverId}/settings/voice-xp`, {
         method: 'POST',
         headers: {
@@ -393,17 +388,23 @@ useEffect(() => {
         throw new Error(data.error || 'Error en la respuesta del servidor');
       }
   
-      console.log('Respuesta del servidor:', data); // Log de depuración
+      // Verificación adicional
+      if (typeof data.voiceXpEnabled !== 'boolean') {
+        throw new Error('Respuesta inválida del servidor');
+      }
   
       setSettings(prev => ({
         ...prev!,
         voiceXpEnabled: data.voiceXpEnabled
       }));
   
-      showTemporaryNotification(data.message, 'success');
+      showTemporaryNotification(
+        `XP en voz ${data.voiceXpEnabled ? 'activado' : 'desactivado'} correctamente`,
+        'success'
+      );
   
     } catch (error) {
-      console.error('Error al cambiar voiceXP:', error);
+      console.error('Error completo:', error);
       showTemporaryNotification(
         error instanceof Error ? error.message : 'Error desconocido',
         'error'
