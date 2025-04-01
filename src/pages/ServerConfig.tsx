@@ -840,16 +840,37 @@ useEffect(() => {
 
                 <div className="config-card">
                   <div className="card-header">
-                    <div className="card-title">🎙️ XP en Llamadas</div>
+                    <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <i className="fas fa-phone-alt" style={{ color: '#43a4e5' }}></i>
+                      <span>XP en Llamadas de Voz</span>
+                    </div>
                   </div>
                   <div className="card-content">
-                    <p>
-                      Activa esta opción para que los usuarios ganen 10 XP por cada minuto en llamadas de voz.
+                    <p style={{ marginBottom: '1rem', color: '#a0a0a0' }}>
+                      Activa esta opción para que los miembros ganen 10 XP por cada minuto en canales de voz.
                     </p>
-                    <div style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
-                      <label className="switch">
+                    
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      backgroundColor: 'rgba(67, 164, 229, 0.1)',
+                      padding: '0.75rem 1rem',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(67, 164, 229, 0.2)'
+                    }}>
+                      <div>
+                        <div style={{ fontWeight: 600, color: settings?.voiceXpEnabled ? '#43a4e5' : '#6c757d' }}>
+                          {settings?.voiceXpEnabled ? 'Activado' : 'Desactivado'}
+                        </div>
+                        <div style={{ fontSize: '0.8rem', color: '#6c757d' }}>
+                          {settings?.voiceXpEnabled ? 'Los miembros ganan XP en voz' : 'XP en voz desactivado'}
+                        </div>
+                      </div>
+                      
+                      <label className="voice-xp-switch">
                         <input 
-                          type="checkbox" 
+                          type="checkbox"
                           checked={settings?.voiceXpEnabled || false}
                           onChange={async () => {
                             if (!settings || !serverId) return;
@@ -865,18 +886,20 @@ useEffect(() => {
                                 body: JSON.stringify({ enabled: newValue }),
                               });
 
-                              if (!response.ok) throw new Error('Error al actualizar');
+                              if (!response.ok) {
+                                const errorData = await response.json();
+                                throw new Error(errorData.error || 'Error al actualizar');
+                              }
 
-                              setSettings({
-                                ...settings,
-                                voiceXpEnabled: newValue
-                              });
+                              const updatedSettings = await response.json();
+                              setSettings(updatedSettings);
 
                               showTemporaryNotification(
                                 `XP en llamadas ${newValue ? 'activado' : 'desactivado'} correctamente`,
                                 'success'
                               );
                             } catch (error) {
+                              console.error('Error:', error);
                               showTemporaryNotification(
                                 error instanceof Error ? error.message : 'Error al actualizar la configuración',
                                 'error'
@@ -884,11 +907,8 @@ useEffect(() => {
                             }
                           }}
                         />
-                        <span className="slider round"></span>
+                        <span className="voice-xp-slider"></span>
                       </label>
-                      <span style={{ marginLeft: '0.5rem', fontWeight: 500 }}>
-                        {settings?.voiceXpEnabled ? 'Activado' : 'Desactivado'}
-                      </span>
                     </div>
                   </div>
                 </div>

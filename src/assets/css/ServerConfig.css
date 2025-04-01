@@ -280,3 +280,69 @@
       flex-direction: column;
     }
   }
+
+
+
+
+  /* Estilo mejorado para el interruptor */
+.voice-xp-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.voice-xp-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.voice-xp-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.voice-xp-slider:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input:checked + .voice-xp-slider {
+  background-color: #43a4e5;
+}
+
+input:checked + .voice-xp-slider:before {
+  transform: translateX(30px);
+}
+
+/* Efecto de focus para accesibilidad */
+input:focus + .voice-xp-slider {
+  box-shadow: 0 0 1px #43a4e5, 0 0 0 3px rgba(67, 164, 229, 0.3);
+}
+
+/* Estilo cuando está deshabilitado */
+input:disabled + .voice-xp-slider {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+input:disabled + .voice-xp-slider:before {
+  background-color: #f8f9fa;
+}
