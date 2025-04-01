@@ -367,53 +367,26 @@ useEffect(() => {
   };
 
   const toggleVoiceXP = async () => {
-    if (!settings || !serverId || !config.apiUrl) {
-      console.error('Faltan parámetros requeridos');
-      return;
-    }
+    if (!settings || !serverId) return;
     
     const newValue = !settings.voiceXpEnabled;
     setIsUpdatingVoiceXP(true);
-    
+  
     try {
       const response = await fetch(`${config.apiUrl}/api/server/${serverId}/settings/voice-xp`, {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ enabled: newValue }),
+        body: JSON.stringify({ enabled: newValue })
       });
   
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
-      }
-  
+      if (!response.ok) throw new Error('Error en la respuesta');
+      
       const data = await response.json();
-      
-      // Validación adicional
-      if (typeof data.voiceXpEnabled !== 'boolean') {
-        throw new Error('Respuesta inválida del servidor');
-      }
-  
-      setSettings(prev => ({
-        ...prev!,
-        voiceXpEnabled: data.voiceXpEnabled
-      }));
-      
-      showTemporaryNotification(
-        `XP en llamadas ${data.voiceXpEnabled ? 'activado' : 'desactivado'} correctamente`,
-        'success'
-      );
+      setSettings(prev => ({ ...prev!, voiceXpEnabled: data.voiceXpEnabled }));
   
     } catch (error) {
-      console.error('Error en toggleVoiceXP:', error);
-      showTemporaryNotification(
-        error instanceof Error ? error.message : 'Error al actualizar',
-        'error'
-      );
+      console.error('Error:', error);
     } finally {
       setIsUpdatingVoiceXP(false);
     }
