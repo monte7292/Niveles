@@ -518,7 +518,7 @@ const App: React.FC = () => {
         
 
         {/* Banner Servers */}
-        {/* <section className="banner-servers">
+        <section className="banner-servers">
           <div className="container">
             <div className="stats-container">
               <div className="stat-item">
