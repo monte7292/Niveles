@@ -552,7 +552,6 @@ const App: React.FC = () => {
 
 
         {/* Commands Section */}
-        <AnimateOnVisible threshold={0.45}>
         <section id="commands" className="commands">
           <div className="container">
             <div className="section-header">
@@ -608,7 +607,6 @@ const App: React.FC = () => {
             </div>
           </div>
         </section>
-        </AnimateOnVisible>
 
 
 
