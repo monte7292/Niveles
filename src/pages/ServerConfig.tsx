@@ -834,11 +834,15 @@ useEffect(() => {
 
 
                 <div className="config-card">
-                  <div className="card-header">
+                <div className="card-header">
                     <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <i className="fas fa-phone-alt" style={{ color: '#43a4e5' }}></i>
                       <span>XP en Llamadas de Voz</span>
+                      <span className="new-badge">Nuevo</span>
                     </div>
+                    <a href="https://discord.com/discovery/applications/1330564254822043761/store/1347581050041401518" className="btn btn-premium" target="_blank" rel="noopener noreferrer">
+                      &#160;Premium
+                    </a>
                   </div>
                   <div className="card-content">
                     <p style={{ marginBottom: '1rem', color: '#a0a0a0' }}>
