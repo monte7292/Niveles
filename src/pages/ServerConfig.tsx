@@ -839,7 +839,10 @@ useEffect(() => {
                       <i className="fas fa-phone-alt" style={{ color: '#43a4e5' }}></i>
                       <span>XP en Llamadas de Voz</span>
                     </div>
+
+                    {/* NUEVO */}
                     <span className="new-badge">Nuevo</span>
+                    
                   </div>
                   <div className="card-content">
                     <p style={{ marginBottom: '1rem', color: '#a0a0a0' }}>
