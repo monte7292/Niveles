@@ -17,7 +17,6 @@ import Leaderboard from './pages/leaderboard';
 import GlobalLeaderboard from './pages/TopGlobal';
 
 import AnimateOnVisible from './components/AnimateOnVisible'
-import SequentialFadeIn from './components/AnimateOnCartas'
 
 // Constantes de configuración
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
@@ -563,7 +562,6 @@ const App: React.FC = () => {
 
               
             <div className="commands-grid">
-            <SequentialFadeIn>
               <div className="command-card">
                 <div className="command-icon">📚</div>
                 <h3>Commando Help</h3>
@@ -602,7 +600,6 @@ const App: React.FC = () => {
                   <code>/boostxp</code>
                 </div>
               </div>
-            </SequentialFadeIn>
             </div>
             
 

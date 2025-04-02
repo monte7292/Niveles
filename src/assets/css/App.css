@@ -675,7 +675,8 @@ section {
 .command-card {
   background-color: var(--card);
   border-radius: var(--radius);
-  padding: 1rem;
+  border: 3px solid var(--border);
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
 }
@@ -684,6 +685,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
 .command-icon {
