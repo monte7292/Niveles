@@ -16,6 +16,9 @@ import TermsConditionsPage from './pages/terms-conditions';
 import Leaderboard from './pages/leaderboard';
 import GlobalLeaderboard from './pages/TopGlobal';
 
+import AnimateOnVisible from './components/AnimateOnVisible'
+import SequentialFadeIn from './components/AnimateOnCartas'
+
 // Constantes de configuración
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 
@@ -413,6 +416,7 @@ const App: React.FC = () => {
               </div>
             </div>
 
+            <AnimateOnVisible threshold={0.25}>
             <div className="bot-preview">
               <div className="preview-window">
                 <div className="window-header">
@@ -507,9 +511,12 @@ const App: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>  
+            </div>
+            </AnimateOnVisible>  
           </div>
         </section>
+        
+
         {/* Banner Servers */}
         {/* <section className="banner-servers">
           <div className="container">
@@ -542,10 +549,11 @@ const App: React.FC = () => {
               />
             </div>
           </div>
-        </section>*/}
+        </section>
 
 
         {/* Commands Section */}
+        <AnimateOnVisible threshold={0.45}>
         <section id="commands" className="commands">
           <div className="container">
             <div className="section-header">
@@ -553,7 +561,9 @@ const App: React.FC = () => {
               <p>Niveles ofrece diversos comandos para gestionar el sistema de nivelación de tu servidor. Estos son algunos de los más importantes:</p>
             </div>
 
+              
             <div className="commands-grid">
+            <SequentialFadeIn>
               <div className="command-card">
                 <div className="command-icon">📚</div>
                 <h3>Commando Help</h3>
@@ -592,15 +602,20 @@ const App: React.FC = () => {
                   <code>/boostxp</code>
                 </div>
               </div>
+            </SequentialFadeIn>
             </div>
+            
 
             <div className="section-footer">
               <a href="#all-commands" className="btn btn-primary">Ver todos los comandos</a>
             </div>
           </div>
         </section>
+        </AnimateOnVisible>
 
 
+
+        <AnimateOnVisible threshold={0.25}>
         {/* All Commands Section */}
         <section id="all-commands" className="all-commands">
           <div className="container">
@@ -757,7 +772,10 @@ const App: React.FC = () => {
             </div>
           </div>
         </section>
+        </AnimateOnVisible>
 
+
+        <AnimateOnVisible threshold={0.25}>
         {/* Pricing Section */}
         <section id="pricing" className="pricing">
           <div className="container">
@@ -840,6 +858,7 @@ const App: React.FC = () => {
             </div>
           </div>
         </section>
+        </AnimateOnVisible>
       </main>
 
       <footer className="footer">

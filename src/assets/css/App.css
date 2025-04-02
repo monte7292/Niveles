@@ -488,9 +488,6 @@ code {
   overflow: hidden;
   max-width: 48rem;
   margin: 0 auto;
-  opacity: 0; /* Inicialmente invisible */
-  animation: modernAppear 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  transform-origin: center;
 }
 
 @keyframes modernAppear {
@@ -678,8 +675,7 @@ section {
 .command-card {
   background-color: var(--card);
   border-radius: var(--radius);
-  border: 3px solid var(--border);
-  padding: 1.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -688,7 +684,6 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
 }
 
 .command-icon {
