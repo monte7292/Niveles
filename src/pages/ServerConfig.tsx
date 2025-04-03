@@ -777,7 +777,7 @@ useEffect(() => {
                 </div>
                 <div className="card-content">
                   <p>
-                    Personaliza el color de las cartas de nivel de los miembros.
+                    Personaliza el color de las carta de tu perfil en /minivel.
                     {!isPremiumActive && (
                       <span className="premium-text">
                         Esta función solo está disponible para servidores Premium.

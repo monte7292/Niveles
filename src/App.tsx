@@ -805,8 +805,8 @@ const App: React.FC = () => {
                   <li className="feature-available">/modificarmensaje</li>
                   <li className="feature-available">/modificarxp</li>
                   <li className="feature-available">/modificarnivel</li>
-                  <li className="feature-unavailable">/roles</li>
-                  <li className="feature-unavailable">/quitarroles</li>
+                  <li className="feature-available">/roles</li>
+                  <li className="feature-available">/quitarroles</li>
                   {/* Premiums */}
                   <li className="feature-unavailable">/boostxp</li>
                   <li className="feature-unavailable">/modificarcartacolor</li>
