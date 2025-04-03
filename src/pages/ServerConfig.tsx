@@ -609,11 +609,138 @@ useEffect(() => {
               </div>
               <div className="config-grid">
 
-                <div className={`config-card ${!isPremiumActive ? 'premium-locked' : ''}`}>
-                  <div className="card-header">
-                    <div className="card-title">🎭 Roles por Nivel</div>
-                    {!isPremiumActive && (
-                      <a href="https://discord.com/discovery/applications/1330564254822043761/store/1347581050041401518" className="btn btn-premium" target="_blank" rel="noopener noreferrer">
+
+              <div className="config-card">
+                <div className="card-header">
+                  <div className="card-title">🎭 Roles por Nivel</div>
+                </div>
+                <div className="card-content">
+                  <p>
+                    Asigna roles automáticamente cuando los usuarios alcancen ciertos niveles.
+                  </p>
+                  <div className="level-role-controls" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    <div style={{ display: 'flex', gap: '1rem' }}>
+                      <div style={{ flex: 1 }}>
+                        <label style={{ 
+                          display: 'block', 
+                          marginBottom: '0.5rem',
+                          color: 'var(--foreground)',
+                          fontSize: '0.9rem',
+                          fontWeight: '500'
+                        }}>
+                          Nivel
+                        </label>
+                        <input
+                          type="number"
+                          value={newLevelRole.level}
+                          onChange={(e) => setNewLevelRole({ ...newLevelRole, level: e.target.value })}
+                          min="1"
+                          placeholder="Ej: 12"
+                          style={{
+                            width: '100%',
+                            padding: '0.75rem',
+                            borderRadius: '12px',
+                            border: '1px solid rgba(67, 164, 229, 0.2)',
+                            background: 'rgba(67, 164, 229, 0.05)',
+                            color: 'var(--foreground)',
+                            fontSize: '0.95rem',
+                            transition: 'all 0.3s ease'
+                          }}
+                        />
+                      </div>
+                      <div style={{ flex: 2 }}>
+                        <label style={{ 
+                          display: 'block', 
+                          marginBottom: '0.5rem',
+                          color: 'var(--foreground)',
+                          fontSize: '0.9rem',
+                          fontWeight: '500'
+                        }}>
+                          ID del Rol
+                        </label>
+                        <input
+                          type="text"
+                          value={newLevelRole.roleId}
+                          onChange={(e) => setNewLevelRole({ ...newLevelRole, roleId: e.target.value })}
+                          placeholder="Ej: 1350460123377569842"
+                          style={{
+                            width: '100%',
+                            padding: '0.75rem',
+                            borderRadius: '12px',
+                            border: '1px solid rgba(67, 164, 229, 0.2)',
+                            background: 'rgba(67, 164, 229, 0.05)',
+                            color: 'var(--foreground)',
+                            fontSize: '0.95rem',
+                            transition: 'all 0.3s ease'
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <button
+                      onClick={handleAddLevelRole}
+                      disabled={!newLevelRole.level || !newLevelRole.roleId}
+                      className="save-button"
+                      style={{
+                        width: '100%',
+                        padding: '0.75rem',
+                        borderRadius: '12px',
+                        background: 'var(--secondary)',
+                        border: 'none',
+                        color: 'white',
+                        fontWeight: '500',
+                        transition: 'all 0.3s ease',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Agregar Rol
+                    </button>
+
+                    <div className="channel-list" style={{ 
+                      maxHeight: '300px', 
+                      overflowY: 'auto',
+                      marginTop: '1rem'
+                    }}>
+                      {Object.entries(settings?.levelRoles || {}).map(([level, roleId]) => (
+                        <div key={level} className="channel-item" style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          padding: '0.75rem',
+                          background: 'rgba(67, 164, 229, 0.05)',
+                          borderRadius: '12px',
+                          marginBottom: '0.5rem'
+                        }}>
+                          <div className="channel-name">
+                            <span style={{ fontWeight: '600' }}>Nivel {level}</span>
+                            <span style={{ margin: '0 0.5rem' }}>→</span>
+                            <span>ID del Rol: {roleId}</span>
+                          </div>
+                          <button
+                            onClick={() => handleRemoveLevelRole(parseInt(level))}
+                            className="delete"
+                            style={{
+                              padding: '0.5rem 1rem',
+                              fontSize: '0.9rem',
+                              background: 'rgba(239, 68, 68, 0.1)',
+                              color: '#ef4444',
+                              border: '1px solid rgba(239, 68, 68, 0.2)',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`config-card ${!isPremiumActive ? 'premium-locked' : ''}`}>
+                <div className="card-header">
+                  <div className="card-title">🎨 Modificar Carta de Color</div>
+                  {!isPremiumActive && (
+                    <a href="https://discord.com/discovery/applications/1330564254822043761/store/1347581050041401518" className="btn btn-premium" target="_blank" rel="noopener noreferrer">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#prefix__clip0)">
                           <path d="M13.174 17.44h-1.349v.003h1.349v-.003z" fill="#FFCB39"></path>
@@ -646,145 +773,40 @@ useEffect(() => {
                       </svg>
                       &#160;Premium
                     </a>
+                  )}
+                </div>
+                <div className="card-content">
+                  <p>
+                    Personaliza el color de las cartas de nivel de los miembros.
+                    {!isPremiumActive && (
+                      <span className="premium-text">
+                        Esta función solo está disponible para servidores Premium.
+                      </span>
                     )}
-                  </div>
-                  <div className="card-content">
-                    <p>
-                      Asigna roles automáticamente cuando los usuarios alcancen ciertos niveles.
-                      {!isPremiumActive && (
-                        <span className="premium-text">
-                          Esta función solo está disponible para servidores Premium.
-                        </span>
-                      )}
+                  </p>
+                  <div style={{
+                    padding: '2rem',
+                    textAlign: 'center',
+                    backgroundColor: 'rgba(67, 164, 229, 0.05)',
+                    borderRadius: '12px',
+                    marginTop: '1rem',
+                    border: '1px dashed rgba(67, 164, 229, 0.2)'
+                  }}>
+                    <p style={{ color: '#6c757d', marginBottom: '1rem' }}>
+                      <i className="fas fa-tools" style={{ marginRight: '0.5rem' }}></i>
+                      Función en desarrollo
                     </p>
-                    <div className="level-role-controls" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                      <div style={{ display: 'flex', gap: '1rem' }}>
-                        <div style={{ flex: 1 }}>
-                          <label style={{ 
-                            display: 'block', 
-                            marginBottom: '0.5rem',
-                            color: isPremiumActive ? 'var(--foreground)' : 'rgba(255, 255, 255, 0.5)',
-                            fontSize: '0.9rem',
-                            fontWeight: '500'
-                          }}>
-                            Nivel
-                          </label>
-                          <input
-                            type="number"
-                            value={newLevelRole.level}
-                            onChange={(e) => setNewLevelRole({ ...newLevelRole, level: e.target.value })}
-                            min="1"
-                            placeholder="Ej: 12"
-                            disabled={!isPremiumActive}
-                            style={{
-                              width: '100%',
-                              padding: '0.75rem',
-                              borderRadius: '12px',
-                              border: '1px solid rgba(67, 164, 229, 0.2)',
-                              background: 'rgba(67, 164, 229, 0.05)',
-                              color: isPremiumActive ? 'var(--foreground)' : 'rgba(255, 255, 255, 0.5)',
-                              fontSize: '0.95rem',
-                              transition: 'all 0.3s ease',
-                              opacity: isPremiumActive ? 1 : 0.5,
-                              cursor: isPremiumActive ? 'text' : 'not-allowed'
-                            }}
-                          />
-                        </div>
-                        <div style={{ flex: 2 }}>
-                          <label style={{ 
-                            display: 'block', 
-                            marginBottom: '0.5rem',
-                            color: isPremiumActive ? 'var(--foreground)' : 'rgba(255, 255, 255, 0.5)',
-                            fontSize: '0.9rem',
-                            fontWeight: '500'
-                          }}>
-                            ID del Rol
-                          </label>
-                          <input
-                            type="text"
-                            value={newLevelRole.roleId}
-                            onChange={(e) => setNewLevelRole({ ...newLevelRole, roleId: e.target.value })}
-                            placeholder="Ej: 1350460123377569842"
-                            disabled={!isPremiumActive}
-                            style={{
-                              width: '100%',
-                              padding: '0.75rem',
-                              borderRadius: '12px',
-                              border: '1px solid rgba(67, 164, 229, 0.2)',
-                              background: 'rgba(67, 164, 229, 0.05)',
-                              color: isPremiumActive ? 'var(--foreground)' : 'rgba(255, 255, 255, 0.5)',
-                              fontSize: '0.95rem',
-                              transition: 'all 0.3s ease',
-                              opacity: isPremiumActive ? 1 : 0.5,
-                              cursor: isPremiumActive ? 'text' : 'not-allowed'
-                            }}
-                          />
-                        </div>
-                      </div>
-                      <button
-                        onClick={handleAddLevelRole}
-                        disabled={!isPremiumActive || !newLevelRole.level || !newLevelRole.roleId}
-                        className="save-button"
-                        style={{
-                          width: '100%',
-                          padding: '0.75rem',
-                          borderRadius: '12px',
-                          background: isPremiumActive ? 'var(--secondary))' : '#574b3a',
-                          border: 'none',
-                          color: isPremiumActive ? 'white' : 'rgba(232, 183, 79, 0.5)',
-                          fontWeight: '500',
-                          transition: 'all 0.3s ease',
-                          cursor: isPremiumActive ? 'pointer' : 'not-allowed',
-                          opacity: isPremiumActive ? 1 : 0.5
-                        }}
-                      >
-                        Agregar Rol
-                      </button>
-
-                      <div className="channel-list" style={{ 
-                        maxHeight: '300px', 
-                        overflowY: 'auto',
-                        marginTop: '1rem',
-                        opacity: isPremiumActive ? 1 : 0.5,
-                        pointerEvents: isPremiumActive ? 'auto' : 'none'
-                      }}>
-                        {Object.entries(settings?.levelRoles || {}).map(([level, roleId]) => (
-                          <div key={level} className="channel-item" style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            padding: '0.75rem',
-                            background: 'rgba(67, 164, 229, 0.05)',
-                            borderRadius: '12px',
-                            marginBottom: '0.5rem'
-                          }}>
-                            <div className="channel-name">
-                              <span style={{ fontWeight: '600' }}>Nivel {level}</span>
-                              <span style={{ margin: '0 0.5rem' }}>→</span>
-                              <span>ID del Rol: {roleId}</span>
-                            </div>
-                            <button
-                              onClick={() => handleRemoveLevelRole(parseInt(level))}
-                              disabled={!isPremiumActive}
-                              className="delete"
-                              style={{
-                                padding: '0.5rem 1rem',
-                                fontSize: '0.9rem',
-                                background: isPremiumActive ? 'rgba(239, 68, 68, 0.1)' : 'rgba(239, 68, 68, 0.05)',
-                                color: isPremiumActive ? '#ef4444' : 'rgba(239, 68, 68, 0.5)',
-                                border: isPremiumActive ? '1px solid rgba(239, 68, 68, 0.2)' : '1px solid rgba(239, 68, 68, 0.1)',
-                                cursor: isPremiumActive ? 'pointer' : 'not-allowed',
-                                opacity: isPremiumActive ? 1 : 0.5
-                              }}
-                            >
-                              Eliminar
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    <p style={{ fontSize: '0.9rem', color: '#6c757d' }}>
+                      Próximamente podrás personalizar los colores de las cartas de nivel
+                    </p>
                   </div>
                 </div>
+              </div>
+
+
+
+
+
 
                 <div className="config-card">
                   <div className="card-header">

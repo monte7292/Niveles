@@ -731,6 +731,22 @@ const App: React.FC = () => {
                   <span className="badge premium">Premium</span>
                 </div>
               </div>
+              <div className="table-row">
+                <div className="col col-command">/roles</div>
+                <div className="col col-description">Asigna un rol automático al alcanzar un nivel.</div>
+                <div className="col col-availability">
+                  <span className="badge free">Free</span>
+                  <span className="badge premium">Premium</span>
+                </div>
+              </div>
+              <div className="table-row">
+                <div className="col col-command">/quitarroles</div>
+                <div className="col col-description">Elimina la asignación de un rol para un nivel.</div>
+                <div className="col col-availability">
+                  <span className="badge free">Free</span>
+                  <span className="badge premium">Premium</span>
+                </div>
+              </div>
 
               <div className="table-category">
                 <div className="category-name">⭐ Comandos Premium</div>
@@ -739,20 +755,6 @@ const App: React.FC = () => {
               <div className="table-row">
                 <div className="col col-command">/boostxp</div>
                 <div className="col col-description">Los usuarios ganarán durante 1 hora, el doble de XP</div>
-                <div className="col col-availability">
-                  <span className="badge premium">Premium</span>
-                </div>
-              </div>
-              <div className="table-row">
-                <div className="col col-command">/roles</div>
-                <div className="col col-description">Asigna un rol automático al alcanzar un nivel.</div>
-                <div className="col col-availability">
-                  <span className="badge premium">Premium</span>
-                </div>
-              </div>
-              <div className="table-row">
-                <div className="col col-command">/quitarroles</div>
-                <div className="col col-description">Elimina la asignación de un rol para un nivel.</div>
                 <div className="col col-availability">
                   <span className="badge premium">Premium</span>
                 </div>
@@ -803,10 +805,10 @@ const App: React.FC = () => {
                   <li className="feature-available">/modificarmensaje</li>
                   <li className="feature-available">/modificarxp</li>
                   <li className="feature-available">/modificarnivel</li>
-                  {/* Premiums */}
-                  <li className="feature-unavailable">/boostxp</li>
                   <li className="feature-unavailable">/roles</li>
                   <li className="feature-unavailable">/quitarroles</li>
+                  {/* Premiums */}
+                  <li className="feature-unavailable">/boostxp</li>
                   <li className="feature-unavailable">/modificarcartacolor</li>
                 </ul>
 
