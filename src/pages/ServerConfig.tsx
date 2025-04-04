@@ -794,7 +794,7 @@ useEffect(() => {
                   }}>
                     <p style={{ color: '#6c757d', marginBottom: '1rem' }}>
                       <i className="fas fa-tools" style={{ marginRight: '0.5rem' }}></i>
-                      Función en desarrollo
+                      Función en desarrollo...
                     </p>
                     <p style={{ fontSize: '0.9rem', color: '#6c757d' }}>
                       Próximamente podrás personalizar los colores de las cartas de nivel
