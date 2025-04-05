@@ -60,6 +60,24 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
     }, 200);
   };
 
+  const showRankCardModal = () => {
+    const overlay = document.getElementById('rankCardOverlay');
+    const modal = document.getElementById('rankCardModal');
+    
+    overlay?.classList.add('show');
+    modal?.classList.add('show');
+  };
+  
+  const closeRankCardModal = () => {
+    const overlay = document.getElementById('rankCardOverlay');
+    const modal = document.getElementById('rankCardModal');
+    
+    modal?.classList.remove('show');
+    setTimeout(() => {
+      overlay?.classList.remove('show');
+    }, 200);
+  };
+
   // Añadir event listener para cerrar con Escape
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -107,7 +125,7 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
 
       <div className="modal-overlay" id="rankCardOverlay"></div>
         <div className="rank-card-modal" id="rankCardModal">
-            <button className="close-rank-card" id="closeRankCard" aria-label="Cerrar modal">
+            <button className="close-updates" id="closeUpdates" aria-label="Cerrar modal" onClick={closeUpdatesModal}>
                 <i className="fas fa-times" style={{ color: 'red' }}></i>
             </button>
             
@@ -246,6 +264,9 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
                       </a>
                       <button className="dropdown-item2" onClick={showUpdatesModal}>
                         <i className="fa fa-sync-alt"></i>Actualizaciones
+                      </button>
+                      <button className="dropdown-item2" onClick={showRankCardModal}>
+                        <i className="fa fa-sync-alt"></i>Editar Carta
                       </button>
                       <a 
                         className="dropdown-item2" 
