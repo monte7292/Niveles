@@ -4,6 +4,7 @@ import { useAuth } from '../auth/AuthContext';
 import discord from '../config/discord';
 import logo from '../assets/img/logo.webp';
 import '../assets/css/Actualizaciones.css'
+import CardColorModal from './CardColorModal';
 
 interface MainHeaderProps {
   showBackButton?: boolean;
@@ -14,9 +15,14 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const [isCardColorModalOpen, setIsCardColorModalOpen] = React.useState(false);
 
   const handleLogin = () => {
     window.location.href = discord.oauthUrl;
+  };
+
+  const toggleCardColorModal = () => {
+    setIsCardColorModalOpen(!isCardColorModalOpen);
   };
 
   const handleLogout = async () => {
@@ -104,6 +110,7 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
               </ul>
           </div>
       </div>
+
 
       <div className="banner-container">
         <div className="banner-content">
@@ -197,6 +204,10 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
                       >
                         <i className="fa fa-star" style={{ marginTop: '7.5px' }}></i> Valóranos
                       </a>
+                      <button className="dropdown-item2" onClick={toggleCardColorModal}>
+                        <i className="fa fa-palette" style={{ marginTop: '7.5px' }}></i> Personalizar tarjeta
+                      </button>
+
                       <a 
                         className="dropdown-item2" 
                         href="https://discord.com/invite/mu7qfudTuj"

@@ -242,3 +242,71 @@
   }
 }
 
+.card-color-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2f3136;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  max-width: 90%;
+  z-index: 1000;
+  color: white;
+  font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+.rank-info {
+  margin-bottom: 20px;
+}
+
+.rank-level {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.rank-number, .level-number {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.username {
+  font-weight: 600;
+}
+
+.xp {
+  color: #b9bbbe;
+}
+
+.color-options h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.color-palette {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.color-option {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.color-option:hover {
+  border-color: white;
+}
