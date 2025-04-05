@@ -124,43 +124,39 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
       </div>
 
       <div className="modal-overlay" id="rankCardOverlay"></div>
-        <div className="rank-card-modal" id="rankCardModal">
-            <button className="close-updates" id="closeUpdates" aria-label="Cerrar modal" onClick={closeUpdatesModal}>
-                <i className="fas fa-times" style={{ color: 'red' }}></i>
-            </button>
-            
-            <div className="modal-banner"></div>
-            <div className="status-badge">TARJETA DE RANGO</div>
-            <img src="https://www.niveles.xyz/static/media/logo.4392711baa0969494dea.webp" alt="Avatar" className="modal-avatar" />
-            
-            <div className="modal-content">
-                <div className="rank-card-content">
-                    <div className="rank-info">
-                        <div className="rank-level">
-                            <span className="rank-number">RANGO #44</span>
-                            <span className="level-number">NIVEL 12</span>
-                        </div>
-                        <div className="user-info">
-                            <span className="username">monte7292</span>
-                            <span className="xp">429 / 1337 XP</span>
-                        </div>
-                    </div>
-                    
-                    <div className="color-section">
-                        <h4>Colores</h4>
-                        <div className="color-palette">
-                            <div className="color-option" style={{ backgroundColor: '#5865F2' }}></div>
-                            <div className="color-option" style={{ backgroundColor: '#57F287' }}></div>
-                            <div className="color-option" style={{ backgroundColor: '#FEE75C' }}></div>
-                            <div className="color-option" style={{ backgroundColor: '#EB459E' }}></div>
-                            <div className="color-option" style={{ backgroundColor: '#ED4245' }}></div>
-                            <div className="color-option" style={{ backgroundColor: '#FFFFFF' }}></div>
-                            <div className="color-option" style={{ backgroundColor: '#000000' }}></div>
-                        </div>
-                    </div>
+        <div className="rank-card-modal show" id="rankCardModal">
+          <div className="modal-content">
+            <div className="rank-card-header">
+              <img src="https://cdn.discordapp.com/avatars/USER_ID/AVATAR_HASH.webp?size=128" alt="Avatar" className="rank-avatar" />
+              <div className="rank-details">
+                <span className="username">monte7292</span>
+                <div className="rank-stats">
+                  <span className="rank">RANGO <strong>#44</strong></span>
+                  <span className="level">NIVEL <strong>12</strong></span>
                 </div>
+                <div className="xp-bar">
+                  <div className="xp-fill" style={{ width: '32%' }}></div>
+                </div>
+                <span className="xp-info">429 / 1337 XP</span>
+              </div>
             </div>
+
+            <div className="color-section">
+              <h4>Colores</h4>
+              <div className="color-palette">
+                <div className="color-option" style={{ backgroundColor: '#5865F2' }}></div>
+                <div className="color-option" style={{ backgroundColor: '#57F287' }}></div>
+                <div className="color-option" style={{ backgroundColor: '#FEE75C' }}></div>
+                <div className="color-option" style={{ backgroundColor: '#EB459E' }}></div>
+                <div className="color-option" style={{ backgroundColor: '#ED4245' }}></div>
+                <div className="color-option" style={{ backgroundColor: '#FFFFFF' }}></div>
+                <div className="color-option" style={{ backgroundColor: '#000000' }}></div>
+              </div>
+            </div>
+          </div>
         </div>
+
+
 
       <div className="banner-container">
         <div className="banner-content">
