@@ -4,7 +4,6 @@ import { useAuth } from '../auth/AuthContext';
 import discord from '../config/discord';
 import logo from '../assets/img/logo.webp';
 import '../assets/css/Actualizaciones.css'
-import CardColorModal from './CardColorModal';
 
 interface MainHeaderProps {
   showBackButton?: boolean;
@@ -15,14 +14,9 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
-  const [isCardColorModalOpen, setIsCardColorModalOpen] = React.useState(false);
 
   const handleLogin = () => {
     window.location.href = discord.oauthUrl;
-  };
-
-  const toggleCardColorModal = () => {
-    setIsCardColorModalOpen(!isCardColorModalOpen);
   };
 
   const handleLogout = async () => {
@@ -111,39 +105,44 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
           </div>
       </div>
 
-      <div className="card-color-modal">
-      <div className="modal-header">
-        <h3>Editar tarjeta de rango</h3>
-      </div>
-      
-        <div className="modal-content">
-          <div className="rank-info">
-            <div className="rank-level">
-              <span className="rank-number">RANGO #44</span>
-              <span className="level-number">NIVEL 12</span>
+      <div className="modal-overlay" id="rankCardOverlay"></div>
+        <div className="rank-card-modal" id="rankCardModal">
+            <button className="close-rank-card" id="closeRankCard" aria-label="Cerrar modal">
+                <i className="fas fa-times" style={{ color: 'red' }}></i>
+            </button>
+            
+            <div className="modal-banner"></div>
+            <div className="status-badge">TARJETA DE RANGO</div>
+            <img src="https://www.niveles.xyz/static/media/logo.4392711baa0969494dea.webp" alt="Avatar" className="modal-avatar" />
+            
+            <div className="modal-content">
+                <div className="rank-card-content">
+                    <div className="rank-info">
+                        <div className="rank-level">
+                            <span className="rank-number">RANGO #44</span>
+                            <span className="level-number">NIVEL 12</span>
+                        </div>
+                        <div className="user-info">
+                            <span className="username">monte7292</span>
+                            <span className="xp">429 / 1337 XP</span>
+                        </div>
+                    </div>
+                    
+                    <div className="color-section">
+                        <h4>Colores</h4>
+                        <div className="color-palette">
+                            <div className="color-option" style={{ backgroundColor: '#5865F2' }}></div>
+                            <div className="color-option" style={{ backgroundColor: '#57F287' }}></div>
+                            <div className="color-option" style={{ backgroundColor: '#FEE75C' }}></div>
+                            <div className="color-option" style={{ backgroundColor: '#EB459E' }}></div>
+                            <div className="color-option" style={{ backgroundColor: '#ED4245' }}></div>
+                            <div className="color-option" style={{ backgroundColor: '#FFFFFF' }}></div>
+                            <div className="color-option" style={{ backgroundColor: '#000000' }}></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="user-info">
-              <span className="username">monte7292</span>
-              <span className="xp">429 / 1337 XP</span>
-            </div>
-          </div>
-          
-          <div className="color-options">
-            <h4>Colores</h4>
-            <div className="color-palette">
-              {/* Ejemplo de colores - puedes añadir más */}
-              <div className="color-option" style={{ backgroundColor: '#5865F2' }}></div>
-              <div className="color-option" style={{ backgroundColor: '#57F287' }}></div>
-              <div className="color-option" style={{ backgroundColor: '#FEE75C' }}></div>
-              <div className="color-option" style={{ backgroundColor: '#EB459E' }}></div>
-              <div className="color-option" style={{ backgroundColor: '#ED4245' }}></div>
-              <div className="color-option" style={{ backgroundColor: '#FFFFFF' }}></div>
-              <div className="color-option" style={{ backgroundColor: '#000000' }}></div>
-            </div>
-          </div>
         </div>
-      </div>
-
 
       <div className="banner-container">
         <div className="banner-content">
@@ -237,10 +236,6 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
                       >
                         <i className="fa fa-star" style={{ marginTop: '7.5px' }}></i> Valóranos
                       </a>
-                      <button className="dropdown-item2" onClick={toggleCardColorModal}>
-                        <i className="fa fa-palette" style={{ marginTop: '7.5px' }}></i> Personalizar tarjeta
-                      </button>
-
                       <a 
                         className="dropdown-item2" 
                         href="https://discord.com/invite/mu7qfudTuj"

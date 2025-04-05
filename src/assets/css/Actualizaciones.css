@@ -310,3 +310,132 @@
 .color-option:hover {
   border-color: white;
 }
+
+
+/* Estilo para el modal de tarjeta de rango */
+.rank-card-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--background-dark);
+  color: var(--text);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: min(90%, 400px);
+  max-height: 80vh;
+  overflow: hidden;
+  display: none;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  font-family: 'Inter', sans-serif;
+}
+
+.rank-card-modal.show {
+  display: block;
+  opacity: 1;
+  animation: modalAppear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.rank-card-content {
+  padding: 20px;
+}
+
+.rank-info {
+  margin-bottom: 25px;
+}
+
+.rank-level {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.username {
+  font-weight: 600;
+}
+
+.xp {
+  color: var(--text-secondary);
+}
+
+.color-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.color-palette {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.color-option {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.color-option:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón de cerrar */
+.close-rank-card {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 3;
+}
+
+.close-rank-card:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .rank-card-modal {
+    width: 95%;
+  }
+  
+  .rank-level {
+    font-size: 14px;
+  }
+  
+  .user-info {
+    font-size: 13px;
+  }
+  
+  .color-option {
+    width: 25px;
+    height: 25px;
+  }
+}
