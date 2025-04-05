@@ -200,7 +200,7 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
                       <button className="dropdown-item2" onClick={navigateToDashboard}>
                         <i className="fa fa-server"></i> Mis Servidores
                       </button>
-                      <button onClick={openEditCardModal}>Editar Tarjeta de Rango</button>
+                      <button className="dropdown-item2" onClick={openEditCardModal}>Editar Tarjeta de Rango</button>
                       {isModalOpen && user && (
                         <EditCardModal user={user} onClose={closeEditCardModal} />
                       )}
