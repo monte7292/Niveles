@@ -87,7 +87,7 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
           
           <div className="modal-banner"></div>
           <div className="status-badge">ÚLTIMAS ACTUALIZACIONES</div>
-          <img src="https://www.niveles.xyz/static/media/logo.b9b160b7a19443eb8ad5.webp" alt="Avatar" className="modal-avatar" />
+          <img src="https://www.niveles.xyz/static/media/logo.4392711baa0969494dea.webp" alt="Avatar" className="modal-avatar" />
           
           <div className="modal-content">
               <div className="modal-header">
