@@ -1,15 +1,207 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import discord from '../config/discord';
 import logo from '../assets/img/logo.webp';
-import '../assets/css/Actualizaciones.css'
+import '../assets/css/Actualizaciones.css';
+import axios from 'axios';
 
 interface MainHeaderProps {
   showBackButton?: boolean;
 }
 
+const CardColorEditor = ({ user, onClose }: { user: any, onClose: () => void }) => {
+  const [cardColor, setCardColor] = useState(user.cardColor || '#0099ff');
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSave = async () => {
+    setIsSaving(true);
+    setError('');
+    
+    try {
+      const response = await axios.post('/api/user/update-card-color', { 
+        cardColor 
+      }, {
+        withCredentials: true
+      });
+
+      if (response.data.success) {
+        onClose();
+        // Recargar para ver los cambios
+        window.location.reload();
+      } else {
+        setError('Error al guardar el color');
+      }
+    } catch (err) {
+      setError('Error de conexión con el servidor');
+      console.error('Error saving card color:', err);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  return (
+    <div className="modal-overlay" style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 1000
+    }}>
+      <div className="card-editor-content" style={{
+        backgroundColor: '#2f3136',
+        padding: '20px',
+        borderRadius: '8px',
+        width: '90%',
+        maxWidth: '500px',
+        color: 'white'
+      }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '20px'
+        }}>
+          <h2 style={{ margin: 0 }}>Editar color de tarjeta</h2>
+          <button onClick={onClose} style={{
+            background: 'none',
+            border: 'none',
+            color: 'white',
+            fontSize: '1.5rem',
+            cursor: 'pointer'
+          }}>
+            &times;
+          </button>
+        </div>
+
+        <div style={{ marginBottom: '20px' }}>
+          <div style={{
+            backgroundColor: cardColor,
+            padding: '20px',
+            borderRadius: '8px',
+            marginBottom: '20px',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 100%)'
+            }}></div>
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ 
+                fontSize: '0.8rem',
+                fontWeight: 'bold',
+                marginBottom: '5px'
+              }}>RANGO #1 NIVEL 100</div>
+              <div style={{ 
+                fontSize: '1.2rem',
+                fontWeight: 'bold',
+                marginBottom: '5px'
+              }}>{user.username}</div>
+              <div style={{ fontSize: '0.8rem' }}>9999 / 10000 XP</div>
+            </div>
+          </div>
+
+          <div>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontWeight: 'bold'
+            }}>Color hexadecimal:</label>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <input 
+                type="color" 
+                value={cardColor}
+                onChange={(e) => setCardColor(e.target.value)}
+                style={{
+                  width: '50px',
+                  height: '50px',
+                  border: 'none',
+                  marginRight: '10px',
+                  cursor: 'pointer'
+                }}
+              />
+              <input 
+                type="text" 
+                value={cardColor}
+                onChange={(e) => setCardColor(e.target.value)}
+                style={{
+                  flex: 1,
+                  padding: '10px',
+                  borderRadius: '4px',
+                  border: '1px solid #40444b',
+                  backgroundColor: '#36393f',
+                  color: 'white'
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {error && (
+          <div style={{
+            color: '#f04747',
+            marginBottom: '15px',
+            textAlign: 'center'
+          }}>{error}</div>
+        )}
+
+        <div style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gap: '10px'
+        }}>
+          <button 
+            onClick={onClose}
+            disabled={isSaving}
+            style={{
+              padding: '10px 15px',
+              borderRadius: '4px',
+              border: 'none',
+              backgroundColor: '#4f545c',
+              color: 'white',
+              cursor: 'pointer',
+              opacity: isSaving ? 0.5 : 1
+            }}
+          >
+            Cancelar
+          </button>
+          <button 
+            onClick={handleSave}
+            disabled={isSaving}
+            style={{
+              padding: '10px 15px',
+              borderRadius: '4px',
+              border: 'none',
+              backgroundColor: '#5865f2',
+              color: 'white',
+              cursor: 'pointer',
+              opacity: isSaving ? 0.5 : 1
+            }}
+          >
+            {isSaving ? 'Guardando...' : 'Guardar cambios'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+
+
 const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
+  const [showColorEditor, setShowColorEditor] = React.useState(false);
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -78,6 +270,12 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
 
   return (
     <>
+    {showColorEditor && user && (
+        <CardColorEditor 
+          user={user} 
+          onClose={() => setShowColorEditor(false)} 
+        />
+      )}
       {/* Modal de actualizaciones (mantenido exactamente igual) */}
       <div className="modal-overlay" id="updatesOverlay"></div>
       <div className="updates-modal" id="updatesModal">
@@ -188,6 +386,12 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
                       <button className="dropdown-item"><b>Niveles</b></button>
                       <button className="dropdown-item2" onClick={navigateToDashboard}>
                         <i className="fa fa-server"></i> Mis Servidores
+                      </button>
+                      <button 
+                        className="dropdown-item2" 
+                        onClick={() => setShowColorEditor(true)}
+                      >
+                        <i className="fa fa-palette"></i> Cambiar color de tarjeta
                       </button>
                       <a 
                         className="dropdown-item2" 

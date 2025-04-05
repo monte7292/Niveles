@@ -1,0 +1,125 @@
+.card-editor-modal {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0, 0, 0, 0.7);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 1000;
+}
+
+.card-editor-content {
+background-color: #2f3136;
+border-radius: 8px;
+width: 500px;
+max-width: 90%;
+padding: 20px;
+}
+
+.card-editor-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.card-editor-header h2 {
+margin: 0;
+color: #fff;
+}
+
+.close-button {
+background: none;
+border: none;
+color: #b9bbbe;
+font-size: 24px;
+cursor: pointer;
+}
+
+.card-preview {
+margin-bottom: 20px;
+}
+
+.preview-card {
+width: 100%;
+height: 120px;
+border-radius: 8px;
+padding: 15px;
+color: white;
+text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.preview-rank {
+font-size: 14px;
+font-weight: bold;
+margin-bottom: 8px;
+}
+
+.preview-username {
+font-size: 18px;
+font-weight: bold;
+margin-bottom: 4px;
+}
+
+.preview-xp {
+font-size: 12px;
+}
+
+.form-group {
+margin-bottom: 15px;
+}
+
+.form-group label {
+display: block;
+color: #b9bbbe;
+margin-bottom: 8px;
+}
+
+.form-group input[type="color"] {
+width: 50px;
+height: 30px;
+padding: 2px;
+background: #202225;
+border: 1px solid #202225;
+border-radius: 4px;
+cursor: pointer;
+}
+
+.form-group span {
+margin-left: 10px;
+color: #fff;
+font-size: 14px;
+}
+
+.card-editor-footer {
+display: flex;
+justify-content: flex-end;
+gap: 10px;
+margin-top: 20px;
+}
+
+.cancel-btn, .save-btn {
+padding: 8px 16px;
+border-radius: 4px;
+border: none;
+cursor: pointer;
+font-weight: bold;
+}
+
+.cancel-btn {
+background: #4f545c;
+color: #fff;
+}
+
+.save-btn {
+background: #7289da;
+color: #fff;
+}
+
+.save-btn:disabled {
+opacity: 0.7;
+cursor: not-allowed;
+}

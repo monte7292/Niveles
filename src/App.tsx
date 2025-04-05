@@ -3,6 +3,7 @@ import './assets/css/App.css';
 import './assets/css/Descuento.css';
 import './assets/css/Actualizaciones.css'
 import './assets/css/ServerConfig.css'
+import './assets/css/CardEditor.css'
 import logo from './assets/img/logo.webp'; // Importa la imagen
 import { Link, useNavigate, useLocation, Routes, Route } from 'react-router-dom';
 import { useAuth } from './auth/AuthContext'; // Importa el hook useAuth
