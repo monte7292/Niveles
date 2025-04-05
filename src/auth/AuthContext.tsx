@@ -6,6 +6,10 @@ interface User {
   id: string;
   username: string;
   avatarUrl: string;
+  tag: string; // Asegúrate de que esta propiedad esté incluida
+  level: number; // Asegúrate de que esta propiedad esté incluida
+  rank: string; // Asegúrate de que esta propiedad esté incluida
+  xp: number; // Asegúrate de que esta propiedad esté incluida
 }
 
 interface AuthContextType {
@@ -30,10 +34,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         if (response.ok) {
           const userData = await response.json();
-          setUser({
+          setUser ({
             id: userData.id,
             username: userData.username,
-            avatarUrl: userData.avatarUrl || 'https://cdn.discordapp.com/embed/avatars/0.png'
+            avatarUrl: userData.avatarUrl || 'https://cdn.discordapp.com/embed/avatars/0.png',
+            tag: userData.tag, // Asegúrate de que esta propiedad esté incluida
+            level: userData.level, // Asegúrate de que esta propiedad esté incluida
+            rank: userData.rank, // Asegúrate de que esta propiedad esté incluida
+            xp: userData.xp // Asegúrate de que esta propiedad esté incluida
           });
         }
       } catch (error) {

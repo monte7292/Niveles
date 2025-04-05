@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import discord from '../config/discord';
 import logo from '../assets/img/logo.webp';
-import '../assets/css/Actualizaciones.css'
+import '../assets/css/Actualizaciones.css';
+import EditCardModal from './EditCardModel';
 
 interface MainHeaderProps {
   showBackButton?: boolean;
@@ -14,6 +15,16 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
+
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const openEditCardModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeEditCardModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleLogin = () => {
     window.location.href = discord.oauthUrl;
@@ -189,6 +200,10 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
                       <button className="dropdown-item2" onClick={navigateToDashboard}>
                         <i className="fa fa-server"></i> Mis Servidores
                       </button>
+                      <button onClick={openEditCardModal}>Editar Tarjeta de Rango</button>
+                      {isModalOpen && user && (
+                        <EditCardModal user={user} onClose={closeEditCardModal} />
+                      )}
                       <a 
                         className="dropdown-item2" 
                         href="https://top.gg/bot/1330564254822043761#reviews" 
