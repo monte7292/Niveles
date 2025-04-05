@@ -1,0 +1,108 @@
+.user-profile-config {
+    --primary: #43a4e5;
+    --secondary: #5865f2;
+    --foreground: #e6e6e6;
+    --background: #2f3136;
+    --card-bg: #36393f;
+    color: var(--foreground);
+  }
+  
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+  }
+  
+  .loading-spinner .spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(67, 164, 229, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary);
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  .config-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .config-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .save-button {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 12px;
+    background: var(--secondary);
+    border: none;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .save-button:hover {
+    background: #4752c4;
+  }
+  
+  .save-button:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .botonvolver {
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    background: rgba(67, 164, 229, 0.1);
+    border: 1px solid rgba(67, 164, 229, 0.2);
+    color: var(--primary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .botonvolver:hover {
+    background: rgba(67, 164, 229, 0.2);
+  }
+  
+  .new-badge {
+    background-color: #43a4e5;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+  }

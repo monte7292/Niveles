@@ -3,7 +3,7 @@ import './assets/css/App.css';
 import './assets/css/Descuento.css';
 import './assets/css/Actualizaciones.css'
 import './assets/css/ServerConfig.css'
-import './assets/css/CardEditor.css'
+import './assets/css/UserProfileConfig.css'
 import logo from './assets/img/logo.webp'; // Importa la imagen
 import { Link, useNavigate, useLocation, Routes, Route } from 'react-router-dom';
 import { useAuth } from './auth/AuthContext'; // Importa el hook useAuth
@@ -16,6 +16,7 @@ import PrivacyPolicyPage from './pages/privacy-policy';
 import TermsConditionsPage from './pages/terms-conditions';
 import Leaderboard from './pages/leaderboard';
 import GlobalLeaderboard from './pages/TopGlobal';
+import UserProfileConfig from './components/UserProfileConfig';
 
 import AnimateOnVisible from './components/AnimateOnVisible'
 
@@ -929,6 +930,11 @@ const RoutesApp: React.FC = () => {
         <ProtectedRoute>
           <ServerConfig />
         </ProtectedRoute>
+      } />
+      <Route path="/profile" element={
+        <ProtectedRoute>
+          <UserProfileConfig />
+        </ProtectedRoute>  
       } />
       <Route path="/dashboard/server/:serverId/leaderboard" element={
         <ProtectedRoute>
