@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import discord from '../config/discord';
 import logo from '../assets/img/logo.webp';
-import '../assets/css/Actualizaciones.css';
-import UserProfileConfig from './UserProfileConfig';
+import '../assets/css/Actualizaciones.css'
 
 interface MainHeaderProps {
   showBackButton?: boolean;
@@ -189,12 +188,6 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
                       <button className="dropdown-item"><b>Niveles</b></button>
                       <button className="dropdown-item2" onClick={navigateToDashboard}>
                         <i className="fa fa-server"></i> Mis Servidores
-                      </button>
-                      <button 
-                        onClick={() => navigate('/profile')}
-                        className="profile-button"
-                      >
-                        <i className="fas fa-user-cog"></i> Configurar Perfil
                       </button>
                       <a 
                         className="dropdown-item2" 
