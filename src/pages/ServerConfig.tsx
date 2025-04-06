@@ -794,148 +794,299 @@ useEffect(() => {
                 </div>
               </div>
 
-              <div className={`config-card ${!isPremiumActive ? 'premium-locked' : ''}`}>
-                  <div className="card-header">
-                    <div className="card-title">🎨 Personalizar tu Carta</div>
-                    {!isPremiumActive && (
-                      <a href="https://discord.com/discovery/applications/1330564254822043761/store/1347581050041401518" className="btn btn-premium" target="_blank" rel="noopener noreferrer">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          {/* Icono Premium */}
-                        </svg>
-                        &#160;Premium
-                      </a>
-                    )}
+
+
+
+              <div className={`config-card ${!isPremiumActive ? 'premium-locked' : ''}`} style={{
+                position: 'relative',
+                overflow: 'hidden',
+                boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.1)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: 'linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
+                backdropFilter: 'blur(10px)',
+                borderRadius: '16px',
+                transition: 'all 0.3s ease'
+              }}>
+                {/* Efecto de borde sutil */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  borderRadius: '16px',
+                  padding: '1px',
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                  pointerEvents: 'none',
+                  zIndex: 0
+                }}></div>
+
+                <div className="card-header" style={{
+                  padding: '1.5rem 1.5rem 1rem',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <div style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '10px',
+                      background: 'linear-gradient(135deg, rgba(67,164,229,0.2) 0%, rgba(67,164,229,0.1) 100%)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'var(--primary)',
+                      fontSize: '1.25rem'
+                    }}>
+                      🎨
+                    </div>
+                    <h3 style={{
+                      margin: 0,
+                      fontSize: '1.25rem',
+                      fontWeight: 600,
+                      color: 'var(--foreground)',
+                      letterSpacing: '-0.01em'
+                    }}>Personalizar tu Carta</h3>
                   </div>
-                  <div className="card-content">
-                    <p>
-                      Personaliza el color de tu carta de perfil en este servidor.
-                      {!isPremiumActive && (
-                        <span className="premium-text">
-                          Esta función solo está disponible para usuarios Premium.
-                        </span>
-                      )}
-                    </p>
-                    
-                    {isPremiumActive ? (
-                      userCardSettings ? (
-                        <div style={{ marginTop: '1rem' }}>
-                          <div style={{ 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            gap: '1rem',
-                            marginBottom: '1rem'
+                  {!isPremiumActive && (
+                    <a href="https://discord.com/discovery/applications/1330564254822043761/store/1347581050041401518" 
+                      className="btn btn-premium" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{
+                        padding: '0.5rem 1rem',
+                        borderRadius: '8px',
+                        background: 'linear-gradient(135deg, rgba(232,183,79,0.2) 0%, rgba(232,183,79,0.1) 100%)',
+                        color: 'var(--premium-text)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        fontSize: '0.9rem',
+                        fontWeight: 500,
+                        textDecoration: 'none',
+                        transition: 'all 0.2s ease',
+                        border: '1px solid rgba(232,183,79,0.2)',
+                        boxShadow: '0 2px 10px rgba(232,183,79,0.05)'
+                      }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.174 17.44h-1.349v.003h1.349v-.003z" fill="#FFCB39"></path>
+                        <path d="M11.826 18.91v-1.186H4.154a1.62 1.62 0 00-1.135.462c-.301.296-.47.697-.47 1.116v.131c0 .418.169.82.47 1.116.301.295.71.462 1.135.462h6.858l.803-1.986.01-.115z" fill="#FFE570"></path>
+                        <path d="M21.977 19.088a.42.42 0 000-.052c-.009-.06-.022-.12-.04-.179v-.018a1.463 1.463 0 00-.072-.19l-.016-.034a1.655 1.655 0 00-.094-.165 1.616 1.616 0 00-.283-.321 1.673 1.673 0 00-.375-.24l-.155-.06-.153-.042h-.016l-.13-.021-1.339 3.26h1.121a1.58 1.58 0 001.012-.357c.079-.065.152-.137.22-.213a1.601 1.601 0 00.352-.818V19.302a1.346 1.346 0 00-.032-.213zM16.548 17.724L15.205 21h1.857l1.343-3.276h-1.857z" fill="#FFCB39"></path>
+                      </svg>
+                      Premium
+                    </a>
+                  )}
+                </div>
+
+                <div className="card-content" style={{ padding: '1.5rem', position: 'relative', zIndex: 1 }}>
+                  <p style={{
+                    color: 'rgba(255,255,255,0.7)',
+                    fontSize: '0.95rem',
+                    lineHeight: 1.5,
+                    marginBottom: '1.5rem'
+                  }}>
+                    Personaliza el diseño de tu carta de perfil en este servidor con colores únicos.
+                    {!isPremiumActive && (
+                      <span style={{
+                        display: 'block',
+                        marginTop: '0.5rem',
+                        color: 'var(--premium-text)',
+                        fontWeight: 500,
+                        fontSize: '0.9rem'
+                      }}>
+                        Esta función solo está disponible para usuarios Premium.
+                      </span>
+                    )}
+                  </p>
+                  
+                  {isPremiumActive ? (
+                    userCardSettings ? (
+                      <div style={{ marginTop: '1rem' }}>
+                        <div style={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          gap: '1.5rem',
+                          marginBottom: '1.5rem',
+                          padding: '1.25rem',
+                          borderRadius: '12px',
+                          background: 'rgba(67, 164, 229, 0.03)',
+                          border: '1px solid rgba(67, 164, 229, 0.1)'
+                        }}>
+                          <div style={{
+                            width: '80px',
+                            height: '80px',
+                            borderRadius: '12px',
+                            backgroundColor: userCardSettings.cardColor,
+                            border: '2px solid var(--background)',
+                            boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                            transition: 'all 0.3s ease',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '1.5rem',
+                            color: 'white',
+                            textShadow: '0 1px 3px rgba(0,0,0,0.3)'
                           }}>
-                            <div style={{
-                              width: '50px',
-                              height: '50px',
-                              borderRadius: '8px',
-                              backgroundColor: userCardSettings.cardColor,
-                              border: '2px solid var(--background)',
-                              boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-                            }}></div>
-                            <div>
-                              <label style={{ 
-                                display: 'block', 
-                                marginBottom: '0.5rem',
-                                color: 'var(--foreground)',
-                                fontSize: '0.9rem',
-                                fontWeight: '500'
-                              }}>
-                                Tu color actual
-                              </label>
-                              <div style={{ 
-                                padding: '0.5rem',
-                                borderRadius: '6px',
-                                backgroundColor: 'rgba(67, 164, 229, 0.1)',
-                                fontFamily: 'monospace'
-                              }}>
-                                {userCardSettings.cardColor}
-                              </div>
-                            </div>
+                            {userCardSettings.username.charAt(0).toUpperCase()}
                           </div>
-                          
-                          <div style={{ marginBottom: '1rem' }}>
+                          <div style={{ flex: 1 }}>
                             <label style={{ 
                               display: 'block', 
                               marginBottom: '0.5rem',
-                              color: 'var(--foreground)',
-                              fontSize: '0.9rem',
-                              fontWeight: '500'
+                              color: 'rgba(255,255,255,0.8)',
+                              fontSize: '0.85rem',
+                              fontWeight: '500',
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.05em'
                             }}>
-                              Nuevo color
+                              Color Actual
                             </label>
-                            <div style={{ display: 'flex', gap: '1rem' }}>
+                            <div style={{ 
+                              padding: '0.75rem',
+                              borderRadius: '8px',
+                              background: 'rgba(67, 164, 229, 0.05)',
+                              fontFamily: 'monospace',
+                              fontSize: '0.95rem',
+                              color: 'var(--foreground)',
+                              border: '1px solid rgba(67, 164, 229, 0.1)',
+                              display: 'inline-block',
+                              minWidth: '120px'
+                            }}>
+                              {userCardSettings.cardColor}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div style={{ 
+                          marginBottom: '1.5rem',
+                          padding: '1.25rem',
+                          borderRadius: '12px',
+                          background: 'rgba(67, 164, 229, 0.03)',
+                          border: '1px solid rgba(67, 164, 229, 0.1)'
+                        }}>
+                          <label style={{ 
+                            display: 'block', 
+                            marginBottom: '1rem',
+                            color: 'rgba(255,255,255,0.8)',
+                            fontSize: '0.85rem',
+                            fontWeight: '500',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em'
+                          }}>
+                            Seleccionar Nuevo Color
+                          </label>
+                          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                            <div style={{
+                              position: 'relative',
+                              width: '60px',
+                              height: '60px',
+                              borderRadius: '12px',
+                              overflow: 'hidden',
+                              boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+                            }}>
                               <input
                                 type="color"
                                 value={newCardColor}
                                 onChange={(e) => setNewCardColor(e.target.value)}
                                 style={{
-                                  width: '50px',
-                                  height: '50px',
-                                  borderRadius: '8px',
-                                  border: 'none',
+                                  position: 'absolute',
+                                  width: '100%',
+                                  height: '100%',
+                                  opacity: 0,
                                   cursor: 'pointer'
                                 }}
                               />
-                              <input
-                                type="text"
-                                value={newCardColor}
-                                onChange={(e) => setNewCardColor(e.target.value)}
-                                placeholder="Ej: #0099ff"
-                                style={{
-                                  flex: 1,
-                                  padding: '0.75rem',
-                                  borderRadius: '12px',
-                                  border: '1px solid rgba(67, 164, 229, 0.2)',
-                                  background: 'rgba(67, 164, 229, 0.05)',
-                                  color: 'var(--foreground)',
-                                  fontSize: '0.95rem'
-                                }}
-                              />
+                              <div style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: newCardColor,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                fontSize: '1.5rem'
+                              }}>
+                                <i className="fas fa-palette"></i>
+                              </div>
                             </div>
-                          </div>
-                          
-                          <button
-                            onClick={handleCardColorUpdate}
-                            disabled={isUpdatingColor || newCardColor === userCardSettings.cardColor}
-                            className="save-button"
-                            style={{
-                              width: '100%',
-                              padding: '0.75rem',
-                              borderRadius: '12px',
-                              background: 'var(--secondary)',
-                              border: 'none',
-                              color: 'white',
-                              fontWeight: '500',
-                              cursor: 'pointer',
-                              opacity: isUpdatingColor ? 0.7 : 1
-                            }}
-                          >
-                            {isUpdatingColor ? 'Actualizando...' : 'Guardar Color'}
-                          </button>
-                          
-                          <div style={{ 
-                            marginTop: '1rem',
-                            fontSize: '0.8rem',
-                            color: '#6c757d'
-                          }}>
-                            <p>💡 Este cambio solo afectará a tu carta en este servidor.</p>
-                            <p>💡 Usa códigos HEX (#0099ff) o nombres de colores (blue).</p>
+                            <input
+                              type="text"
+                              value={newCardColor}
+                              onChange={(e) => setNewCardColor(e.target.value)}
+                              placeholder="#RRGGBB"
+                              style={{
+                                flex: 1,
+                                padding: '0.75rem 1rem',
+                                borderRadius: '8px',
+                                border: '1px solid rgba(67, 164, 229, 0.2)',
+                                background: 'rgba(67, 164, 229, 0.05)',
+                                color: 'var(--foreground)',
+                                fontSize: '0.95rem',
+                                transition: 'all 0.2s ease',
+                                outline: 'none'
+                              }}
+                            />
                           </div>
                         </div>
-                      ) : (
-                        <div style={{
-                          padding: '1rem',
-                          textAlign: 'center',
-                          backgroundColor: 'rgba(67, 164, 229, 0.05)',
-                          borderRadius: '12px',
-                          marginTop: '1rem',
-                          border: '1px dashed rgba(67, 164, 229, 0.2)'
+                        
+                        <button
+                          onClick={handleCardColorUpdate}
+                          disabled={isUpdatingColor || newCardColor === userCardSettings.cardColor}
+                          style={{
+                            width: '100%',
+                            padding: '1rem',
+                            borderRadius: '12px',
+                            background: 'linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%)',
+                            border: 'none',
+                            color: 'white',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            opacity: isUpdatingColor ? 0.7 : 1,
+                            transition: 'all 0.2s ease',
+                            boxShadow: '0 4px 15px rgba(67, 164, 229, 0.2)',
+                            position: 'relative',
+                            overflow: 'hidden'
+                          }}
+                        >
+                          {isUpdatingColor ? (
+                            <>
+                              <span style={{ position: 'relative', zIndex: 1 }}>Actualizando...</span>
+                              <div style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%)',
+                                animation: 'pulse 1.5s infinite'
+                              }}></div>
+                            </>
+                          ) : (
+                            <span style={{ position: 'relative', zIndex: 1 }}>Guardar Cambios</span>
+                          )}
+                        </button>
+                        
+                        <div style={{ 
+                          marginTop: '1.5rem',
+                          fontSize: '0.85rem',
+                          color: 'rgba(255,255,255,0.6)',
+                          lineHeight: 1.5
                         }}>
-                          <div className="loading-spinner"></div>
-                          <p style={{ marginTop: '0.5rem' }}>Cargando tu configuración...</p>
+                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                            <div style={{ color: 'var(--primary)', fontSize: '1rem' }}>💡</div>
+                            <div>Este cambio solo afectará a tu carta en este servidor.</div>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
+                            <div style={{ color: 'var(--primary)', fontSize: '1rem' }}>🎨</div>
+                            <div>Usa códigos HEX (#0099ff) o nombres de colores válidos.</div>
+                          </div>
                         </div>
-                      )
+                      </div>
                     ) : (
                       <div style={{
                         padding: '2rem',
@@ -945,17 +1096,110 @@ useEffect(() => {
                         marginTop: '1rem',
                         border: '1px dashed rgba(67, 164, 229, 0.2)'
                       }}>
-                        <p style={{ color: '#6c757d', marginBottom: '1rem' }}>
-                          <i className="fas fa-lock" style={{ marginRight: '0.5rem' }}></i>
-                          Función Premium bloqueada
+                        <div style={{
+                          display: 'inline-block',
+                          width: '50px',
+                          height: '50px',
+                          border: '3px solid rgba(67, 164, 229, 0.2)',
+                          borderTopColor: 'var(--primary)',
+                          borderRadius: '50%',
+                          animation: 'spin 1s linear infinite',
+                          marginBottom: '1rem'
+                        }}></div>
+                        <p style={{ 
+                          color: 'rgba(255,255,255,0.8)',
+                          marginBottom: '0.5rem',
+                          fontWeight: 500
+                        }}>
+                          Cargando tu configuración...
                         </p>
-                        <p style={{ fontSize: '0.9rem', color: '#6c757d' }}>
-                          Adquiere Premium para personalizar el color de tu carta
+                        <p style={{ 
+                          fontSize: '0.85rem',
+                          color: 'rgba(255,255,255,0.6)'
+                        }}>
+                          Obteniendo los datos de tu carta
                         </p>
                       </div>
-                    )}
-                  </div>
+                    )
+                  ) : (
+                    <div style={{
+                      padding: '2rem',
+                      textAlign: 'center',
+                      background: 'linear-gradient(145deg, rgba(232,183,79,0.05) 0%, rgba(232,183,79,0.02) 100%)',
+                      borderRadius: '12px',
+                      marginTop: '1rem',
+                      border: '1px dashed rgba(232,183,79,0.2)',
+                      position: 'relative',
+                      overflow: 'hidden'
+                    }}>
+                      <div style={{
+                        position: 'absolute',
+                        top: '-50%',
+                        left: '-50%',
+                        width: '200%',
+                        height: '200%',
+                        background: 'radial-gradient(circle at center, rgba(232,183,79,0.05) 0%, transparent 70%)',
+                        animation: 'rotate 15s linear infinite',
+                        zIndex: 0
+                      }}></div>
+                      <div style={{ position: 'relative', zIndex: 1 }}>
+                        <div style={{
+                          width: '60px',
+                          height: '60px',
+                          borderRadius: '50%',
+                          background: 'rgba(232,183,79,0.1)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          marginBottom: '1rem',
+                          color: 'var(--premium-text)',
+                          fontSize: '1.5rem',
+                          border: '1px solid rgba(232,183,79,0.2)'
+                        }}>
+                          <i className="fas fa-crown"></i>
+                        </div>
+                        <h4 style={{
+                          color: 'var(--premium-text)',
+                          marginBottom: '0.5rem',
+                          fontSize: '1.1rem'
+                        }}>
+                          Función Premium
+                        </h4>
+                        <p style={{ 
+                          color: 'rgba(255,255,255,0.7)',
+                          fontSize: '0.9rem',
+                          marginBottom: '1.5rem',
+                          lineHeight: 1.5
+                        }}>
+                          Desbloquea esta función y muchas más con Premium
+                        </p>
+                        <a href="https://discord.com/discovery/applications/1330564254822043761/store/1347581050041401518" 
+                          className="btn btn-premium" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          style={{
+                            padding: '0.75rem 1.5rem',
+                            borderRadius: '8px',
+                            background: 'linear-gradient(135deg, rgba(232,183,79,0.2) 0%, rgba(232,183,79,0.1) 100%)',
+                            color: 'var(--premium-text)',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            fontSize: '0.9rem',
+                            fontWeight: 600,
+                            textDecoration: 'none',
+                            transition: 'all 0.2s ease',
+                            border: '1px solid rgba(232,183,79,0.3)',
+                            boxShadow: '0 4px 15px rgba(232,183,79,0.1)'
+                          }}>
+                          <i className="fas fa-gem" style={{ fontSize: '0.9em' }}></i>
+                          Obtener Premium
+                        </a>
+                      </div>
+                    </div>
+                  )}
                 </div>
+              </div>
 
 
 
