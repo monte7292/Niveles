@@ -816,7 +816,7 @@ useEffect(() => {
                       letterSpacing: '-0.01em'
                     }}>Personalizar tu Carta</h3>
                   </div>
-                  <span className="new-badge">Nuevo</span>
+                  {!isPremiumActive && <span className="new-badge">Nuevo</span>}
                   {!isPremiumActive && (
                     <PremiumButton />
                   )}
