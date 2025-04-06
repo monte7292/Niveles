@@ -4,8 +4,6 @@ import { useAuth } from '../auth/AuthContext';
 import discord from '../config/discord';
 import logo from '../assets/img/logo.webp';
 import '../assets/css/Actualizaciones.css'
-// En la parte superior del archivo MainHeader.tsx
-import CardCustomization from './Card';
 
 interface MainHeaderProps {
   showBackButton?: boolean;
@@ -16,16 +14,6 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
-  const [userCardSettings, setUserCardSettings] = React.useState<{
-    cardColor: string;
-    username: string;
-  } | null>({
-    cardColor: '#5865F2', // Color por defecto
-    username: user?.username || 'Usuario' // Usa el nombre del usuario o 'Usuario' como fallback
-  });
-  const [newCardColor, setNewCardColor] = React.useState('#0099ff');
-  const [isUpdatingColor, setIsUpdatingColor] = React.useState(false);
-  const [isPremiumActive, setIsPremiumActive] = React.useState(false);
 
   const handleLogin = () => {
     window.location.href = discord.oauthUrl;
@@ -43,23 +31,6 @@ const MainHeader: React.FC<MainHeaderProps> = ({ showBackButton = false }) => {
   const navigateToLeaderboard = () => {
     navigate('/global-leaderboard');
   };
-
-  // Función para manejar la actualización del color
-const handleCardColorUpdate = () => {
-  setIsUpdatingColor(true);
-  // Aquí iría tu lógica para actualizar el color
-  setTimeout(() => {
-    setIsUpdatingColor(false);
-    // Simulamos la actualización
-    if (userCardSettings) {
-      setUserCardSettings({
-        ...userCardSettings,
-        cardColor: newCardColor
-      });
-    }
-  }, 1000);
-};
-
 
   const navigateToHero = () => {
     navigate('/#hero');
@@ -218,18 +189,6 @@ const handleCardColorUpdate = () => {
                       <button className="dropdown-item2" onClick={navigateToDashboard}>
                         <i className="fa fa-server"></i> Mis Servidores
                       </button>
-                      {/* Añade el componente de personalización aquí */}
-                      <CardCustomization
-                        isPremiumActive={isPremiumActive}
-                        userCardSettings={userCardSettings || {
-                          cardColor: '#5865F2',
-                          username: user?.username || 'Usuario'
-                        }}
-                        newCardColor={newCardColor}
-                        setNewCardColor={setNewCardColor}
-                        handleCardColorUpdate={handleCardColorUpdate}
-                        isUpdatingColor={isUpdatingColor}
-                      />
                       <a 
                         className="dropdown-item2" 
                         href="https://top.gg/bot/1330564254822043761#reviews" 
