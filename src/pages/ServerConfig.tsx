@@ -768,7 +768,6 @@ useEffect(() => {
                 position: 'relative',
                 overflow: 'hidden',
                 boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.1)',
-                background: 'linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
                 backdropFilter: 'blur(10px)',
                 borderRadius: '16px',
                 transition: 'all 0.3s ease'
