@@ -764,6 +764,7 @@ useEffect(() => {
 
 
 
+
               <div className={`config-card ${!isPremiumActive ? 'premium-locked' : ''}`} style={{
                 position: 'relative',
                 overflow: 'hidden',
