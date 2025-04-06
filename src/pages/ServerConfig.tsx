@@ -741,7 +741,6 @@ useEffect(() => {
                     </div>
                     <button
                       onClick={handleAddLevelRole}
-                      disabled={!newLevelRole.level || !newLevelRole.roleId}
                       className="save-button"
                       style={{
                         width: '100%',
@@ -1012,7 +1011,6 @@ useEffect(() => {
                         
                         <button
                           onClick={handleCardColorUpdate}
-                          disabled={isUpdatingColor || newCardColor === userCardSettings.cardColor}
                           className="save-button"
                         >
                           {isUpdatingColor ? (
