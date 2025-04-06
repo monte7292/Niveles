@@ -825,8 +825,6 @@ useEffect(() => {
                 }}></div>
 
                 <div className="card-header" style={{
-                  padding: '1.5rem 1.5rem 1rem',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center'
@@ -883,7 +881,7 @@ useEffect(() => {
                   )}
                 </div>
 
-                <div className="card-content" style={{ padding: '1.5rem', position: 'relative', zIndex: 1 }}>
+                <div className="card-content" style={{ position: 'relative', zIndex: 1 }}>
                   <p style={{
                     color: 'rgba(255,255,255,0.7)',
                     fontSize: '0.95rem',
