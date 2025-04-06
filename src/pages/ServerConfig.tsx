@@ -801,7 +801,6 @@ useEffect(() => {
                 position: 'relative',
                 overflow: 'hidden',
                 boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.1)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
                 background: 'linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
                 backdropFilter: 'blur(10px)',
                 borderRadius: '16px',
@@ -916,8 +915,8 @@ useEffect(() => {
                           border: '1px solid rgba(67, 164, 229, 0.1)'
                         }}>
                           <div style={{
-                            width: '80px',
-                            height: '80px',
+                            width: '65px',
+                            height: '65px',
                             borderRadius: '12px',
                             backgroundColor: userCardSettings.cardColor,
                             border: '2px solid var(--background)',
@@ -1065,7 +1064,11 @@ useEffect(() => {
                               }}></div>
                             </>
                           ) : (
-                            <span style={{ position: 'relative', zIndex: 1 }}>Guardar Cambios</span>
+                            <button
+                              className="save-button"
+                            >
+                              Guardar Mensaje
+                            </button>
                           )}
                         </button>
                         
