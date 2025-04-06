@@ -1,5 +1,5 @@
 import React from "react";
-import "./PremiumButton.css";
+import "../assets/css/App.css";
 
 const PremiumButton = ({ isLoading = false }) => {
   if (isLoading) {
