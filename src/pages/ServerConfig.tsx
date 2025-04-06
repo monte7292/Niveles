@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import MainHeader from '../components/MainHeader';
+import PremiumButton from '../components/PremiumButton';
 import config from '../config/config';
 
 interface Channel {
@@ -28,6 +29,10 @@ interface ServerSettings {
   disabledXpChannels: string[];
   levelRoles: { [key: number]: string };
   voiceXpEnabled: boolean; // Nuevo campo
+}
+
+function Componente1() {
+  return <PremiumButton />;
 }
 
 interface UserCardSettings {
@@ -828,12 +833,11 @@ useEffect(() => {
                   justifyContent: 'space-between',
                   alignItems: 'center'
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
                     <div style={{
                       width: '40px',
                       height: '40px',
                       borderRadius: '10px',
-                      background: 'linear-gradient(135deg, rgba(67,164,229,0.2) 0%, rgba(67,164,229,0.1) 100%)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -851,32 +855,7 @@ useEffect(() => {
                     }}>Personalizar tu Carta</h3>
                   </div>
                   {!isPremiumActive && (
-                    <a href="https://discord.com/discovery/applications/1330564254822043761/store/1347581050041401518" 
-                      className="btn btn-premium" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      style={{
-                        padding: '0.5rem 1rem',
-                        borderRadius: '8px',
-                        background: 'linear-gradient(135deg, rgba(232,183,79,0.2) 0%, rgba(232,183,79,0.1) 100%)',
-                        color: 'var(--premium-text)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.5rem',
-                        fontSize: '0.9rem',
-                        fontWeight: 500,
-                        textDecoration: 'none',
-                        transition: 'all 0.2s ease',
-                        border: '1px solid rgba(232,183,79,0.2)',
-                        boxShadow: '0 2px 10px rgba(232,183,79,0.05)'
-                      }}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13.174 17.44h-1.349v.003h1.349v-.003z" fill="#FFCB39"></path>
-                        <path d="M11.826 18.91v-1.186H4.154a1.62 1.62 0 00-1.135.462c-.301.296-.47.697-.47 1.116v.131c0 .418.169.82.47 1.116.301.295.71.462 1.135.462h6.858l.803-1.986.01-.115z" fill="#FFE570"></path>
-                        <path d="M21.977 19.088a.42.42 0 000-.052c-.009-.06-.022-.12-.04-.179v-.018a1.463 1.463 0 00-.072-.19l-.016-.034a1.655 1.655 0 00-.094-.165 1.616 1.616 0 00-.283-.321 1.673 1.673 0 00-.375-.24l-.155-.06-.153-.042h-.016l-.13-.021-1.339 3.26h1.121a1.58 1.58 0 001.012-.357c.079-.065.152-.137.22-.213a1.601 1.601 0 00.352-.818V19.302a1.346 1.346 0 00-.032-.213zM16.548 17.724L15.205 21h1.857l1.343-3.276h-1.857z" fill="#FFCB39"></path>
-                      </svg>
-                      Premium
-                    </a>
+                    <PremiumButton />
                   )}
                 </div>
 
@@ -1034,21 +1013,7 @@ useEffect(() => {
                         <button
                           onClick={handleCardColorUpdate}
                           disabled={isUpdatingColor || newCardColor === userCardSettings.cardColor}
-                          style={{
-                            width: '100%',
-                            padding: '1rem',
-                            borderRadius: '12px',
-                            background: 'linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%)',
-                            border: 'none',
-                            color: 'white',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            opacity: isUpdatingColor ? 0.7 : 1,
-                            transition: 'all 0.2s ease',
-                            boxShadow: '0 4px 15px rgba(67, 164, 229, 0.2)',
-                            position: 'relative',
-                            overflow: 'hidden'
-                          }}
+                          className="save-button"
                         >
                           {isUpdatingColor ? (
                             <>
@@ -1064,11 +1029,7 @@ useEffect(() => {
                               }}></div>
                             </>
                           ) : (
-                            <button
-                              className="save-button"
-                            >
-                              Guardar Mensaje
-                            </button>
+                            <span style={{ position: 'relative', zIndex: 1 }}>Guardar Cambios</span>
                           )}
                         </button>
                         
