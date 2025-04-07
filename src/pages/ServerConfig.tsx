@@ -39,6 +39,7 @@ interface UserCardSettings {
   discordId: string;
   username: string;
   cardColor: string;
+  avatarUrl: string;
 }
 
 interface VoiceXPResponse extends ServerSettings {
@@ -853,6 +854,7 @@ useEffect(() => {
                         borderRadius: '12px',
                         background: 'rgba(67, 164, 229, 0.03)',
                         border: '1px solid rgba(67, 164, 229, 0.1)',
+                        marginBottom: '1rem',
                       }}>
                                 {/* Encabezado con avatar y título */}
                               <div style={{ 
@@ -873,9 +875,12 @@ useEffect(() => {
                                   justifyContent: 'center',
                                   fontSize: '1.5rem',
                                   color: 'white',
-                                  textShadow: '0 1px 3px rgba(0,0,0,0.3)'
+                                  textShadow: '0 1px 3px rgba(0,0,0,0.3)',
+                                  backgroundImage: userCardSettings.avatarUrl ? `url(${userCardSettings.avatarUrl})` : 'none',
+                                  backgroundSize: 'cover',
+                                  backgroundPosition: 'center'
                                 }}>
-                                  {userCardSettings.username.charAt(0).toUpperCase()}
+                                  {!userCardSettings.avatarUrl && userCardSettings.username.charAt(0).toUpperCase()}
                                 </div>
                                 <h3 style={{ 
                                   margin: 0,
@@ -927,7 +932,6 @@ useEffect(() => {
                         </div>
                                 
                         <div style={{ 
-                          marginBottom: '1.5rem',
                           padding: '1.25rem',
                           borderRadius: '12px',
                           background: 'rgba(67, 164, 229, 0.03)',
