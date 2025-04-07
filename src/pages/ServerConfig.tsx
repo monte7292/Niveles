@@ -844,61 +844,126 @@ useEffect(() => {
                   
                   {isPremiumActive ? (
                     userCardSettings ? (
-                      <div style={{ marginTop: '1rem' }}>
-                        <div style={{ 
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          gap: '1.5rem',
+                      <div style={{ 
+                        marginTop: '1.5rem',
+                        padding: '1.5rem',
+                        borderRadius: '12px',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+                        backdropFilter: 'blur(5px)'
+                      }}>
+                        {/* Encabezado con avatar y título */}
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '1rem',
                           marginBottom: '1.5rem',
-                          padding: '1.25rem',
-                          borderRadius: '12px',
-                          background: 'rgba(67, 164, 229, 0.03)',
-                          border: '1px solid rgba(67, 164, 229, 0.1)'
+                          paddingBottom: '1rem',
+                          borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
                         }}>
                           <div style={{
-                            width: '65px',
-                            height: '65px',
+                            width: '48px',
+                            height: '48px',
                             borderRadius: '12px',
                             backgroundColor: userCardSettings.cardColor,
-                            border: '2px solid var(--background)',
-                            boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                            transition: 'all 0.3s ease',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            fontSize: '1.5rem',
+                            fontSize: '1.25rem',
+                            fontWeight: '600',
                             color: 'white',
-                            textShadow: '0 1px 3px rgba(0,0,0,0.3)'
+                            boxShadow: `0 4px 15px ${userCardSettings.cardColor}40`
                           }}>
                             {userCardSettings.username.charAt(0).toUpperCase()}
                           </div>
-                          <div style={{ flex: 1 }}>
-                            <label style={{ 
-                              display: 'block', 
-                              marginBottom: '0.5rem',
-                              color: 'rgba(255,255,255,0.8)',
-                              fontSize: '0.85rem',
-                              fontWeight: '500',
-                              textTransform: 'uppercase',
-                              letterSpacing: '0.05em'
+                          <h3 style={{
+                            margin: 0,
+                            fontSize: '1.1rem',
+                            fontWeight: '600',
+                            color: 'rgba(255, 255, 255, 0.9)'
+                          }}>
+                            Nivel y Progreso de {userCardSettings.username}
+                          </h3>
+                        </div>
+                      
+                        {/* Contenedor principal de métricas */}
+                        <div style={{
+                          display: 'grid',
+                          gridTemplateColumns: '1fr 1fr',
+                          gap: '1.5rem',
+                          marginBottom: '1.5rem'
+                        }}>
+                          {/* Bloque de progreso */}
+                          <div style={{
+                            padding: '1rem',
+                            borderRadius: '8px',
+                            background: 'rgba(67, 164, 229, 0.05)',
+                            border: '1px solid rgba(67, 164, 229, 0.1)'
+                          }}>
+                            <div style={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              marginBottom: '0.5rem'
                             }}>
-                              Color Actual
-                            </label>
-                            <div style={{ 
-                              padding: '0.75rem',
-                              borderRadius: '8px',
-                              background: 'rgba(67, 164, 229, 0.05)',
-                              fontFamily: 'monospace',
-                              fontSize: '0.95rem',
-                              color: 'var(--foreground)',
-                              border: '1px solid rgba(67, 164, 229, 0.1)',
-                              display: 'inline-block',
-                              minWidth: '120px'
+                              <span style={{
+                                fontSize: '0.85rem',
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                fontWeight: '500'
+                              }}>Progreso</span>
+                              <span style={{
+                                fontSize: '0.85rem',
+                                fontWeight: '600',
+                                color: userCardSettings.cardColor
+                              }}>21.96%</span>
+                            </div>
+                            <div style={{
+                              height: '6px',
+                              borderRadius: '3px',
+                              background: 'rgba(255, 255, 255, 0.1)',
+                              overflow: 'hidden'
                             }}>
-                              {userCardSettings.cardColor}
+                              <div style={{
+                                width: '21.96%',
+                                height: '100%',
+                                background: userCardSettings.cardColor,
+                                borderRadius: '3px',
+                                transition: 'width 0.5s ease'
+                              }}></div>
                             </div>
                           </div>
-                        </div>                      
+                      
+                          {/* Bloque de nivel */}
+                          <div style={{
+                            padding: '1rem',
+                            borderRadius: '8px',
+                            background: 'rgba(67, 164, 229, 0.05)',
+                            border: '1px solid rgba(67, 164, 229, 0.1)'
+                          }}>
+                            <div style={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              marginBottom: '0.25rem'
+                            }}>
+                              <span style={{
+                                fontSize: '0.85rem',
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                fontWeight: '500'
+                              }}>Nivel Actual</span>
+                              <span style={{
+                                fontSize: '1rem',
+                                fontWeight: '600',
+                                color: userCardSettings.cardColor
+                              }}>10</span>
+                            </div>
+                            <div style={{
+                              fontSize: '0.75rem',
+                              color: 'rgba(255, 255, 255, 0.5)'
+                            }}>
+                              XP Restante: <span style={{ color: 'white' }}>120</span>
+                            </div>
+                          </div>
+                        </div>                    
                         <div style={{ 
                           marginBottom: '1.5rem',
                           padding: '1.25rem',
