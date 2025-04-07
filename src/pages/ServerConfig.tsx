@@ -64,12 +64,6 @@ const ServerConfig: React.FC = () => {
   const [newCardColor, setNewCardColor] = useState('#0099ff');
   const [isUpdatingColor, setIsUpdatingColor] = useState(false);
 
-
-  
-useEffect(() => {
-  console.log(roles); // Uso temporal para evitar el warning
-}, [roles]);
-
   const [newLevelRole, setNewLevelRole] = useState({ level: '', roleId: '' });
 
   // Función para mostrar notificaciones temporales
