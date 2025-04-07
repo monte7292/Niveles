@@ -919,7 +919,7 @@ useEffect(() => {
                                     fontSize: '0.9rem',
                                     color: 'rgba(255, 255, 255, 0.8)'
                                   }}>
-                                    <strong style={{ color: userCardSettings.cardColor }}>21.96%</strong> completado
+                                    <strong style={{ color: userCardSettings.cardColor }}>21.96%</strong>
                                   </span>
                                   <span style={{ 
                                     fontSize: '0.9rem',
