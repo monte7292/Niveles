@@ -898,8 +898,7 @@ useEffect(() => {
                               {userCardSettings.cardColor}
                             </div>
                           </div>
-                        </div>
-                        
+                        </div>                      
                         <div style={{ 
                           marginBottom: '1.5rem',
                           padding: '1.25rem',
@@ -918,14 +917,21 @@ useEffect(() => {
                           }}>
                             Seleccionar Nuevo Color
                           </label>
-                          <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                          <div style={{ 
+                            display: 'flex', 
+                            gap: '1.5rem', 
+                            alignItems: 'center',
+                            width: '100%' // Asegura que el contenedor ocupe todo el ancho disponible
+                          }}>
                             <div style={{
                               position: 'relative',
-                              width: '60px',
-                              height: '60px',
+                              width: '60px', // Ancho fijo
+                              height: '60px', // Alto fijo
+                              minWidth: '60px', // Evita que se reduzca
                               borderRadius: '12px',
                               overflow: 'hidden',
-                              boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+                              boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                              flexShrink: 0 // Previene que se encoja
                             }}>
                               <input
                                 type="color"
@@ -936,7 +942,8 @@ useEffect(() => {
                                   width: '100%',
                                   height: '100%',
                                   opacity: 0,
-                                  cursor: 'pointer'
+                                  cursor: 'pointer',
+                                  padding: 0 // Elimina cualquier padding por defecto
                                 }}
                               />
                               <div style={{
@@ -958,7 +965,7 @@ useEffect(() => {
                               onChange={(e) => setNewCardColor(e.target.value)}
                               placeholder="#RRGGBB"
                               style={{
-                                flex: 1,
+                                width: '100%', // Ocupa el resto del espacio
                                 padding: '0.75rem',
                                 borderRadius: '8px',
                                 border: '1px solid rgba(67, 164, 229, 0.2)',
@@ -966,7 +973,8 @@ useEffect(() => {
                                 color: 'var(--foreground)',
                                 fontSize: '0.95rem',
                                 transition: 'all 0.2s ease',
-                                outline: 'none'
+                                outline: 'none',
+                                minWidth: '120px' // Ancho mínimo para el input de texto
                               }}
                             />
                           </div>
