@@ -893,7 +893,7 @@ useEffect(() => {
                               {/* Barra de progreso grande y métricas */}
                               <div style={{ marginBottom: '1rem' }}>
                                 <div style={{ 
-                                  height: '14px',
+                                  height: '20px',
                                   borderRadius: '7px',
                                   background: 'rgba(255, 255, 255, 0.1)',
                                   overflow: 'hidden',
