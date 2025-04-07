@@ -862,7 +862,6 @@ const ServerConfig: React.FC = () => {
                                   height: '60px',
                                   borderRadius: '12px',
                                   backgroundColor: userCardSettings.cardColor,
-                                  border: '2px solid var(--background)',
                                   boxShadow: `0 4px 15px ${userCardSettings.cardColor}40`,
                                   display: 'flex',
                                   alignItems: 'center',
