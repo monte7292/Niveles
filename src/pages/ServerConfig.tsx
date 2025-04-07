@@ -845,123 +845,76 @@ useEffect(() => {
                   {isPremiumActive ? (
                     userCardSettings ? (
                       <div style={{ 
-                        marginTop: '1.5rem',
-                        padding: '1.5rem',
-                        borderRadius: '12px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-                        backdropFilter: 'blur(5px)'
+                        marginTop: '1rem',
                       }}>
                         {/* Encabezado con avatar y título */}
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
+                        <div style={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
                           gap: '1rem',
-                          marginBottom: '1.5rem',
-                          paddingBottom: '1rem',
-                          borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+                          marginBottom: '1.25rem'
                         }}>
                           <div style={{
-                            width: '48px',
-                            height: '48px',
+                            width: '60px',
+                            height: '60px',
                             borderRadius: '12px',
                             backgroundColor: userCardSettings.cardColor,
+                            border: '2px solid var(--background)',
+                            boxShadow: `0 4px 15px ${userCardSettings.cardColor}40`,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            fontSize: '1.25rem',
-                            fontWeight: '600',
+                            fontSize: '1.5rem',
                             color: 'white',
-                            boxShadow: `0 4px 15px ${userCardSettings.cardColor}40`
+                            textShadow: '0 1px 3px rgba(0,0,0,0.3)'
                           }}>
                             {userCardSettings.username.charAt(0).toUpperCase()}
                           </div>
-                          <h3 style={{
+                          <h3 style={{ 
                             margin: 0,
                             fontSize: '1.1rem',
                             fontWeight: '600',
                             color: 'rgba(255, 255, 255, 0.9)'
                           }}>
-                            Nivel y Progreso de {userCardSettings.username}
+                            {userCardSettings.username}
                           </h3>
                         </div>
                       
-                        {/* Contenedor principal de métricas */}
-                        <div style={{
-                          display: 'grid',
-                          gridTemplateColumns: '1fr 1fr',
-                          gap: '1.5rem',
-                          marginBottom: '1.5rem'
-                        }}>
-                          {/* Bloque de progreso */}
-                          <div style={{
-                            padding: '1rem',
-                            borderRadius: '8px',
-                            background: 'rgba(67, 164, 229, 0.05)',
-                            border: '1px solid rgba(67, 164, 229, 0.1)'
+                        {/* Barra de progreso grande y métricas */}
+                        <div style={{ marginBottom: '1rem' }}>
+                          <div style={{ 
+                            height: '14px',
+                            borderRadius: '7px',
+                            background: 'rgba(255, 255, 255, 0.1)',
+                            overflow: 'hidden',
+                            marginBottom: '0.5rem'
                           }}>
                             <div style={{
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              marginBottom: '0.5rem'
-                            }}>
-                              <span style={{
-                                fontSize: '0.85rem',
-                                color: 'rgba(255, 255, 255, 0.7)',
-                                fontWeight: '500'
-                              }}>Progreso</span>
-                              <span style={{
-                                fontSize: '0.85rem',
-                                fontWeight: '600',
-                                color: userCardSettings.cardColor
-                              }}>21.96%</span>
-                            </div>
-                            <div style={{
-                              height: '6px',
-                              borderRadius: '3px',
-                              background: 'rgba(255, 255, 255, 0.1)',
-                              overflow: 'hidden'
-                            }}>
-                              <div style={{
-                                width: '21.96%',
-                                height: '100%',
-                                background: userCardSettings.cardColor,
-                                borderRadius: '3px',
-                                transition: 'width 0.5s ease'
-                              }}></div>
-                            </div>
+                              width: '21.96%',
+                              height: '100%',
+                              background: userCardSettings.cardColor,
+                              borderRadius: '7px',
+                              boxShadow: `0 0 10px ${userCardSettings.cardColor}80`,
+                              transition: 'all 0.3s ease'
+                            }} />
                           </div>
-                      
-                          {/* Bloque de nivel */}
-                          <div style={{
-                            padding: '1rem',
-                            borderRadius: '8px',
-                            background: 'rgba(67, 164, 229, 0.05)',
-                            border: '1px solid rgba(67, 164, 229, 0.1)'
+                          <div style={{ 
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
                           }}>
-                            <div style={{
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              marginBottom: '0.25rem'
+                            <span style={{ 
+                              fontSize: '0.9rem',
+                              color: 'rgba(255, 255, 255, 0.8)'
                             }}>
-                              <span style={{
-                                fontSize: '0.85rem',
-                                color: 'rgba(255, 255, 255, 0.7)',
-                                fontWeight: '500'
-                              }}>Nivel Actual</span>
-                              <span style={{
-                                fontSize: '1rem',
-                                fontWeight: '600',
-                                color: userCardSettings.cardColor
-                              }}>10</span>
-                            </div>
-                            <div style={{
-                              fontSize: '0.75rem',
-                              color: 'rgba(255, 255, 255, 0.5)'
+                              <strong style={{ color: userCardSettings.cardColor }}>21.96%</strong> completado
+                            </span>
+                            <span style={{ 
+                              fontSize: '0.9rem',
+                              color: 'rgba(255, 255, 255, 0.8)'
                             }}>
-                              XP Restante: <span style={{ color: 'white' }}>120</span>
-                            </div>
+                              Nivel <strong style={{ color: 'white' }}>10</strong> • XP restante: <strong style={{ color: 'white' }}>120</strong>
+                            </span>
                           </div>
                         </div>                    
                         <div style={{ 
