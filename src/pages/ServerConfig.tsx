@@ -477,6 +477,31 @@ const ServerConfig: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (!serverId) return;
+  
+    // Función para recargar la configuración
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch(`${config.apiUrl}/api/server/${serverId}/settings`, {
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setSettings(data); // Actualiza el estado local
+        }
+      } catch (err) {
+        console.error("Error al recargar configuración:", err);
+      }
+    };
+  
+    // Polling: Recargar cada 5 segundos
+    const intervalId = setInterval(fetchSettings, 5000);
+  
+    // Limpiar intervalo al desmontar el componente
+    return () => clearInterval(intervalId);
+  }, [serverId]); // Se reinicia si cambia serverId
+
   return (
     <div className="server-config">
       <MainHeader />
