@@ -845,9 +845,7 @@ useEffect(() => {
                   
                   {isPremiumActive ? (
                     userCardSettings ? (
-                      <div style={{ 
-                        marginTop: '1rem',
-                      }}>
+                      <div>
                       <div
                       style={{ 
                         padding: '1.25rem',
