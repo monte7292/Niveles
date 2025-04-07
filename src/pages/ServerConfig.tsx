@@ -477,68 +477,6 @@ const ServerConfig: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (!serverId) return;
-  
-    // Función para recargar TODOS los datos (similar a fetchData inicial)
-    const reloadAllData = async () => {
-      try {
-        const [channelsResponse, settingsResponse, premiumResponse] = await Promise.all([
-          fetch(`${config.apiUrl}/api/server/${serverId}/channels`, { credentials: 'include' }),
-          fetch(`${config.apiUrl}/api/server/${serverId}/settings`, { credentials: 'include' }),
-          fetch(`${config.apiUrl}/api/server/${serverId}/premium-status`, { credentials: 'include' }),
-          fetchUserCardSettings() // Esta ya se maneja aparte
-        ]);
-  
-        if (!channelsResponse.ok || !settingsResponse.ok || !premiumResponse.ok) {
-          throw new Error("Error al recargar datos");
-        }
-  
-        const channelsData = await channelsResponse.json();
-        const settingsData = await settingsResponse.json();
-        const premiumData = await premiumResponse.json();
-  
-        // Actualiza todos los estados relevantes
-        if (channelsData) {
-          if (Array.isArray(channelsData.channels)) {
-            setChannels(channelsData.channels);
-          }
-          if (Array.isArray(channelsData.roles)) {
-            setRoles(channelsData.roles.map((role: DiscordRole) => ({
-              id: role.id,
-              name: role.name,
-              color: role.color || 0
-            })));
-          }
-        }
-  
-        if (settingsData) {
-          setSettings({
-            guildId: settingsData.guildId || serverId,
-            alertChannelId: settingsData.alertChannelId || null,
-            customLevelUpMessage: settingsData.customLevelUpMessage || '¡{user} ha alcanzado el nivel {level}!',
-            disabledXpChannels: Array.isArray(settingsData.disabledXpChannels) ? settingsData.disabledXpChannels : [],
-            levelRoles: settingsData.levelRoles || {},
-            voiceXpEnabled: settingsData.voiceXpEnabled || false
-          });
-          setLocalLevelMessage(settingsData.customLevelUpMessage || '¡{user} ha alcanzado el nivel {level}!');
-        }
-  
-        if (typeof premiumData.isPremiumActive === 'boolean') {
-          setIsPremiumActive(premiumData.isPremiumActive);
-        }
-  
-      } catch (err) {
-        console.error("Error en polling:", err);
-      }
-    };
-  
-    // Polling cada 5 segundos (ajusta el intervalo según necesites)
-    const intervalId = setInterval(reloadAllData, 5000);
-  
-    return () => clearInterval(intervalId);
-  }, [serverId]);
-
   return (
     <div className="server-config">
       <MainHeader />
