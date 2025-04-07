@@ -847,76 +847,85 @@ useEffect(() => {
                       <div style={{ 
                         marginTop: '1rem',
                       }}>
-                        {/* Encabezado con avatar y título */}
-                        <div style={{ 
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          gap: '1rem',
-                          marginBottom: '1.25rem'
-                        }}>
-                          <div style={{
-                            width: '60px',
-                            height: '60px',
-                            borderRadius: '12px',
-                            backgroundColor: userCardSettings.cardColor,
-                            border: '2px solid var(--background)',
-                            boxShadow: `0 4px 15px ${userCardSettings.cardColor}40`,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '1.5rem',
-                            color: 'white',
-                            textShadow: '0 1px 3px rgba(0,0,0,0.3)'
-                          }}>
-                            {userCardSettings.username.charAt(0).toUpperCase()}
-                          </div>
-                          <h3 style={{ 
-                            margin: 0,
-                            fontSize: '1.1rem',
-                            fontWeight: '600',
-                            color: 'rgba(255, 255, 255, 0.9)'
-                          }}>
-                            {userCardSettings.username}
-                          </h3>
+                      <div
+                      style={{ 
+                        padding: '1.25rem',
+                        borderRadius: '12px',
+                        background: 'rgba(67, 164, 229, 0.03)',
+                        border: '1px solid rgba(67, 164, 229, 0.1)',
+                      }}>
+                                {/* Encabezado con avatar y título */}
+                              <div style={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                gap: '1rem',
+                                marginBottom: '1.25rem'
+                              }}>
+                                <div style={{
+                                  width: '60px',
+                                  height: '60px',
+                                  borderRadius: '12px',
+                                  backgroundColor: userCardSettings.cardColor,
+                                  border: '2px solid var(--background)',
+                                  boxShadow: `0 4px 15px ${userCardSettings.cardColor}40`,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '1.5rem',
+                                  color: 'white',
+                                  textShadow: '0 1px 3px rgba(0,0,0,0.3)'
+                                }}>
+                                  {userCardSettings.username.charAt(0).toUpperCase()}
+                                </div>
+                                <h3 style={{ 
+                                  margin: 0,
+                                  fontSize: '1.1rem',
+                                  fontWeight: '600',
+                                  color: 'rgba(255, 255, 255, 0.9)'
+                                }}>
+                                  {userCardSettings.username}
+                                </h3>
+                              </div>
+                            
+                              {/* Barra de progreso grande y métricas */}
+                              <div style={{ marginBottom: '1rem' }}>
+                                <div style={{ 
+                                  height: '14px',
+                                  borderRadius: '7px',
+                                  background: 'rgba(255, 255, 255, 0.1)',
+                                  overflow: 'hidden',
+                                  marginBottom: '0.5rem'
+                                }}>
+                                  <div style={{
+                                    width: '21.96%',
+                                    height: '100%',
+                                    background: userCardSettings.cardColor,
+                                    borderRadius: '7px',
+                                    boxShadow: `0 0 10px ${userCardSettings.cardColor}80`,
+                                    transition: 'all 0.3s ease'
+                                  }} />
+                                </div>
+                                <div style={{ 
+                                  display: 'flex',
+                                  justifyContent: 'space-between',
+                                  alignItems: 'center'
+                                }}>
+                                  <span style={{ 
+                                    fontSize: '0.9rem',
+                                    color: 'rgba(255, 255, 255, 0.8)'
+                                  }}>
+                                    <strong style={{ color: userCardSettings.cardColor }}>21.96%</strong> completado
+                                  </span>
+                                  <span style={{ 
+                                    fontSize: '0.9rem',
+                                    color: 'rgba(255, 255, 255, 0.8)'
+                                  }}>
+                                    Nivel <strong style={{ color: 'white' }}>10</strong> • XP restante: <strong style={{ color: 'white' }}>120</strong>
+                                  </span>
+                                </div>
+                              </div>            
                         </div>
-                      
-                        {/* Barra de progreso grande y métricas */}
-                        <div style={{ marginBottom: '1rem' }}>
-                          <div style={{ 
-                            height: '14px',
-                            borderRadius: '7px',
-                            background: 'rgba(255, 255, 255, 0.1)',
-                            overflow: 'hidden',
-                            marginBottom: '0.5rem'
-                          }}>
-                            <div style={{
-                              width: '21.96%',
-                              height: '100%',
-                              background: userCardSettings.cardColor,
-                              borderRadius: '7px',
-                              boxShadow: `0 0 10px ${userCardSettings.cardColor}80`,
-                              transition: 'all 0.3s ease'
-                            }} />
-                          </div>
-                          <div style={{ 
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center'
-                          }}>
-                            <span style={{ 
-                              fontSize: '0.9rem',
-                              color: 'rgba(255, 255, 255, 0.8)'
-                            }}>
-                              <strong style={{ color: userCardSettings.cardColor }}>21.96%</strong> completado
-                            </span>
-                            <span style={{ 
-                              fontSize: '0.9rem',
-                              color: 'rgba(255, 255, 255, 0.8)'
-                            }}>
-                              Nivel <strong style={{ color: 'white' }}>10</strong> • XP restante: <strong style={{ color: 'white' }}>120</strong>
-                            </span>
-                          </div>
-                        </div>                    
+                                
                         <div style={{ 
                           marginBottom: '1.5rem',
                           padding: '1.25rem',
