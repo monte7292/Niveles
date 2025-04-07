@@ -627,7 +627,7 @@ useEffect(() => {
                           color: 'red',
                         }
                       }>
-                        Premium No Adquirido
+                        No Premium
                       </p>
                     )}
                   </div>
@@ -918,7 +918,7 @@ useEffect(() => {
                           }}>
                             Seleccionar Nuevo Color
                           </label>
-                          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                          <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
                             <div style={{
                               position: 'relative',
                               width: '60px',
@@ -959,7 +959,7 @@ useEffect(() => {
                               placeholder="#RRGGBB"
                               style={{
                                 flex: 1,
-                                padding: '0.75rem 1rem',
+                                padding: '0.75rem',
                                 borderRadius: '8px',
                                 border: '1px solid rgba(67, 164, 229, 0.2)',
                                 background: 'rgba(67, 164, 229, 0.05)',

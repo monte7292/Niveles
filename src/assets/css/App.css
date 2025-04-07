@@ -1304,17 +1304,6 @@ section {
   padding-bottom: 0.5rem;
 }
 
-.card-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 40px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), transparent);
-  border-radius: 2px;
-}
-
 .card-content {
   position: relative;
   z-index: 1;
