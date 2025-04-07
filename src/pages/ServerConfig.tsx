@@ -847,7 +847,7 @@ useEffect(() => {
                     userCardSettings ? (
                       <div>
                       <div style={{ 
-                        padding: '1.25rem',
+                        padding: '1rem',
                         borderRadius: '12px',
                         background: 'rgba(67, 164, 229, 0.03)',
                         border: '1px solid rgba(67, 164, 229, 0.1)',
@@ -893,7 +893,7 @@ useEffect(() => {
                               </div>
                             
                               {/* Barra de progreso grande y métricas */}
-                              <div style={{ marginBottom: '1rem' }}>
+                              <div>
                                 <div style={{ 
                                   height: '21px',
                                   borderRadius: '7px',
