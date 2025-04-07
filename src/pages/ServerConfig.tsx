@@ -846,13 +846,15 @@ useEffect(() => {
                   {isPremiumActive ? (
                     userCardSettings ? (
                       <div>
-                      <div
-                      style={{ 
+                      <div style={{ 
                         padding: '1.25rem',
                         borderRadius: '12px',
                         background: 'rgba(67, 164, 229, 0.03)',
                         border: '1px solid rgba(67, 164, 229, 0.1)',
+                        borderLeft: `4px solid ${userCardSettings.cardColor}`, // Color dinámico
                         marginBottom: '1rem',
+                        position: 'relative',
+                        overflow: 'hidden'
                       }}>
                                 {/* Encabezado con avatar y título */}
                               <div style={{ 
