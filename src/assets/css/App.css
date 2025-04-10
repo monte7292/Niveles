@@ -1830,13 +1830,12 @@ section {
   color: #1c6ac7;
   width: 15em;
   height: 2.8em;
-  border: 2px solid #1c6ac7;
+  border: 2px solid #535d6966;
   border-radius: 4px;
   text-align: center;
   margin: 10px;
   font-weight: normal;
   font-size: 0.95em;
-  display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
