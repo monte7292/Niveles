@@ -521,7 +521,7 @@ const App: React.FC = () => {
           <div className="container">
             <div className="stats-container">
               <div className="stat-item">
-                <div className="stat-number">Utilizado por más de 50 servidores</div>
+                <div className="stat-number">Utilizado por más de 60 servidores</div>
               </div>
             </div>
 
