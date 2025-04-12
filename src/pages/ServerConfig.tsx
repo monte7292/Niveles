@@ -1447,7 +1447,7 @@ const ServerConfig: React.FC = () => {
                         ¿Tienes ideas para nuevas funciones?
                       </p>
                       <a 
-                        href="https://discord.gg/tu-invitacion" 
+                        href="https://discord.com/invite/mu7qfudTuj" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         style={{
