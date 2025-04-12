@@ -12,63 +12,63 @@ interface Player {
   cardColor: string;
 }
 
+// Función para verificar si una imagen existe
+const checkImageExists = async (url: string): Promise<boolean> => {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    return response.ok; // Devuelve true si la imagen existe
+  } catch (err) {
+    return false; // Devuelve false si hay un error
+  }
+};
+
 const GlobalLeaderboard: React.FC = () => {
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  // Datos de ejemplo basados en tu imagen
-  const mockPlayers: Player[] = [
-    {
-      discordId: '1',
-      username: 'kathh',
-      xp: 2200000,
-      level: 105,
-      avatarUrl: 'https://cdn.discordapp.com/embed/avatars/0.png',
-      cardColor: '#FFD700'
-    },
-    {
-      discordId: '2',
-      username: 'pabloxizi9',
-      xp: 2100000,
-      level: 103,
-      avatarUrl: 'https://cdn.discordapp.com/embed/avatars/1.png',
-      cardColor: '#C0C0C0'
-    },
-    {
-      discordId: '3',
-      username: 'onlyfemando',
-      xp: 1900000,
-      level: 100,
-      avatarUrl: 'https://cdn.discordapp.com/embed/avatars/2.png',
-      cardColor: '#CD7F32'
-    },
-    {
-      discordId: '4',
-      username: '07_k',
-      xp: 1700000,
-      level: 95,
-      avatarUrl: 'https://cdn.discordapp.com/embed/avatars/3.png',
-      cardColor: '#7289DA'
-    },
-    {
-      discordId: '5',
-      username: 'zpacham_',
-      xp: 1500000,
-      level: 91,
-      avatarUrl: 'https://cdn.discordapp.com/embed/avatars/4.png',
-      cardColor: '#7289DA'
-    },
-  ];
+  // URL de imagen por defecto
+  const defaultAvatarUrl = 'https://cdn.discordapp.com/embed/avatars/0.png';
+
+  // Función para manejar el error de carga de la imagen
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const img = event.currentTarget;
+    img.src = defaultAvatarUrl; // Cambia la URL de la imagen a la imagen por defecto
+  };
 
   useEffect(() => {
-    // En una implementación real, harías fetch a tu API aquí
-    // Para este ejemplo, usamos los datos mock
-    setTimeout(() => {
-      setPlayers(mockPlayers);
-      setLoading(false);
-    }, 1000);
+    const fetchPlayers = async () => {
+      try {
+        const response = await fetch(`${config.apiUrl}/api/global-leaderboard`, {
+          credentials: 'include',
+        });
+        if (!response.ok) {
+          throw new Error('Error al obtener los datos del leaderboard global');
+        }
+        const data = await response.json();
+
+        // Verificar y corregir las URLs de los avatares
+        const playersWithValidAvatars = await Promise.all(
+          data.map(async (player: Player) => {
+            const avatarExists = await checkImageExists(player.avatarUrl);
+            return {
+              ...player,
+              avatarUrl: avatarExists ? player.avatarUrl : defaultAvatarUrl, // Usa la imagen por defecto si no existe
+            };
+          })
+        );
+
+        const sortedPlayers = playersWithValidAvatars.sort((a: Player, b: Player) => b.level - a.level);
+        setPlayers(sortedPlayers);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Error desconocido');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlayers();
   }, []);
 
   if (loading) {
@@ -122,6 +122,16 @@ const GlobalLeaderboard: React.FC = () => {
     );
   }
 
+  // Función para obtener el color del puesto
+  const getRankColor = (rank: number) => {
+    switch(rank) {
+      case 1: return '#FFD700'; // Oro
+      case 2: return '#C0C0C0'; // Plata
+      case 3: return '#CD7F32'; // Bronce
+      default: return 'var(--text)';
+    }
+  };
+
   return (
     <div className="dashboard" style={{ 
       background: `radial-gradient(circle at 50% 50%, rgba(67, 164, 229, 0.15), transparent 60%)`,
@@ -130,6 +140,7 @@ const GlobalLeaderboard: React.FC = () => {
       <MainHeader />
       <main className="dashboard-content" style={{ padding: '2rem 0' }}>
         <div className="container">
+          {/* Botón "Volver al Dashboard" */}
           <button onClick={() => navigate('/')} className="botonvolver">
             <i className="fa-solid fa-arrow-left"></i> Volver al Inicio
           </button>
@@ -138,7 +149,7 @@ const GlobalLeaderboard: React.FC = () => {
             <p>Top jugadores con más niveles en todos los servidores</p>
           </div>
 
-          {/* Leaderboard para todos los puestos (incluyendo los 3 primeros) */}
+          {/* Leaderboard completo */}
           <div className="leaderboard-container" style={{
             background: 'rgba(255, 255, 255, 0.03)',
             borderRadius: '16px',
@@ -159,51 +170,38 @@ const GlobalLeaderboard: React.FC = () => {
                     padding: '1rem',
                     background: 'rgba(67, 164, 229, 0.05)',
                     borderRadius: '12px',
-                    border: `1px solid ${
-                      index === 0 ? 'rgba(255, 215, 0, 0.3)' : 
-                      index === 1 ? 'rgba(192, 192, 192, 0.3)' : 
-                      index === 2 ? 'rgba(205, 127, 50, 0.3)' : 
-                      'rgba(67, 164, 229, 0.1)'
-                    }`,
+                    border: '1px solid rgba(67, 164, 229, 0.1)',
                     transition: 'all 0.3s ease'
                   }}
                 >
                   <div className="entry-info" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <span className="rank" style={{ 
-                      color: 'var(--muted-foreground)',
+                      color: getRankColor(index + 1),
                       fontFamily: 'monospace',
                       width: '2rem',
                       textAlign: 'right',
                       fontSize: '1rem',
-                      fontWeight: 'normal',
+                      fontWeight: index < 3 ? 'bold' : 'normal'
                     }}>
                       {index + 1}.
                     </span>
                     <img
                       src={player.avatarUrl}
                       alt={`Avatar de ${player.username}`}
+                      onError={handleImageError}
                       style={{
                         width: '40px',
                         height: '40px',
                         borderRadius: '50%',
                         objectFit: 'cover',
-                        border: `2px solid ${
-                          index === 0 ? '#FFD700' : 
-                          index === 1 ? '#C0C0C0' : 
-                          index === 2 ? '#CD7F32' : 
-                          player.cardColor
-                        }`
+                        border: `2px solid ${player.cardColor}`
                       }}
                     />
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                       <span className="username" style={{ 
                         fontWeight: '500',
                         fontSize: '1rem',
-                        color: 
-                          index === 0 ? '#FFD700' : 
-                          index === 1 ? '#C0C0C0' : 
-                          index === 2 ? '#CD7F32' : 
-                          'white'
+                        color: getRankColor(index + 1)
                       }}>
                         {player.username}
                       </span>
@@ -226,7 +224,7 @@ const GlobalLeaderboard: React.FC = () => {
                       color: 'var(--muted-foreground)',
                       fontSize: '0.9rem'
                     }}>
-                      {player.xp.toLocaleString()} XP
+                      {player.xp} XP
                     </div>
                     <div className="level" style={{ 
                       fontSize: '1rem',
@@ -243,58 +241,6 @@ const GlobalLeaderboard: React.FC = () => {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Tarjeta personal de frank (manteniendo el estilo original) */}
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            borderRadius: '16px',
-            padding: '1.5rem',
-            marginTop: '2rem',
-            border: '1px solid rgba(67, 164, 229, 0.1)',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-          }}>
-            <h3 style={{ 
-              fontSize: '1.2rem',
-              marginBottom: '1rem',
-              color: 'white'
-            }}>Tarjeta personal de frank</h3>
-            
-            <div style={{
-              background: 'rgba(67, 164, 229, 0.05)',
-              borderRadius: '8px',
-              padding: '1rem',
-              marginBottom: '1rem',
-              border: '1px solid rgba(67, 164, 229, 0.1)'
-            }}>
-              <div style={{
-                fontWeight: 'bold',
-                color: '#7289DA',
-                marginBottom: '0.5rem'
-              }}>BUSCO #444 INGLÉS</div>
-              <div style={{ color: '#B9BBBE' }}>monte/282</div>
-              <div style={{ color: '#B9BBBE' }}>480 | 500 V</div>
-            </div>
-            
-            <div style={{
-              color: '#B9BBBE',
-              fontSize: '0.9rem',
-              marginBottom: '1rem'
-            }}>Utilizar la tarjeta de rango del servidor</div>
-            
-            <label style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              cursor: 'pointer'
-            }}>
-              <input type="checkbox" style={{
-                width: '1.2rem',
-                height: '1.2rem',
-                accentColor: '#7289DA'
-              }} />
-              <span>Edita tu tarjeta personal de frank</span>
-            </label>
           </div>
         </div>
       </main>
