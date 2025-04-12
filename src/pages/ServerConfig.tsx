@@ -1381,10 +1381,7 @@ const ServerConfig: React.FC = () => {
                         letterSpacing: '-0.01em'
                       }}>Próximamente</h3>
                     </div>
-                    <span className="new-badge" style={{
-                      background: 'rgba(67, 164, 229, 0.2)',
-                      color: 'var(--primary)'
-                    }}>Nuevo</span>
+                    <span className="new-badge">Nuevo</span>
                   </div>
 
                   <div className="card-content" style={{
@@ -1397,8 +1394,7 @@ const ServerConfig: React.FC = () => {
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
-                      textAlign: 'center',
-                      padding: '1.5rem 0'
+                      textAlign: 'center'
                     }}>
                       <div style={{
                         width: '80px',
@@ -1433,89 +1429,6 @@ const ServerConfig: React.FC = () => {
                       }}>
                         Estamos trabajando en nuevas características emocionantes para mejorar tu experiencia.
                       </p>
-                      
-                      <div style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '0.75rem',
-                        width: '100%',
-                        maxWidth: '300px'
-                      }}>
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.75rem',
-                          padding: '0.75rem',
-                          background: 'rgba(67, 164, 229, 0.05)',
-                          borderRadius: '8px',
-                          border: '1px dashed rgba(67, 164, 229, 0.2)'
-                        }}>
-                          <div style={{
-                            width: '24px',
-                            height: '24px',
-                            borderRadius: '6px',
-                            background: 'rgba(67, 164, 229, 0.1)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'var(--primary)',
-                            fontSize: '0.8rem'
-                          }}>
-                            <i className="fas fa-bell"></i>
-                          </div>
-                          <span style={{ fontSize: '0.9rem' }}>Notificaciones personalizadas</span>
-                        </div>
-                        
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.75rem',
-                          padding: '0.75rem',
-                          background: 'rgba(67, 164, 229, 0.05)',
-                          borderRadius: '8px',
-                          border: '1px dashed rgba(67, 164, 229, 0.2)'
-                        }}>
-                          <div style={{
-                            width: '24px',
-                            height: '24px',
-                            borderRadius: '6px',
-                            background: 'rgba(67, 164, 229, 0.1)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'var(--primary)',
-                            fontSize: '0.8rem'
-                          }}>
-                            <i className="fas fa-chart-line"></i>
-                          </div>
-                          <span style={{ fontSize: '0.9rem' }}>Estadísticas avanzadas</span>
-                        </div>
-                        
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.75rem',
-                          padding: '0.75rem',
-                          background: 'rgba(67, 164, 229, 0.05)',
-                          borderRadius: '8px',
-                          border: '1px dashed rgba(67, 164, 229, 0.2)'
-                        }}>
-                          <div style={{
-                            width: '24px',
-                            height: '24px',
-                            borderRadius: '6px',
-                            background: 'rgba(67, 164, 229, 0.1)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'var(--primary)',
-                            fontSize: '0.8rem'
-                          }}>
-                            <i className="fas fa-gem"></i>
-                          </div>
-                          <span style={{ fontSize: '0.9rem' }}>Más beneficios Premium</span>
-                        </div>
-                      </div>
                     </div>
                     
                     <div style={{
