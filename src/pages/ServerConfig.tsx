@@ -1316,6 +1316,248 @@ const ServerConfig: React.FC = () => {
                 </div>
 
 
+                <div className="config-card coming-soon" style={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(67, 164, 229, 0.2)',
+                  background: 'linear-gradient(145deg, rgba(67, 164, 229, 0.05) 0%, rgba(67, 164, 229, 0.02) 100%)',
+                  borderRadius: '16px',
+                  boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.1)'
+                }}>
+                  {/* Efecto de borde sutil */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    borderRadius: '16px',
+                    padding: '1px',
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+                    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                    WebkitMaskComposite: 'xor',
+                    maskComposite: 'exclude',
+                    pointerEvents: 'none'
+                  }}></div>
+
+                  {/* Efecto de partículas futurista */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundImage: 'radial-gradient(circle at 20% 30%, rgba(67, 164, 229, 0.1) 0%, transparent 30%)',
+                    zIndex: 0
+                  }}></div>
+
+                  <div className="card-header" style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    position: 'relative',
+                    zIndex: 1
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <div style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '10px',
+                        background: 'rgba(67, 164, 229, 0.1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'var(--primary)',
+                        fontSize: '1.25rem',
+                        border: '1px solid rgba(67, 164, 229, 0.2)'
+                      }}>
+                        <i className="fas fa-rocket"></i>
+                      </div>
+                      <h3 style={{
+                        margin: 0,
+                        fontSize: '1.25rem',
+                        fontWeight: 600,
+                        color: 'var(--foreground)',
+                        letterSpacing: '-0.01em'
+                      }}>Próximamente</h3>
+                    </div>
+                    <span className="new-badge" style={{
+                      background: 'rgba(67, 164, 229, 0.2)',
+                      color: 'var(--primary)'
+                    }}>Nuevo</span>
+                  </div>
+
+                  <div className="card-content" style={{
+                    position: 'relative',
+                    zIndex: 1,
+                    padding: '1.5rem',
+                    paddingTop: '1rem'
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                      padding: '1.5rem 0'
+                    }}>
+                      <div style={{
+                        width: '80px',
+                        height: '80px',
+                        borderRadius: '50%',
+                        background: 'rgba(67, 164, 229, 0.1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginBottom: '1.5rem',
+                        color: 'var(--primary)',
+                        fontSize: '2rem',
+                        border: '1px solid rgba(67, 164, 229, 0.2)',
+                        boxShadow: '0 0 20px rgba(67, 164, 229, 0.1)'
+                      }}>
+                        <i className="fas fa-clock"></i>
+                      </div>
+                      
+                      <h4 style={{
+                        color: 'var(--primary)',
+                        marginBottom: '0.75rem',
+                        fontSize: '1.1rem',
+                        fontWeight: 600
+                      }}>¡Funciones en desarrollo!</h4>
+                      
+                      <p style={{
+                        color: 'rgba(255,255,255,0.7)',
+                        fontSize: '0.95rem',
+                        lineHeight: 1.6,
+                        marginBottom: '1.5rem',
+                        maxWidth: '320px'
+                      }}>
+                        Estamos trabajando en nuevas características emocionantes para mejorar tu experiencia.
+                      </p>
+                      
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.75rem',
+                        width: '100%',
+                        maxWidth: '300px'
+                      }}>
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.75rem',
+                          padding: '0.75rem',
+                          background: 'rgba(67, 164, 229, 0.05)',
+                          borderRadius: '8px',
+                          border: '1px dashed rgba(67, 164, 229, 0.2)'
+                        }}>
+                          <div style={{
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '6px',
+                            background: 'rgba(67, 164, 229, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'var(--primary)',
+                            fontSize: '0.8rem'
+                          }}>
+                            <i className="fas fa-bell"></i>
+                          </div>
+                          <span style={{ fontSize: '0.9rem' }}>Notificaciones personalizadas</span>
+                        </div>
+                        
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.75rem',
+                          padding: '0.75rem',
+                          background: 'rgba(67, 164, 229, 0.05)',
+                          borderRadius: '8px',
+                          border: '1px dashed rgba(67, 164, 229, 0.2)'
+                        }}>
+                          <div style={{
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '6px',
+                            background: 'rgba(67, 164, 229, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'var(--primary)',
+                            fontSize: '0.8rem'
+                          }}>
+                            <i className="fas fa-chart-line"></i>
+                          </div>
+                          <span style={{ fontSize: '0.9rem' }}>Estadísticas avanzadas</span>
+                        </div>
+                        
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.75rem',
+                          padding: '0.75rem',
+                          background: 'rgba(67, 164, 229, 0.05)',
+                          borderRadius: '8px',
+                          border: '1px dashed rgba(67, 164, 229, 0.2)'
+                        }}>
+                          <div style={{
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '6px',
+                            background: 'rgba(67, 164, 229, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'var(--primary)',
+                            fontSize: '0.8rem'
+                          }}>
+                            <i className="fas fa-gem"></i>
+                          </div>
+                          <span style={{ fontSize: '0.9rem' }}>Más beneficios Premium</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div style={{
+                      marginTop: '2rem',
+                      padding: '1rem',
+                      background: 'rgba(67, 164, 229, 0.05)',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(67, 164, 229, 0.1)',
+                      textAlign: 'center'
+                    }}>
+                      <p style={{
+                        fontSize: '0.85rem',
+                        color: 'rgba(255,255,255,0.6)',
+                        marginBottom: '0.5rem'
+                      }}>
+                        ¿Tienes ideas para nuevas funciones?
+                      </p>
+                      <a 
+                        href="https://discord.gg/tu-invitacion" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={{
+                          display: 'inline-block',
+                          padding: '0.5rem 1rem',
+                          background: 'rgba(67, 164, 229, 0.1)',
+                          color: 'var(--primary)',
+                          borderRadius: '8px',
+                          fontSize: '0.85rem',
+                          fontWeight: 500,
+                          textDecoration: 'none',
+                          transition: 'all 0.2s ease',
+                          border: '1px solid rgba(67, 164, 229, 0.2)'
+                        }}
+                      >
+                        <i className="fas fa-comment-dots" style={{ marginRight: '0.5rem' }}></i>
+                        Sugiérenos en Discord
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+
               </div>
             </>
           )}
