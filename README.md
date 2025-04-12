@@ -93,7 +93,4 @@ niveles-front/
 - Variables de entorno para datos sensibles
 - Validación de permisos de administrador
 
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia Privada.
 
