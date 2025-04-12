@@ -220,12 +220,6 @@ const GlobalLeaderboard: React.FC = () => {
                     </div>
                   </div>
                   <div className="level-info" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <div className="xp" style={{ 
-                      color: 'var(--muted-foreground)',
-                      fontSize: '0.9rem'
-                    }}>
-                      {player.xp} XP
-                    </div>
                     <div className="level" style={{ 
                       fontSize: '1rem',
                       fontWeight: '600',
