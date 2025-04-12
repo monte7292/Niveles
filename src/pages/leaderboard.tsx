@@ -185,7 +185,6 @@ const Leaderboard: React.FC = () => {
                     transition: 'all 0.3s ease',
                     position: 'relative',
                     ...(index === 0 && { 
-                      marginBottom: '1rem',
                       boxShadow: '0 4px 15px rgba(255, 215, 0, 0.2)'
                     }),
                     ...(index === 1 && { 
