@@ -123,6 +123,26 @@ const Leaderboard: React.FC = () => {
     );
   }
 
+  // Función para obtener el color del puesto
+  const getRankColor = (rank: number) => {
+    switch(rank) {
+      case 1: return '#FFD700'; // Oro
+      case 2: return '#C0C0C0'; // Plata
+      case 3: return '#CD7F32'; // Bronce
+      default: return 'var(--text)';
+    }
+  };
+
+  // Función para obtener el color del borde según el puesto
+  const getRankBorderColor = (rank: number) => {
+    switch(rank) {
+      case 1: return 'rgba(255, 215, 0, 0.5)'; // Oro con transparencia
+      case 2: return 'rgba(192, 192, 192, 0.5)'; // Plata con transparencia
+      case 3: return 'rgba(205, 127, 50, 0.5)'; // Bronce con transparencia
+      default: return 'rgba(67, 164, 229, 0.1)';
+    }
+  };
+
   return (
     <div className="dashboard" style={{ 
       background: `radial-gradient(circle at 50% 50%, rgba(67, 164, 229, 0.15), transparent 60%)`,
@@ -133,172 +153,24 @@ const Leaderboard: React.FC = () => {
         <div className="container">
           {/* Botón "Volver al Dashboard" */}
           <button onClick={() => navigate('/dashboard')} className="botonvolver">
-          <i className="fa-solid fa-arrow-left"></i> Volver al Dashboard
+            <i className="fa-solid fa-arrow-left"></i> Volver al Dashboard
           </button>
           <div className="section-header" style={{ marginBottom: '2rem'}}>
             <h2>🏆 Leaderboard del Servidor</h2>
             <p>Top jugadores con más niveles en este servidor</p>
           </div>
 
-          {/* Primeros tres puestos */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            alignItems: 'flex-end',
-            gap: '1rem',
-            marginBottom: '2rem',
-            width: '100%', // Ocupa el mismo ancho que el leaderboard-container
-          }}>
-            {/* Plata (2do puesto) */}
-            {players.length > 1 && (
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  padding: '1rem',
-                  background: `linear-gradient(to bottom, rgba(67, 164, 229, 0.20), transparent)`,
-                  borderRadius: '16px',
-                  textAlign: 'center',
-                  width: '20%', // Ancho relativo
-                  position: 'relative',
-                  top: '20px', // Plata un poco más alta que el bronce
-                }}
-              >
-                <img
-                  src={players[1].avatarUrl}
-                  alt={`Avatar de ${players[1].username}`}
-                  onError={handleImageError} // Maneja errores de carga de imagen
-                  style={{
-                    width: '60px',
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    border: `2px solid ${players[1].cardColor}`,
-                    marginBottom: '1rem',
-                  }}
-                />
-                <span style={{ 
-                  fontSize: '1.1rem',
-                  fontWeight: '600',
-                  color: '#C0C0C0', // Plata
-                  marginBottom: '0.5rem',
-                }}>
-                  {players[1].username}
-                </span>
-                <div style={{ 
-                  fontSize: '0.9rem',
-                  color: 'var(--muted-foreground)',
-                }}>
-                  <div>Nivel {players[1].level}</div>
-                  <div>{players[1].xp} XP</div>
-                </div>
-              </div>
-            )}
-
-            {/* Oro (1er puesto) */}
-            {players.length > 0 && (
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  padding: '1rem',
-                  background: `linear-gradient(to bottom, rgba(67, 164, 229, 0.50), transparent)`,
-                  borderRadius: '16px',
-                  textAlign: 'center',
-                  width: '20%', // Ancho relativo
-                  position: 'relative',
-                  top: '-20px', // Oro más alto que plata y bronce
-                }}
-              >
-                <img
-                  src={players[0].avatarUrl}
-                  alt={`Avatar de ${players[0].username}`}
-                  onError={handleImageError} // Maneja errores de carga de imagen
-                  style={{
-                    width: '80px',
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    border: `2px solid ${players[0].cardColor}`,
-                    marginBottom: '1rem',
-                  }}
-                />
-                <span style={{ 
-                  fontSize: '1.2rem',
-                  fontWeight: '600',
-                  color: '#FFD700', // Oro
-                  marginBottom: '0.5rem',
-                }}>
-                  {players[0].username}
-                </span>
-                <div style={{ 
-                  fontSize: '1rem',
-                  color: 'var(--muted-foreground)',
-                }}>
-                  <div>Nivel {players[0].level}</div>
-                  <div>{players[0].xp} XP</div>
-                </div>
-              </div>
-            )}
-
-            {/* Bronce (3er puesto) */}
-            {players.length > 2 && (
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  padding: '1rem',
-                  background: `linear-gradient(to bottom, rgba(67, 164, 229, 0.05), transparent)`,
-                  borderRadius: '16px',
-                  textAlign: 'center',
-                  width: '20%', // Ancho relativo
-                  position: 'relative',
-                  top: '20px', // Bronce más bajo que plata
-                }}
-              >
-                <img
-                  src={players[2].avatarUrl}
-                  alt={`Avatar de ${players[2].username}`}
-                  onError={handleImageError} // Maneja errores de carga de imagen
-                  style={{
-                    width: '60px',
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    border: `2px solid ${players[2].cardColor}`,
-                    marginBottom: '1rem',
-                  }}
-                />
-                <span style={{ 
-                  fontSize: '1.1rem',
-                  fontWeight: '600',
-                  color: '#CD7F32', // Bronce
-                  marginBottom: '0.5rem',
-                }}>
-                  {players[2].username}
-                </span>
-                <div style={{ 
-                  fontSize: '0.9rem',
-                  color: 'var(--muted-foreground)',
-                }}>
-                  <div>Nivel {players[2].level}</div>
-                  <div>{players[2].xp} XP</div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Leaderboard para los demás puestos */}
+          {/* Leaderboard completo */}
           <div className="leaderboard-container" style={{
             background: 'rgba(255, 255, 255, 0.03)',
             borderRadius: '16px',
             padding: '1.5rem',
             border: '1px solid rgba(67, 164, 229, 0.1)',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-            width: '100%', // Mismo ancho que los primeros tres puestos
+            width: '100%',
           }}>
             <div className="leaderboard-entries" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              {players.slice(3).map((player, index) => (
+              {players.map((player, index) => (
                 <div 
                   key={player.discordId} 
                   className="leaderboard-entry"
@@ -307,27 +179,38 @@ const Leaderboard: React.FC = () => {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding: '1rem',
-                    background: 'rgba(67, 164, 229, 0.05)',
+                    background: index < 3 ? 'rgba(67, 164, 229, 0.1)' : 'rgba(67, 164, 229, 0.05)',
                     borderRadius: '12px',
-                    border: '1px solid rgba(67, 164, 229, 0.1)',
-                    transition: 'all 0.3s ease'
+                    border: `2px solid ${getRankBorderColor(index + 1)}`,
+                    transition: 'all 0.3s ease',
+                    position: 'relative',
+                    ...(index === 0 && { 
+                      marginBottom: '1rem',
+                      boxShadow: '0 4px 15px rgba(255, 215, 0, 0.2)'
+                    }),
+                    ...(index === 1 && { 
+                      boxShadow: '0 4px 15px rgba(192, 192, 192, 0.2)'
+                    }),
+                    ...(index === 2 && { 
+                      boxShadow: '0 4px 15px rgba(205, 127, 50, 0.2)'
+                    })
                   }}
                 >
                   <div className="entry-info" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <span className="rank" style={{ 
-                      color: 'var(--muted-foreground)',
+                      color: getRankColor(index + 1),
                       fontFamily: 'monospace',
                       width: '2rem',
                       textAlign: 'right',
                       fontSize: '1rem',
-                      fontWeight: 'normal'
+                      fontWeight: index < 3 ? 'bold' : 'normal'
                     }}>
-                      {index + 4}.
+                      {index + 1}.
                     </span>
                     <img
                       src={player.avatarUrl}
                       alt={`Avatar de ${player.username}`}
-                      onError={handleImageError} // Maneja errores de carga de imagen
+                      onError={handleImageError}
                       style={{
                         width: '40px',
                         height: '40px',
@@ -340,6 +223,7 @@ const Leaderboard: React.FC = () => {
                       <span className="username" style={{ 
                         fontWeight: '500',
                         fontSize: '1rem',
+                        color: getRankColor(index + 1)
                       }}>
                         {player.username}
                       </span>
