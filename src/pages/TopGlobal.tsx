@@ -74,16 +74,47 @@ const GlobalLeaderboard: React.FC = () => {
   if (loading) {
     return (
       <div className="dashboard" style={{ 
-        background: '#1E1F22',
-        minHeight: '100vh',
-        color: 'white'
+        background: `radial-gradient(circle at 50% 50%, rgba(67, 164, 229, 0.15), transparent 60%)`,
+        minHeight: '100vh' 
       }}>
         <MainHeader />
         <main className="dashboard-content" style={{ padding: '2rem 0' }}>
           <div className="container">
             <div className="section-header">
-              <h2>🏆 UniversoCraft Leaderboard</h2>
+              <h2>🏆 Leaderboard Global</h2>
               <p>Cargando datos...</p>
+            </div>
+            <div style={{ textAlign: 'center', padding: '2rem' }}>
+              <div className="loading-spinner"></div>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="dashboard" style={{ 
+        background: `radial-gradient(circle at 50% 50%, rgba(67, 164, 229, 0.15), transparent 60%)`,
+        minHeight: '100vh' 
+      }}>
+        <MainHeader />
+        <main className="dashboard-content" style={{ padding: '2rem 0' }}>
+          <div className="container">
+            <div className="section-header">
+              <h2>🏆 Leaderboard Global</h2>
+              <p>Error al cargar los datos</p>
+            </div>
+            <div style={{ 
+              textAlign: 'center', 
+              padding: '2rem',
+              color: '#ff4444',
+              background: 'rgba(255, 68, 68, 0.1)',
+              borderRadius: '8px',
+              margin: '1rem 0'
+            }}>
+              {error}
             </div>
           </div>
         </main>
@@ -93,289 +124,148 @@ const GlobalLeaderboard: React.FC = () => {
 
   return (
     <div className="dashboard" style={{ 
-      background: '#1E1F22',
-      minHeight: '100vh',
-      color: 'white'
+      background: `radial-gradient(circle at 50% 50%, rgba(67, 164, 229, 0.15), transparent 60%)`,
+      minHeight: '100vh' 
     }}>
       <MainHeader />
       <main className="dashboard-content" style={{ padding: '2rem 0' }}>
-        <div className="container" style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <button 
-            onClick={() => navigate('/')} 
-            style={{
-              background: 'none',
-              border: '1px solid #7289DA',
-              color: '#7289DA',
-              padding: '0.5rem 1rem',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              marginBottom: '1rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem'
-            }}
-          >
-            ← Volver
+        <div className="container">
+          <button onClick={() => navigate('/')} className="botonvolver">
+            <i className="fa-solid fa-arrow-left"></i> Volver al Inicio
           </button>
-          
-          <div className="section-header" style={{ 
-            marginBottom: '2rem',
-            textAlign: 'center'
-          }}>
-            <h1 style={{ 
-              fontSize: '2rem',
-              marginBottom: '0.5rem',
-              color: '#7289DA'
-            }}>
-              🏆 UniversoCraft Leaderboard
-            </h1>
-            <p style={{ 
-              color: '#B9BBBE',
-              marginBottom: '2rem'
-            }}>
-              Los mejores jugadores del servidor
-            </p>
+          <div className="section-header" style={{ marginBottom: '2rem'}}>
+            <h2>🏆 Leaderboard Global</h2>
+            <p>Top jugadores con más niveles en todos los servidores</p>
           </div>
 
-          {/* Top 3 players with cards */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '1.5rem',
-            marginBottom: '2rem',
-            flexWrap: 'wrap'
-          }}>
-            {/* 2nd place */}
-            {players.length > 1 && (
-              <div style={{
-                background: '#2F3136',
-                borderRadius: '10px',
-                padding: '1.5rem',
-                width: '180px',
-                textAlign: 'center',
-                borderTop: '4px solid #C0C0C0',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-              }}>
-                <div style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 'bold',
-                  color: '#C0C0C0',
-                  marginBottom: '0.5rem'
-                }}>#2</div>
-                <img
-                  src={players[1].avatarUrl}
-                  alt={players[1].username}
-                  style={{
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    border: `3px solid ${players[1].cardColor}`,
-                    marginBottom: '1rem'
-                  }}
-                />
-                <h3 style={{
-                  fontSize: '1.2rem',
-                  marginBottom: '0.5rem',
-                  color: 'white'
-                }}>{players[1].username}</h3>
-                <div style={{
-                  fontSize: '0.9rem',
-                  color: '#B9BBBE',
-                  marginBottom: '0.5rem'
-                }}>{players[1].xp.toLocaleString()} XP</div>
-                <div style={{
-                  fontSize: '1.1rem',
-                  fontWeight: 'bold',
-                  color: '#7289DA'
-                }}>Nivel {players[1].level}</div>
-              </div>
-            )}
-
-            {/* 1st place */}
-            {players.length > 0 && (
-              <div style={{
-                background: '#2F3136',
-                borderRadius: '10px',
-                padding: '2rem',
-                width: '200px',
-                textAlign: 'center',
-                borderTop: '4px solid #FFD700',
-                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-                transform: 'translateY(-10px)'
-              }}>
-                <div style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 'bold',
-                  color: '#FFD700',
-                  marginBottom: '0.5rem'
-                }}>#1</div>
-                <img
-                  src={players[0].avatarUrl}
-                  alt={players[0].username}
-                  style={{
-                    width: '90px',
-                    height: '90px',
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    border: `3px solid ${players[0].cardColor}`,
-                    marginBottom: '1rem'
-                  }}
-                />
-                <h3 style={{
-                  fontSize: '1.3rem',
-                  marginBottom: '0.5rem',
-                  color: 'white'
-                }}>{players[0].username}</h3>
-                <div style={{
-                  fontSize: '0.9rem',
-                  color: '#B9BBBE',
-                  marginBottom: '0.5rem'
-                }}>{players[0].xp.toLocaleString()} XP</div>
-                <div style={{
-                  fontSize: '1.2rem',
-                  fontWeight: 'bold',
-                  color: '#7289DA'
-                }}>Nivel {players[0].level}</div>
-              </div>
-            )}
-
-            {/* 3rd place */}
-            {players.length > 2 && (
-              <div style={{
-                background: '#2F3136',
-                borderRadius: '10px',
-                padding: '1.5rem',
-                width: '180px',
-                textAlign: 'center',
-                borderTop: '4px solid #CD7F32',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-              }}>
-                <div style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 'bold',
-                  color: '#CD7F32',
-                  marginBottom: '0.5rem'
-                }}>#3</div>
-                <img
-                  src={players[2].avatarUrl}
-                  alt={players[2].username}
-                  style={{
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    border: `3px solid ${players[2].cardColor}`,
-                    marginBottom: '1rem'
-                  }}
-                />
-                <h3 style={{
-                  fontSize: '1.2rem',
-                  marginBottom: '0.5rem',
-                  color: 'white'
-                }}>{players[2].username}</h3>
-                <div style={{
-                  fontSize: '0.9rem',
-                  color: '#B9BBBE',
-                  marginBottom: '0.5rem'
-                }}>{players[2].xp.toLocaleString()} XP</div>
-                <div style={{
-                  fontSize: '1.1rem',
-                  fontWeight: 'bold',
-                  color: '#7289DA'
-                }}>Nivel {players[2].level}</div>
-              </div>
-            )}
-          </div>
-
-          {/* Rest of the leaderboard */}
-          <div style={{
-            background: '#2F3136',
-            borderRadius: '10px',
+          {/* Leaderboard para todos los puestos (incluyendo los 3 primeros) */}
+          <div className="leaderboard-container" style={{
+            background: 'rgba(255, 255, 255, 0.03)',
+            borderRadius: '16px',
             padding: '1.5rem',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+            border: '1px solid rgba(67, 164, 229, 0.1)',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+            width: '100%',
           }}>
-            <h3 style={{
-              fontSize: '1.2rem',
-              marginBottom: '1rem',
-              color: '#B9BBBE',
-              borderBottom: '1px solid #40444B',
-              paddingBottom: '0.5rem'
-            }}>Top Jugadores</h3>
-            
-            {players.slice(3).map((player, index) => (
-              <div key={player.discordId} style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0.75rem 0',
-                borderBottom: '1px solid #40444B'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <span style={{
-                    color: '#B9BBBE',
-                    width: '30px',
-                    textAlign: 'center',
-                    fontSize: '1rem'
-                  }}>#{index + 4}</span>
-                  <img
-                    src={player.avatarUrl}
-                    alt={player.username}
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                      objectFit: 'cover',
-                      border: `2px solid ${player.cardColor}`
-                    }}
-                  />
-                  <span style={{
-                    fontWeight: '500',
-                    color: 'white'
-                  }}>{player.username}</span>
+            <div className="leaderboard-entries" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {players.map((player, index) => (
+                <div 
+                  key={player.discordId} 
+                  className="leaderboard-entry"
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '1rem',
+                    background: 'rgba(67, 164, 229, 0.05)',
+                    borderRadius: '12px',
+                    border: `1px solid ${
+                      index === 0 ? 'rgba(255, 215, 0, 0.3)' : 
+                      index === 1 ? 'rgba(192, 192, 192, 0.3)' : 
+                      index === 2 ? 'rgba(205, 127, 50, 0.3)' : 
+                      'rgba(67, 164, 229, 0.1)'
+                    }`,
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <div className="entry-info" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <span className="rank" style={{ 
+                      color: 'var(--muted-foreground)',
+                      fontFamily: 'monospace',
+                      width: '2rem',
+                      textAlign: 'right',
+                      fontSize: '1rem',
+                      fontWeight: 'normal',
+                    }}>
+                      {index + 1}.
+                    </span>
+                    <img
+                      src={player.avatarUrl}
+                      alt={`Avatar de ${player.username}`}
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        border: `2px solid ${
+                          index === 0 ? '#FFD700' : 
+                          index === 1 ? '#C0C0C0' : 
+                          index === 2 ? '#CD7F32' : 
+                          player.cardColor
+                        }`
+                      }}
+                    />
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span className="username" style={{ 
+                        fontWeight: '500',
+                        fontSize: '1rem',
+                        color: 
+                          index === 0 ? '#FFD700' : 
+                          index === 1 ? '#C0C0C0' : 
+                          index === 2 ? '#CD7F32' : 
+                          'white'
+                      }}>
+                        {player.username}
+                      </span>
+                      {player.username === 'monte7292' && (
+                        <span style={{ 
+                          fontSize: '0.8rem',
+                          backgroundColor: 'crimson',
+                          color: 'white',
+                          padding: '1px',
+                          borderRadius: '10px',
+                          textAlign: 'center',
+                        }}>
+                          Fundador
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="level-info" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <div className="xp" style={{ 
+                      color: 'var(--muted-foreground)',
+                      fontSize: '0.9rem'
+                    }}>
+                      {player.xp.toLocaleString()} XP
+                    </div>
+                    <div className="level" style={{ 
+                      fontSize: '1rem',
+                      fontWeight: '600',
+                      color: 'var(--primary)',
+                      background: 'rgba(67, 164, 229, 0.1)',
+                      padding: '0.25rem 0.75rem',
+                      borderRadius: '20px',
+                      border: '1px solid rgba(67, 164, 229, 0.2)'
+                    }}>
+                      Nivel {player.level}
+                    </div>
+                  </div>
                 </div>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1.5rem'
-                }}>
-                  <span style={{ color: '#B9BBBE', fontSize: '0.9rem' }}>
-                    {player.xp.toLocaleString()} XP
-                  </span>
-                  <span style={{
-                    background: '#7289DA',
-                    color: 'white',
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '20px',
-                    fontSize: '0.9rem'
-                  }}>
-                    Nivel {player.level}
-                  </span>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          {/* Tarjeta personal (como en la imagen) */}
+          {/* Tarjeta personal de frank (manteniendo el estilo original) */}
           <div style={{
-            background: '#2F3136',
-            borderRadius: '10px',
+            background: 'rgba(255, 255, 255, 0.03)',
+            borderRadius: '16px',
             padding: '1.5rem',
             marginTop: '2rem',
-            border: '1px solid #40444B',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+            border: '1px solid rgba(67, 164, 229, 0.1)',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
           }}>
-            <h3 style={{
+            <h3 style={{ 
               fontSize: '1.2rem',
               marginBottom: '1rem',
-              color: '#B9BBBE'
+              color: 'white'
             }}>Tarjeta personal de frank</h3>
             
             <div style={{
-              background: '#36393F',
+              background: 'rgba(67, 164, 229, 0.05)',
               borderRadius: '8px',
               padding: '1rem',
-              marginBottom: '1rem'
+              marginBottom: '1rem',
+              border: '1px solid rgba(67, 164, 229, 0.1)'
             }}>
               <div style={{
                 fontWeight: 'bold',
