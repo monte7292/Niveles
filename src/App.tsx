@@ -503,8 +503,10 @@ const App: React.FC = () => {
                       <h3>Mensajes para subir de nivel</h3>
                       <div className="message-entries">
                         <div className="message">🎉 ¡Felicitaciones, @Usuario1! ¡Has alcanzado el nivel 7!</div>
-                        <div className="message">⬆️ @User2 ha subido al nivel 10. ¡Sigue así!</div>
-                        <div className="message">🚀 ¡Increíble! ¡@User3 acaba de avanzar al nivel 15!</div>
+                      </div>
+                      <h3>Misiones diarias</h3>
+                      <div className="message-entries">
+                        <div className="message">🎉 ¡Felicitaciones, @Usuario1! ¡Has alcanzado el nivel 7!</div>
                       </div>
                     </div>
                   </div>
