@@ -754,6 +754,22 @@ const App: React.FC = () => {
                   <span className="badge premium">Premium</span>
                 </div>
               </div>
+              <div className="table-row">
+                <div className="col col-command">/misionesdiarias estado (accion)</div>
+                <div className="col col-description">Activa o desactiva las misiones diarias.</div>
+                <div className="col col-availability">
+                  <span className="badge free">Free</span>
+                  <span className="badge premium">Premium</span>
+                </div>
+              </div>
+              <div className="table-row">
+                <div className="col col-command">/misionesdiarias canal (canal)</div>
+                <div className="col col-description">Establece el canal para las misiones diarias.</div>
+                <div className="col col-availability">
+                  <span className="badge free">Free</span>
+                  <span className="badge premium">Premium</span>
+                </div>
+              </div>
 
               <div className="table-category">
                 <div className="category-name">⭐ Comandos Premium</div>
