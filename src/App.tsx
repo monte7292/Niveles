@@ -506,7 +506,7 @@ const App: React.FC = () => {
                       </div>
                       <h3>Misiones diarias</h3>
                       <div className="message-entries">
-                        <div className="message">🎉 ¡Felicitaciones, @Usuario1! ¡Has alcanzado el nivel 7!</div>
+                        <div className="message">📢 Pregunta: ¿Qué gas respiramos que es esencial para vivir?</div>
                       </div>
                     </div>
                   </div>
