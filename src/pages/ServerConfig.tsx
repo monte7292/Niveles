@@ -31,6 +31,11 @@ interface ServerSettings {
   voiceXpEnabled: boolean; // Nuevo campo
 }
 
+interface MissionSettings {
+  misionesDiarias: boolean;
+  misionesDiariasMensaje: string | null;
+}
+
 function Componente1() {
   return <PremiumButton />;
 }
@@ -65,6 +70,11 @@ const ServerConfig: React.FC = () => {
   const [isUpdatingColor, setIsUpdatingColor] = useState(false);
 
   const [newLevelRole, setNewLevelRole] = useState({ level: '', roleId: '' });
+  const [missionSettings, setMissionSettings] = useState<MissionSettings>({
+    misionesDiarias: false,
+    misionesDiariasMensaje: null
+  });
+  const [isUpdatingMissions, setIsUpdatingMissions] = useState(false);
 
   // Función para mostrar notificaciones temporales
   const showTemporaryNotification = (message: string, type: 'success' | 'error') => {
@@ -93,6 +103,37 @@ const ServerConfig: React.FC = () => {
     }
   };
 
+  const handleMissionSettingsChange = async (field: string, value: any) => {
+    if (!serverId) return;
+    
+    setIsUpdatingMissions(true);
+    try {
+      const response = await fetch(`${config.apiUrl}/api/server/${serverId}/mission-settings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ [field]: value }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error al actualizar configuración de misiones');
+      }
+  
+      const updatedSettings = await response.json();
+      setMissionSettings(updatedSettings);
+      showTemporaryNotification('Configuración de misiones actualizada correctamente', 'success');
+    } catch (err) {
+      showTemporaryNotification(
+        err instanceof Error ? err.message : 'Error al actualizar configuración de misiones', 
+        'error'
+      );
+    } finally {
+      setIsUpdatingMissions(false);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       if (!serverId) {
@@ -117,6 +158,21 @@ const ServerConfig: React.FC = () => {
           }),
           fetchUserCardSettings()
         ]);
+
+        const fetchMissionSettings = async () => {
+          try {
+            const response = await fetch(`${config.apiUrl}/api/server/${serverId}/mission-settings`, {
+              credentials: 'include'
+            });
+            
+            if (response.ok) {
+              const data = await response.json();
+              setMissionSettings(data);
+            }
+          } catch (err) {
+            console.error('Error al cargar configuración de misiones:', err);
+          }
+        };
 
         if (!channelsResponse.ok) {
           throw new Error('Error al cargar los canales del servidor');
@@ -182,6 +238,7 @@ const ServerConfig: React.FC = () => {
         setLoading(false);
       }
     };
+    
 
     fetchData();
   }, [serverId]);
@@ -1159,51 +1216,69 @@ const ServerConfig: React.FC = () => {
 
 
 
-
-
                 <div className="config-card">
                   <div className="card-header">
-                    <div className="card-title">📢 Canal de Alertas</div>
+                    <div className="card-title">🎯 Misiones Diarias</div>
                   </div>
                   <div className="card-content">
                     <p>
-                      Selecciona el canal donde se enviarán las alertas del bot.
+                      Configura preguntas diarias que otorgan XP a los primeros en responder correctamente.
                     </p>
-                    <select
-                      value={settings?.alertChannelId || ''}
-                      onChange={(e) => handleAlertChannelChange(e.target.value)}
-                    >
-                      <option value="">Seleccionar canal</option>
-                      {channels
-                        .filter(channel => channel.type === 0)
-                        .map(channel => (
-                          <option key={channel.id} value={channel.id}>
-                            #{channel.name}
-                          </option>
-                        ))
-                      }
-                    </select>
-                  </div>
-                  <div className="card-header" style={{marginTop: '70px'}}>
-                    <div className="card-title">📋 Mensaje de Nivel</div>
-                  </div>
-                  <div className="card-content">
-                    <p>
-                      Personaliza el mensaje cuando un usuario sube de nivel.
-                      Usa {'{user}'} para el nombre del usuario y {'{level}'} para el nivel.
-                    </p>
-                    <textarea
-                      value={localLevelMessage}
-                      onChange={(e) => setLocalLevelMessage(e.target.value)}
-                      placeholder="¡{user} ha alcanzado el nivel {level}!"
-                      style={{ minHeight: '100px', resize: 'vertical' }}
-                    />
-                    <button
-                      onClick={handleLevelMessageChange}
-                      className="save-button"
-                    >
-                      Guardar Mensaje
-                    </button>
+                    
+                    <div className="setting-toggle" style={{ margin: '1rem 0' }}>
+                      <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <span>Estado de las Misiones Diarias</span>
+                        <label className="switch">
+                          <input 
+                            type="checkbox" 
+                            checked={missionSettings.misionesDiarias} 
+                            onChange={(e) => handleMissionSettingsChange('misionesDiarias', e.target.checked)}
+                            disabled={isUpdatingMissions}
+                          />
+                          <span className="slider round"></span>
+                        </label>
+                      </label>
+                    </div>
+                    
+                    {missionSettings.misionesDiarias && (
+                      <>
+                        <div style={{ margin: '1rem 0' }}>
+                          <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+                            Canal para enviar preguntas
+                          </label>
+                          <select
+                            value={missionSettings.misionesDiariasMensaje || ''}
+                            onChange={(e) => handleMissionSettingsChange('misionesDiariasMensaje', e.target.value)}
+                            disabled={isUpdatingMissions}
+                          >
+                            <option value="">Seleccionar canal</option>
+                            {channels
+                              .filter(channel => channel.type === 0) // Solo canales de texto
+                              .map(channel => (
+                                <option key={channel.id} value={channel.id}>
+                                  #{channel.name}
+                                </option>
+                              ))
+                            }
+                          </select>
+                        </div>
+                        
+                        <div style={{ 
+                          backgroundColor: 'rgba(67, 164, 229, 0.1)', 
+                          padding: '1rem', 
+                          borderRadius: '8px',
+                          marginTop: '1rem'
+                        }}>
+                          <h4 style={{ marginTop: 0 }}>Información sobre Misiones Diarias</h4>
+                          <ul style={{ paddingLeft: '1.5rem', marginBottom: 0 }}>
+                            <li>Las preguntas se envían cada 2 horas</li>
+                            <li>El primero en responder correctamente gana 10 XP</li>
+                            <li>Usuarios Premium ganan 20 XP por respuesta correcta</li>
+                            <li>Cada pregunta tiene 60 segundos para ser respondida</li>
+                          </ul>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -1253,6 +1328,55 @@ const ServerConfig: React.FC = () => {
                         {isUpdatingVoiceXP && <span className="voice-xp-spinner"></span>}
                       </label>
                     </div>
+                  </div>
+                </div>
+
+
+
+
+                <div className="config-card">
+                  <div className="card-header">
+                    <div className="card-title">📢 Canal de Alertas</div>
+                  </div>
+                  <div className="card-content">
+                    <p>
+                      Selecciona el canal donde se enviarán las alertas del bot.
+                    </p>
+                    <select
+                      value={settings?.alertChannelId || ''}
+                      onChange={(e) => handleAlertChannelChange(e.target.value)}
+                    >
+                      <option value="">Seleccionar canal</option>
+                      {channels
+                        .filter(channel => channel.type === 0)
+                        .map(channel => (
+                          <option key={channel.id} value={channel.id}>
+                            #{channel.name}
+                          </option>
+                        ))
+                      }
+                    </select>
+                  </div>
+                  <div className="card-header" style={{marginTop: '70px'}}>
+                    <div className="card-title">📋 Mensaje de Nivel</div>
+                  </div>
+                  <div className="card-content">
+                    <p>
+                      Personaliza el mensaje cuando un usuario sube de nivel.
+                      Usa {'{user}'} para el nombre del usuario y {'{level}'} para el nivel.
+                    </p>
+                    <textarea
+                      value={localLevelMessage}
+                      onChange={(e) => setLocalLevelMessage(e.target.value)}
+                      placeholder="¡{user} ha alcanzado el nivel {level}!"
+                      style={{ minHeight: '100px', resize: 'vertical' }}
+                    />
+                    <button
+                      onClick={handleLevelMessageChange}
+                      className="save-button"
+                    >
+                      Guardar Mensaje
+                    </button>
                   </div>
                 </div>
 
