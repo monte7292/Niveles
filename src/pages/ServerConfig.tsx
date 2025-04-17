@@ -46,12 +46,6 @@ interface VoiceXPResponse extends ServerSettings {
   levelRoles: { [key: number]: string }; // Asegurar que levelRoles es un objeto
 }
 
-// En tu componente ServerConfig
-interface MissionSettings {
-  misionesDiarias: boolean;
-  misionesDiariasMensaje: string;
-}
-
 const ServerConfig: React.FC = () => {
   const { serverId } = useParams<{ serverId: string }>();
   const [loading, setLoading] = useState(true);
@@ -69,12 +63,8 @@ const ServerConfig: React.FC = () => {
   const [userCardSettings, setUserCardSettings] = useState<UserCardSettings | null>(null);
   const [newCardColor, setNewCardColor] = useState('#0099ff');
   const [isUpdatingColor, setIsUpdatingColor] = useState(false);
+
   const [newLevelRole, setNewLevelRole] = useState({ level: '', roleId: '' });
-  const [missionSettings, setMissionSettings] = useState<MissionSettings>({
-    misionesDiarias: false,
-    misionesDiariasMensaje: ''
-  });
-  const [isUpdatingMissions, setIsUpdatingMissions] = useState(false);
 
   // Función para mostrar notificaciones temporales
   const showTemporaryNotification = (message: string, type: 'success' | 'error') => {
@@ -102,101 +92,6 @@ const ServerConfig: React.FC = () => {
       console.error('Error al cargar configuración de carta:', err);
     }
   };
-
-  // Función para cargar la configuración
-const fetchMissionSettings = async () => {
-  try {
-    const response = await fetch(`${config.apiUrl}/api/server/${serverId}/mission-settings`, {
-      credentials: 'include'
-    });
-    
-    if (response.ok) {
-      const data = await response.json();
-      setMissionSettings({
-        misionesDiarias: data.misionesDiarias || false,
-        misionesDiariasMensaje: data.misionesDiariasMensaje || ''
-      });
-    }
-  } catch (err) {
-    console.error('Error al cargar configuración de misiones:', err);
-  }
-};
-
-// Función para alternar el estado
-const toggleMisionesDiarias = async () => {
-  if (!serverId || isUpdatingMissions) return;
-  
-  const newValue = !missionSettings.misionesDiarias;
-  setIsUpdatingMissions(true);
-  
-  try {
-    const response = await fetch(`${config.apiUrl}/api/server/${serverId}/mission-settings`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({ 
-        misionesDiarias: newValue,
-        misionesDiariasMensaje: missionSettings.misionesDiariasMensaje
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Error al actualizar misiones diarias');
-    }
-
-    const updatedSettings = await response.json();
-    setMissionSettings(updatedSettings);
-    showTemporaryNotification(
-      newValue ? 'Misiones diarias activadas' : 'Misiones diarias desactivadas', 
-      'success'
-    );
-  } catch (err) {
-    showTemporaryNotification(
-      err instanceof Error ? err.message : 'Error al actualizar misiones', 
-      'error'
-    );
-  } finally {
-    setIsUpdatingMissions(false);
-  }
-};
-
-// Función para actualizar el canal
-const handleMissionChannelChange = async (channelId: string) => {
-  if (!serverId || isUpdatingMissions) return;
-  
-  setIsUpdatingMissions(true);
-  try {
-    const response = await fetch(`${config.apiUrl}/api/server/${serverId}/mission-settings`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({ 
-        misionesDiarias: missionSettings.misionesDiarias,
-        misionesDiariasMensaje: channelId
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Error al actualizar canal de misiones');
-    }
-
-    const updatedSettings = await response.json();
-    setMissionSettings(updatedSettings);
-    showTemporaryNotification('Canal de misiones actualizado', 'success');
-  } catch (err) {
-    showTemporaryNotification(
-      err instanceof Error ? err.message : 'Error al actualizar canal', 
-      'error'
-    );
-  } finally {
-    setIsUpdatingMissions(false);
-  }
-};
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -1572,93 +1467,6 @@ const handleMissionChannelChange = async (channelId: string) => {
                         Sugiérenos en Discord
                       </a>
                     </div>
-                  </div>
-                </div>
-
-
-
-                <div className="config-card">
-                  <div className="card-header">
-                    <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <i className="fas fa-tasks" style={{ color: '#43a4e5' }}></i>
-                      <span>Misiones Diarias</span>
-                    </div>
-                    <span className="new-badge">Nuevo</span>
-                  </div>
-                  
-                  <div className="card-content">
-                    <p style={{ marginBottom: '1rem', color: '#a0a0a0' }}>
-                      Preguntas cada 2 horas. El primero en responder gana 10 XP (20 XP para Premium).
-                    </p>
-                    
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      backgroundColor: 'rgba(67, 164, 229, 0.1)',
-                      padding: '0.75rem 1rem',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(67, 164, 229, 0.2)'
-                    }}>
-                      <div>
-                        <div style={{ fontWeight: 600, color: missionSettings.misionesDiarias ? '#43a4e5' : '#6c757d' }}>
-                          {missionSettings.misionesDiarias ? 'Activado' : 'Desactivado'}
-                        </div>
-                        <div style={{ fontSize: '0.8rem', color: '#6c757d' }}>
-                          {missionSettings.misionesDiarias ? 'Preguntas activas cada 2 horas' : 'Misiones desactivadas'}
-                        </div>
-                      </div>
-                      
-                      <label className="voice-xp-switch">
-                        <input 
-                          type="checkbox"
-                          checked={missionSettings.misionesDiarias}
-                          onChange={toggleMisionesDiarias}
-                          disabled={isUpdatingMissions}
-                        />
-                        <span className="voice-xp-slider"></span>
-                        {isUpdatingMissions && <span className="voice-xp-spinner"></span>}
-                      </label>
-                    </div>
-
-                    {missionSettings.misionesDiarias && (
-                      <div style={{ marginTop: '1.5rem' }}>
-                        <label style={{ 
-                          display: 'block', 
-                          marginBottom: '0.5rem',
-                          color: 'var(--foreground)',
-                          fontSize: '0.9rem',
-                          fontWeight: '500'
-                        }}>
-                          Canal para enviar preguntas
-                        </label>
-                        <select
-                          value={missionSettings.misionesDiariasMensaje}
-                          onChange={(e) => handleMissionChannelChange(e.target.value)}
-                          disabled={isUpdatingMissions}
-                          style={{
-                            width: '100%',
-                            padding: '0.75rem',
-                            borderRadius: '12px',
-                            border: '1px solid rgba(67, 164, 229, 0.2)',
-                            background: 'rgba(67, 164, 229, 0.05)',
-                            color: 'var(--foreground)',
-                            fontSize: '0.95rem',
-                            transition: 'all 0.3s ease'
-                          }}
-                        >
-                          <option value="">Seleccionar canal</option>
-                          {channels
-                            .filter(channel => channel.type === 0)
-                            .map(channel => (
-                              <option key={channel.id} value={channel.id}>
-                                #{channel.name}
-                              </option>
-                            ))
-                          }
-                        </select>
-                      </div>
-                    )}
                   </div>
                 </div>
 
