@@ -46,7 +46,7 @@ interface VoiceXPResponse extends ServerSettings {
   levelRoles: { [key: number]: string }; // Asegurar que levelRoles es un objeto
 }
 
-// Agrega esta interfaz al inicio del archivo, con las demás interfaces
+// En tu componente ServerConfig
 interface MissionSettings {
   misionesDiarias: boolean;
   misionesDiariasMensaje: string;
@@ -69,9 +69,7 @@ const ServerConfig: React.FC = () => {
   const [userCardSettings, setUserCardSettings] = useState<UserCardSettings | null>(null);
   const [newCardColor, setNewCardColor] = useState('#0099ff');
   const [isUpdatingColor, setIsUpdatingColor] = useState(false);
-
   const [newLevelRole, setNewLevelRole] = useState({ level: '', roleId: '' });
-
   const [missionSettings, setMissionSettings] = useState<MissionSettings>({
     misionesDiarias: false,
     misionesDiariasMensaje: ''
@@ -89,44 +87,6 @@ const ServerConfig: React.FC = () => {
     }
   };
 
-  // Función para manejar los cambios en las misiones diarias
-  const handleMissionSettingsChange = async (field: string, value: any) => {
-    if (!serverId || isUpdatingMissions) return;
-    
-    setIsUpdatingMissions(true);
-    try {
-      const response = await fetch(`${config.apiUrl}/api/server/${serverId}/mission-settings`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ [field]: value }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Error al actualizar configuración de misiones');
-      }
-
-      const updatedSettings = await response.json();
-      setMissionSettings(updatedSettings);
-      showTemporaryNotification('Configuración de misiones actualizada correctamente', 'success');
-    } catch (err) {
-      showTemporaryNotification(
-        err instanceof Error ? err.message : 'Error al actualizar configuración de misiones', 
-        'error'
-      );
-    } finally {
-      setIsUpdatingMissions(false);
-    }
-  };
-
-  // Función para alternar el estado de las misiones
-  const toggleMisionesDiarias = async () => {
-    const newValue = !missionSettings.misionesDiarias;
-    await handleMissionSettingsChange('misionesDiarias', newValue);
-  };
-
   const fetchUserCardSettings = async () => {
     try {
       const response = await fetch(`${config.apiUrl}/api/server/${serverId}/user-card`, {
@@ -142,6 +102,101 @@ const ServerConfig: React.FC = () => {
       console.error('Error al cargar configuración de carta:', err);
     }
   };
+
+  // Función para cargar la configuración
+const fetchMissionSettings = async () => {
+  try {
+    const response = await fetch(`${config.apiUrl}/api/server/${serverId}/mission-settings`, {
+      credentials: 'include'
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      setMissionSettings({
+        misionesDiarias: data.misionesDiarias || false,
+        misionesDiariasMensaje: data.misionesDiariasMensaje || ''
+      });
+    }
+  } catch (err) {
+    console.error('Error al cargar configuración de misiones:', err);
+  }
+};
+
+// Función para alternar el estado
+const toggleMisionesDiarias = async () => {
+  if (!serverId || isUpdatingMissions) return;
+  
+  const newValue = !missionSettings.misionesDiarias;
+  setIsUpdatingMissions(true);
+  
+  try {
+    const response = await fetch(`${config.apiUrl}/api/server/${serverId}/mission-settings`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ 
+        misionesDiarias: newValue,
+        misionesDiariasMensaje: missionSettings.misionesDiariasMensaje
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al actualizar misiones diarias');
+    }
+
+    const updatedSettings = await response.json();
+    setMissionSettings(updatedSettings);
+    showTemporaryNotification(
+      newValue ? 'Misiones diarias activadas' : 'Misiones diarias desactivadas', 
+      'success'
+    );
+  } catch (err) {
+    showTemporaryNotification(
+      err instanceof Error ? err.message : 'Error al actualizar misiones', 
+      'error'
+    );
+  } finally {
+    setIsUpdatingMissions(false);
+  }
+};
+
+// Función para actualizar el canal
+const handleMissionChannelChange = async (channelId: string) => {
+  if (!serverId || isUpdatingMissions) return;
+  
+  setIsUpdatingMissions(true);
+  try {
+    const response = await fetch(`${config.apiUrl}/api/server/${serverId}/mission-settings`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ 
+        misionesDiarias: missionSettings.misionesDiarias,
+        misionesDiariasMensaje: channelId
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al actualizar canal de misiones');
+    }
+
+    const updatedSettings = await response.json();
+    setMissionSettings(updatedSettings);
+    showTemporaryNotification('Canal de misiones actualizado', 'success');
+  } catch (err) {
+    showTemporaryNotification(
+      err instanceof Error ? err.message : 'Error al actualizar canal', 
+      'error'
+    );
+  } finally {
+    setIsUpdatingMissions(false);
+  }
+};
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -232,25 +287,6 @@ const ServerConfig: React.FC = () => {
         setLoading(false);
       }
     };
-
-    const fetchMissionSettings = async () => {
-      try {
-        const response = await fetch(`${config.apiUrl}/api/server/${serverId}/mission-settings`, {
-          credentials: 'include'
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          setMissionSettings({
-            misionesDiarias: data.misionesDiarias || false,
-            misionesDiariasMensaje: data.misionesDiariasMensaje || ''
-          });
-        }
-      } catch (err) {
-        console.error('Error al cargar configuración de misiones:', err);
-      }
-    };
-    
 
     fetchData();
   }, [serverId]);
@@ -1540,6 +1576,7 @@ const ServerConfig: React.FC = () => {
                 </div>
 
 
+
                 <div className="config-card">
                   <div className="card-header">
                     <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -1597,7 +1634,7 @@ const ServerConfig: React.FC = () => {
                         </label>
                         <select
                           value={missionSettings.misionesDiariasMensaje}
-                          onChange={(e) => handleMissionSettingsChange('misionesDiariasMensaje', e.target.value)}
+                          onChange={(e) => handleMissionChannelChange(e.target.value)}
                           disabled={isUpdatingMissions}
                           style={{
                             width: '100%',
