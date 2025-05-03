@@ -523,16 +523,11 @@ const App: React.FC = () => {
           <div className="container">
             <div className="stats-container">
               <div className="stat-item">
-                <div className="stat-number">Utilizado por más de 90 servidores</div>
+                <div className="stat-number">Cuenta con más de 3000 usuarios registrados</div>
               </div>
             </div>
 
-            <div className="logos-container">
-              <img 
-                src="https://media.discordapp.net/attachments/1358936687199260794/1358942895536869557/df.png?ex=67f5adb2&is=67f45c32&hm=769fb8efffd5b2a496904171f268daeb33fa11d1992e2e42d6bbda82f1fdfa9b&=&format=webp&quality=lossless&width=800&height=800" 
-                alt="DF Store" 
-                className="logo-item"
-              />          
+            <div className="logos-container">       
               <img 
                 src="https://cdn.discordapp.com/icons/1316821920871747634/b8c425ac4ce5ac88c1c6093006494497.webp?size=80&quality=lossless" 
                 alt="HomeLife" 
